@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Studio - Upgrade Visual Digital Anda</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#000e1e',
+                        neonCyan: '#00f0ff',
+                        neonPurple: '#7000ff',
+                        neonRed: '#ff0055',
+                        glass: 'rgba(255, 255, 255, 0.05)',
+                        glassBorder: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'loop-scroll': 'loop-scroll 25s linear infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        'loop-scroll': {
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000e1e;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Glowing Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse 10s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.5; }
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glassBorder);
+            border-radius: 16px;
+        }
+
+        /* Before After Slider Styling (Only for Hero) */
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: col-resize;
+            touch-action: none;
+            background: #111; 
+        }
+        .comparison-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .comparison-slider img:after {
+            content: "Image Not Found: " attr(alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #222;
+            color: #888;
+            font-size: 10px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .resize-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+            border-right: 2px solid #00f0ff;
+            box-shadow: 2px 0 10px rgba(0,240,255, 0.5);
+            z-index: 10;
+        }
+        .handle-lg {
+            width: 40px;
+            height: 40px;
+            right: -20px;
+        }
+        .handle-sm {
+            width: 24px;
+            height: 24px;
+            right: -12px;
+            font-size: 10px;
+        }
+        .handle {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #00f0ff;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px #00f0ff;
+            z-index: 20;
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #7000ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-red {
+            background: linear-gradient(to right, #ff0055, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .group:hover .animate-loop-scroll {
+            animation-play-state: paused;
+        }
+
+        /* Floating Chat Animation */
+        .chat-enter {
+            animation: chatPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes chatPop {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-neonCyan selection:text-black">
+
+    <!-- Background Effects -->
+    <div class="blob bg-neonPurple w-96 h-96 top-0 left-0"></div>
+    <div class="blob bg-neonCyan w-80 h-80 bottom-0 right-0"></div>
+    <div class="blob bg-neonRed w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-card rounded-none border-t-0 border-x-0 border-b border-white/10" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-neonCyan"></i>
+                    AI <span class="text-neonCyan">STUDIO</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300">
+                    <a href="#masalah" class="hover:text-white transition">Masalah</a>
+                    <a href="#demo" class="hover:text-white transition">Demo</a>
+                    <a href="#fitur" class="hover:text-white transition">Fitur</a>
+                    <a href="#harga" class="hover:text-white transition">Harga</a>
+                </div>
+
+                <!-- CTA Button (Desktop) -->
+                <div class="hidden md:flex items-center gap-4">
+                     <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="text-gray-300 hover:text-red-500 transition text-2xl">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="#harga" class="bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-2 rounded-full font-bold shadow-[0_0_15px_rgba(112,0,255,0.5)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] transition transform hover:-translate-y-1">
+                        AMBIL SEKARANG
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white text-2xl focus:outline-none">
+                    <i id="menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 flex-col space-y-4 pb-4 border-t border-white/10 pt-4">
+                <a href="#masalah" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Masalah</a>
+                <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Demo</a>
+                <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Fitur</a>
+                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Harga</a>
+                <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" class="block text-gray-300 hover:text-red-500 hover:bg-white/5 p-2 rounded transition"><i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube</a>
+                <a href="#harga" onclick="toggleMobileMenu()" class="block text-center bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-3 rounded-full font-bold">
+                    AMBIL SEKARANG
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 px-6 overflow-hidden">
+        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div data-aos="fade-right">
+                <div class="inline-block px-4 py-1 rounded-full border border-neonCyan/30 bg-neonCyan/10 text-neonCyan text-xs font-bold mb-6 tracking-wider">
+                    REVOLUSI ERA VISUAL
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                    Upgrade Visual Digital Anda dengan <span class="text-gradient">AI Studio!</span>
+                </h1>
+                <p class="text-lg text-gray-400 mb-8 leading-relaxed border-l-4 border-neonPurple pl-4">
+                    Hemat Ratusan Ribu, Dapatkan Foto Profesional dalam Hitungan Detik! 
+                    Jangan biarkan foto seadanya merusak personal brand Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#harga" class="px-8 py-4 bg-white text-dark font-bold rounded-lg hover:bg-neonCyan transition flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-cart-shopping"></i> AMBIL SEKARANG
+                    </a>
+                    <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="px-8 py-4 border border-white/20 hover:bg-red-600/20 hover:border-red-500/50 hover:text-red-400 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
+                        <i class="fa-brands fa-youtube text-red-500"></i> LIHAT DEMO VIDEO
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Slider -->
+            <div class="relative w-full max-w-lg mx-auto" data-aos="zoom-in">
+                <div class="absolute -inset-4 bg-gradient-to-r from-neonCyan to-neonPurple opacity-30 blur-2xl rounded-full"></div>
+                <div class="comparison-slider aspect-[4/5] glass-card p-2" onmousemove="slide(event)" ontouchmove="slide(event)">
+                    <!-- HERO: AFTER -->
+                    <img src="assets/hero_after.png" 
+                         onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1000&auto=format&fit=crop'" 
+                         alt="Gambar 1 Hero After" class="rounded-xl">
+                    <div class="absolute top-4 right-4 bg-green-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded">AFTER</div>
+
+                    <div class="resize-image rounded-l-xl">
+                        <!-- HERO: BEFORE -->
+                        <img src="assets/hero_before.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Gambar 1 Hero Before" class="rounded-l-xl">
+                        <div class="absolute top-4 left-4 bg-red-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded text-white">BEFORE</div>
+                        <div class="handle handle-lg">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-4 italic"><i class="fa-solid fa-hand-pointer animate-bounce"></i> Geser untuk melihat keajaiban</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pain Points Section -->
+    <section id="masalah" class="py-20 bg-dark relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold mb-4">Kenapa Brand Anda <span class="text-neonRed">Stuck?</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Masalah visual seringkali menjadi penghalang utama. Berikut dampaknya:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,0,85,0.4)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-red-500/20">
+                        📊
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-red-400 group-hover:text-red-300">TIDAK KONSISTEN</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                        Gaya postingan yang berbeda-beda membuat tampilan media sosial terlihat amatir dan berantakan.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-yellow-500/20">
+                        📷
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-yellow-400 group-hover:text-yellow-300">PENCAHAYAAN BURUK</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                        Foto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak profesional.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-gray-500/20">
+                        😑
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-300 group-hover:text-white">EDIT RUMIT</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                        Berjam-jam terbuang di aplikasi kompleks hanya untuk hasil yang biasa-biasa saja. Buang waktu!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8 Before After Grid (HOVER EDITION) -->
+    <section id="demo" class="py-20 bg-black/50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Bukti <span class="text-neonCyan">Kecanggihan AI</span></h2>
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">Sentuh atau arahkan kursor ke gambar untuk melihat kondisi <b>Original (Before)</b>.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                
+                <!-- DEMO 1: Portrait -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo1_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo1_before.jpg" 
+                             onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0 transition-opacity duration-300">HD</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">ORIGINAL</div>
+                        
+                        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] text-white opacity-60 group-hover:opacity-0 transition-opacity duration-300 whitespace-nowrap">
+                            <i class="fa-regular fa-hand-pointer mr-1"></i> Hold to See
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEMO 2: Product -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo2_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+
+                        <img src="assets/demo2_before.jpg" 
+                             onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">PRO</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">RAW</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 3: Restore -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo3_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1548544149-4835e62ee5b3?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo3_before.jfif"  
+                             onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">COLOR</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">OLD</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 4: Room -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo4_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo4_before.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">DESIGN</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">EMPTY</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 5: Model -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo5_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo5_before.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">FOOD</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">FOOD</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 6: Landscape -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo6_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo6_before.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">MOCKUP</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">ASLI</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 7: Food -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo7_after.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo7_before.jpg" 
+                             onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">AFTER</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">BEFORE</div>
+                    </div>
+                </div>
+
+                <!-- DEMO 8: Car -->
+                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer">
+                    <div class="relative w-full h-full rounded-lg overflow-hidden">
+                        <img src="assets/demo8_after.png"
+                             onerror="this.src='https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="After" class="w-full h-full object-cover">
+                        
+                        <img src="assets/demo8_before.png"
+                             onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1000&auto=format&fit=crop'" 
+                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-hover:opacity-0">AFTER</div>
+                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-hover:opacity-100">BEFORE</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Looping Images Gallery -->
+    <section class="py-12 bg-dark overflow-hidden relative border-y border-white/5">
+        <div class="container mx-auto px-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-400">Galeri Hasil Generate <span class="text-neonPurple text-sm ml-2 animate-pulse">● Live Preview</span></h2>
+        </div>
+        <div class="flex overflow-hidden group space-x-4">
+            <!-- Set 1 (10 Images) -->
+            <div class="flex space-x-4 animate-loop-scroll flex-none pr-4">
+                <img src="assets/gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+            </div>
+            <!-- Set 2 (Duplicate for Loop) -->
+            <div class="flex space-x-4 animate-loop-scroll flex-none pr-4" aria-hidden="true">
+                 <img src="assets/gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="assets/gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solusi" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-neonPurple/10"></div>
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <!-- GAMBAR 2: INTERFACE -->
+                <img src="assets/interface_preview.jpg" onerror="this.src='https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000&auto=format&fit=crop'" alt="Gambar 2 Interface AI Studio" class="rounded-2xl shadow-[0_0_30px_rgba(112,0,255,0.3)] border border-white/10">
+            </div>
+            <div data-aos="fade-left">
+                <h2 class="text-4xl font-bold mb-6">✅ Solusi Cerdas: <span class="text-neonCyan">AI Studio</span></h2>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    Ini bukan sekadar editor biasa. Ini adalah jalan pintas untuk menghemat waktu, biaya, dan energi. Semua kendala lighting, editing, atau gaya pose dapat diatasi hanya dengan satu kali klik.
+                </p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
+                        <span>Hasil sekelas Studio Profesional</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
+                        <span>Tanpa kamera mahal & lighting ribet</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
+                        <span>Cukup Upload, Pilih Gaya, Generate!</span>
+                    </li>
+                </ul>
+                <a href="#harga" class="inline-block px-8 py-3 bg-neonPurple hover:bg-purple-600 rounded-lg font-bold text-white transition shadow-lg shadow-purple-900/50">
+                    MAU PROMO KHUSUS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section (Grouped) -->
+    <section id="fitur" class="py-20 bg-black/30">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Fitur Lengkap <span class="text-gradient">AI Studio</span></h2>
+                <p class="text-gray-400">Semua yang Anda butuhkan dalam satu tools canggih.</p>
+                <div class="mt-4 inline-block bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-sm font-semibold border border-green-500/30">
+                    <i class="fa-solid fa-check-double mr-2"></i> Gratis Update Fitur Baru!
+                </div>
+            </div>
+
+            <div class="space-y-12">
+                
+                <!-- Group 1: Edit & Gabung -->
+                <div>
+                    <h3 class="text-xl font-bold text-neonCyan mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group"></i> Edit & Gabung
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                            <i class="fa-solid fa-object-group text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold">Gabung Foto</h4>
+                            <p class="text-xs text-gray-400 mt-1">Satukan beberapa foto jadi satu.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold">Edit Foto</h4>
+                            <p class="text-xs text-gray-400 mt-1">Enhance kualitas otomatis.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                            <i class="fa-solid fa-sliders text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold">Edit Manual</h4>
+                            <p class="text-xs text-gray-400 mt-1">Kontrol penuh di tangan Anda.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                            <i class="fa-solid fa-star-half-stroke text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold">Perbaiki Foto</h4>
+                            <p class="text-xs text-gray-400 mt-1">Restorasi foto lama/rusak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 2: Produk & Promosi -->
+                <div>
+                    <h3 class="text-xl font-bold text-neonRed mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-bullhorn"></i> Produk & Promosi
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
+                            <i class="fa-solid fa-box-open text-2xl mb-3 text-red-400"></i>
+                            <h4 class="font-bold">Foto Produk</h4>
+                            <p class="text-xs text-gray-400 mt-1">Produk Saja & Produk + Model.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
+                            <i class="fa-solid fa-shirt text-2xl mb-3 text-red-400"></i>
+                            <h4 class="font-bold">Foto Fashion</h4>
+                            <p class="text-xs text-gray-400 mt-1">Katalog baju tanpa model fisik.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
+                            <i class="fa-solid fa-rectangle-ad text-2xl mb-3 text-red-400"></i>
+                            <h4 class="font-bold">Buat Banner</h4>
+                            <p class="text-xs text-gray-400 mt-1">Desain promosi instan.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
+                            <i class="fa-solid fa-images text-2xl mb-3 text-red-400"></i>
+                            <h4 class="font-bold">Buat Carousel</h4>
+                            <p class="text-xs text-gray-400 mt-1">Konten swipeable siap posting.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 3: Gaya Hidup -->
+                <div>
+                    <h3 class="text-xl font-bold text-yellow-400 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-camera-retro"></i> Gaya Hidup & Model
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-400"></i>
+                            <h4 class="font-bold">Kamar Pas</h4>
+                            <p class="text-xs text-gray-400 mt-1">Virtual Try-On Baju.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
+                            <i class="fa-solid fa-heart text-2xl mb-3 text-yellow-400"></i>
+                            <h4 class="font-bold">Pre-Wedding</h4>
+                            <p class="text-xs text-gray-400 mt-1">Foto romantis tanpa studio.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
+                            <i class="fa-solid fa-person-rays text-2xl mb-3 text-yellow-400"></i>
+                            <h4 class="font-bold">Foto Model</h4>
+                            <p class="text-xs text-gray-400 mt-1">Buat Model, Ubah Pose & Angle.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
+                            <i class="fa-solid fa-camera text-2xl mb-3 text-yellow-400"></i>
+                            <h4 class="font-bold">Fotografer AI</h4>
+                            <p class="text-xs text-gray-400 mt-1">Baby born, Kids, Umrah, Pas Foto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 4: Desain & Ilustrasi -->
+                <div>
+                    <h3 class="text-xl font-bold text-green-400 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-nib"></i> Desain & Ilustrasi
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
+                            <i class="fa-solid fa-couch text-2xl mb-3 text-green-400"></i>
+                            <h4 class="font-bold">Desain Rumah</h4>
+                            <p class="text-xs text-gray-400 mt-1">Interior & Eksterior.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
+                            <i class="fa-solid fa-pencil text-2xl mb-3 text-green-400"></i>
+                            <h4 class="font-bold">Sketsa Gambar</h4>
+                            <p class="text-xs text-gray-400 mt-1">Ubah sketsa jadi nyata.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
+                            <i class="fa-solid fa-palette text-2xl mb-3 text-green-400"></i>
+                            <h4 class="font-bold">Art & Karikatur</h4>
+                            <p class="text-xs text-gray-400 mt-1">Gaya artistik unik.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
+                            <i class="fa-solid fa-crop-simple text-2xl mb-3 text-green-400"></i>
+                            <h4 class="font-bold">Auto Rapi</h4>
+                            <p class="text-xs text-gray-400 mt-1">Rapikan objek otomatis.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="harga" class="py-20 relative">
+        <div class="blob bg-neonRed w-96 h-96 top-20 right-0 opacity-20"></div>
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Penawaran Eksklusif <span class="text-gradient-red">Terbatas!</span></h2>
+                <p class="text-gray-400">Lupakan biaya langganan. Ambil akses penuh hari ini.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
+                <div class="glass-card p-8 order-2 lg:order-1">
+                    <h3 class="font-bold text-xl mb-6 text-gray-300">Perbandingan Biaya</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Sewa Studio</span>
+                            <span class="text-red-400 font-bold line-through">Rp 300.000</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Fotografer</span>
+                            <span class="text-red-400 font-bold line-through">Rp 250.000</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Model</span>
+                            <span class="text-red-400 font-bold line-through">Rp 200.000</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Jasa Edit</span>
+                            <span class="text-red-400 font-bold line-through">Rp 50.000/foto</span>
+                        </div>
+                        <div class="mt-6 p-4 bg-neonCyan/10 rounded-lg text-center border border-neonCyan/30">
+                            <p class="text-sm text-gray-300">Dengan AI Studio, Anda hemat:</p>
+                            <p class="text-2xl font-bold text-neonCyan">JUTAAN RUPIAH!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-1 bg-gradient-to-b from-neonCyan to-neonPurple rounded-2xl order-1 lg:order-2 transform lg:scale-110 shadow-[0_0_50px_rgba(0,240,255,0.2)]">
+                    <div class="bg-dark rounded-xl p-8 h-full relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl">BEST DEAL</div>
+                        <h3 class="text-2xl font-bold mb-2">Lisensi Personal</h3>
+                        <p class="text-gray-400 text-sm mb-6">Sekali bayar untuk selamanya.</p>
+                        <div class="mb-6">
+                            <span class="text-gray-500 line-through text-lg">Rp 299.000</span>
+                            <div class="flex items-end gap-2">
+                                <span class="text-5xl font-extrabold text-white">Rp 97.000</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-3 mb-8 text-sm">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Akses 12+ Fitur Unggulan</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Unlimited Generate (Fair Usage)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Gratis Update Fitur Baru</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Tutorial Lengkap</li>
+                        </ul>
+                        <div class="space-y-3">
+                            <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block text-center w-full bg-gradient-to-r from-neonCyan to-neonPurple text-white font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(112,0,255,0.6)] transition transform hover:-translate-y-1">
+                                <i class="fa-solid fa-cart-shopping mr-2"></i> CHECKOUT AJA
+                            </a>
+                            <a href="https://wa.me/6285161141114?text=Halo%20AI%20Studio%2C%20saya%20tertarik%20tanya-tanya%20dulu" target="_blank" class="block text-center w-full bg-transparent border border-gray-600 text-gray-300 font-bold py-3 rounded-lg hover:bg-white/5 transition">
+                                <i class="fa-brands fa-whatsapp mr-2"></i> MAU NEGO / TANYA
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-black/40">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 class="text-3xl font-bold text-center mb-12">F.A.Q</h2>
+            <div class="space-y-4">
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between cursor-pointer">
+                        <h4 class="font-bold text-gray-200">Apa itu AI Studio?</h4>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-400 text-sm">Tools berbasis AI yang mengubah foto biasa menjadi hasil profesional dalam hitungan detik. Cocok untuk Seller, Affiliator, Creator, dan UMKM.</p>
+                </details>
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between cursor-pointer">
+                        <h4 class="font-bold text-gray-200">Bisakah digunakan di HP?</h4>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-400 text-sm">Ya, aplikasi ini berbentuk website (Web Builder) responsif, bisa diakses dari HP, Tablet, maupun Laptop.</p>
+                </details>
+                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex items-center justify-between cursor-pointer">
+                        <h4 class="font-bold text-gray-200">Apakah ada biaya bulanan?</h4>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-400 text-sm">Tidak! Anda cukup bayar sekali saja untuk lisensi personal dan mendapatkan update gratis.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-dark py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold mb-4 flex justify-center items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-neonCyan"></i> AI STUDIO
+            </h3>
+            <p class="text-gray-500 text-sm mb-8">© 2025 AI Studio By Malik Faza. All rights reserved.</p>
+            <div class="flex justify-center gap-6 text-sm font-semibold text-gray-400 items-center">
+                <a href="#" class="hover:text-neonCyan">Privacy Policy</a>
+                <a href="#" class="hover:text-neonCyan">Terms of Service</a>
+                <a href="#" class="hover:text-neonCyan">Support</a>
+                <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="hover:text-red-500 transition-colors">
+                    <i class="fa-brands fa-youtube text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3 pointer-events-none">
+        
+        <!-- Chat Message Box -->
+        <div id="chat-box" class="pointer-events-auto glass-card p-4 max-w-[300px] w-[85vw] transform transition-all duration-300 origin-bottom-right scale-0 opacity-0 shadow-[0_0_30px_rgba(0,0,0,0.5)] border-neonCyan/30">
+            <div class="flex justify-between items-start mb-3 border-b border-white/10 pb-2">
+                <div class="flex items-center gap-2">
+                    <div class="relative">
+                        <!-- GAMBAR 12: Avatar Admin -->
+                        <img src="assets/admin_avatar.png" 
+                             onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop'" 
+                             class="w-10 h-10 rounded-full bg-gradient-to-tr from-neonCyan to-neonPurple p-[2px]" alt="Admin">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-dark rounded-full"></span>
+                    </div>
+                    <div>
+                        <h5 class="text-sm font-bold text-white leading-tight">Admin AI Studio</h5>
+                        <p class="text-[10px] text-green-400">● Online Sekarang</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-white transition w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/10">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            
+            <p class="text-sm text-gray-200 mb-4 leading-relaxed">
+                Halo! 👋 Selamat datang di AI Studio.<br>
+                Ada yang bisa kami bantu seputar fitur atau cara penggunaannya?
+            </p>
+            
+            <a href="https://wa.me/6285161141114?text=Halo%20Admin%20AI%20Studio%2C%20saya%20mau%20tanya-tanya%20dulu%20dong..." target="_blank" class="block bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-lg text-sm font-bold transition shadow-lg flex items-center justify-center gap-2 group">
+                <i class="fa-brands fa-whatsapp text-lg group-hover:scale-110 transition"></i> Hubungi via WhatsApp
+            </a>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button onclick="toggleChat()" id="chat-toggle" class="pointer-events-auto bg-gradient-to-r from-neonCyan to-neonPurple w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl shadow-[0_0_20px_rgba(0,240,255,0.5)] hover:scale-110 transition active:scale-95 group relative">
+            <i class="fa-solid fa-comments text-white relative z-10"></i>
+            <span id="chat-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold border-2 border-dark z-20 hidden">1</span>
+        </button>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Sticky Navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
+                navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
+                navbar.classList.add('rounded-b-2xl');
+            } else {
+                navbar.classList.remove('bg-dark/80', 'backdrop-blur-md', 'rounded-b-2xl');
+                navbar.classList.add('rounded-none', 'border-x-0', 'border-t-0');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+            
+            if (menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        }
+
+        // Slider Logic
+        function slide(e) {
+            const container = e.currentTarget;
+            const resizeImage = container.querySelector('.resize-image');
+            const rect = container.getBoundingClientRect();
+            let x = 0;
+            if (e.type === 'touchmove') {
+                x = e.touches[0].clientX - rect.left;
+            } else {
+                x = e.clientX - rect.left;
+            }
+            let widthPercent = (x / rect.width) * 100;
+            if (widthPercent < 0) widthPercent = 0;
+            if (widthPercent > 100) widthPercent = 100;
+            resizeImage.style.width = widthPercent + '%';
+        }
+
+        // Chat Widget Logic
+        let chatOpen = false;
+        const chatBox = document.getElementById('chat-box');
+        const chatBadge = document.getElementById('chat-badge');
+        const chatToggleBtn = document.getElementById('chat-toggle');
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            if (chatOpen) {
+                chatBox.classList.remove('scale-0', 'opacity-0');
+                chatBox.classList.add('scale-100', 'opacity-100');
+                chatBadge.classList.add('hidden');
+                chatToggleBtn.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
+            } else {
+                chatBox.classList.remove('scale-100', 'opacity-100');
+                chatBox.classList.add('scale-0', 'opacity-0');
+                chatToggleBtn.innerHTML = '<i class="fa-solid fa-comments text-white relative z-10"></i>';
+            }
+        }
+
+        setTimeout(() => {
+            if (!chatOpen) {
+                toggleChat();
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
