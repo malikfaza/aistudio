@@ -215,9 +215,10 @@
 
                 <!-- CTA Button (Desktop) -->
                 <div class="hidden md:flex items-center gap-4">
-                     <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="text-gray-300 hover:text-red-500 transition text-2xl">
+                     <!-- UPDATED: Button for Navbar Icon -->
+                     <button onclick="toggleVideo()" class="text-gray-300 hover:text-red-500 transition text-2xl focus:outline-none">
                         <i class="fa-brands fa-youtube"></i>
-                    </a>
+                    </button>
                     <a href="#harga" class="bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-2 rounded-full font-bold shadow-[0_0_15px_rgba(112,0,255,0.5)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] transition transform hover:-translate-y-1">
                         AMBIL SEKARANG
                     </a>
@@ -235,7 +236,10 @@
                 <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Demo</a>
                 <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Fitur</a>
                 <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Harga</a>
-                <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" class="block text-gray-300 hover:text-red-500 hover:bg-white/5 p-2 rounded transition"><i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube</a>
+                <!-- UPDATED: Button for Mobile Menu -->
+                <button onclick="toggleVideo(); toggleMobileMenu()" class="block w-full text-left text-gray-300 hover:text-red-500 hover:bg-white/5 p-2 rounded transition">
+                    <i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube
+                </button>
                 <a href="#harga" onclick="toggleMobileMenu()" class="block text-center bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-3 rounded-full font-bold">
                     AMBIL SEKARANG
                 </a>
@@ -262,9 +266,10 @@
                     <a href="#harga" class="px-8 py-4 bg-white text-dark font-bold rounded-lg hover:bg-neonCyan transition flex items-center justify-center gap-2 shadow-lg">
                         <i class="fa-solid fa-cart-shopping"></i> AMBIL SEKARANG
                     </a>
-                    <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="px-8 py-4 border border-white/20 hover:bg-red-600/20 hover:border-red-500/50 hover:text-red-400 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
+                    <!-- UPDATED: Button for Hero -->
+                    <button onclick="toggleVideo()" class="px-8 py-4 border border-white/20 hover:bg-red-600/20 hover:border-red-500/50 hover:text-red-400 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
                         <i class="fa-brands fa-youtube text-red-500"></i> LIHAT DEMO VIDEO
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -468,7 +473,7 @@
                              onerror="this.src='https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=1000&auto=format&fit=crop'" 
                              alt="After" class="w-full h-full object-cover">
                         
-                        <img src="assets/demo8_before.png"
+                        <img src="assets/demo8_before.jpg"
                              onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1000&auto=format&fit=crop'" 
                              alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         
@@ -796,12 +801,25 @@
                 <a href="#" class="hover:text-neonCyan">Privacy Policy</a>
                 <a href="#" class="hover:text-neonCyan">Terms of Service</a>
                 <a href="#" class="hover:text-neonCyan">Support</a>
-                <a href="https://youtu.be/3vP7TmtDP8c?si=wj-Rvp0KjCC2Suz2" target="_blank" class="hover:text-red-500 transition-colors">
+                <!-- UPDATED: Button for Footer Icon -->
+                <button onclick="toggleVideo()" class="hover:text-red-500 transition-colors focus:outline-none">
                     <i class="fa-brands fa-youtube text-xl"></i>
-                </a>
+                </button>
             </div>
         </div>
     </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 backdrop-blur-md hidden transition-all duration-300 opacity-0">
+        <div class="relative w-full max-w-5xl mx-4 transform transition-all duration-300 scale-95" id="modal-content">
+            <button onclick="toggleVideo()" class="absolute -top-12 right-0 text-gray-400 hover:text-white text-xl flex items-center gap-2 transition group">
+                Tutup <span class="w-8 h-8 rounded-full border border-gray-400 group-hover:border-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
+            </button>
+            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(112,0,255,0.3)] border border-white/10 bg-black">
+                <iframe id="youtube-frame" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Chat Widget -->
     <div class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3 pointer-events-none">
@@ -921,6 +939,40 @@
                 toggleChat();
             }
         }, 3000);
+
+        // Video Modal Logic
+        function toggleVideo() {
+            const modal = document.getElementById('video-modal');
+            const modalContent = document.getElementById('modal-content');
+            const frame = document.getElementById('youtube-frame');
+            
+            if (modal.classList.contains('hidden')) {
+                // Open
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 10);
+                frame.src = "https://www.youtube.com/embed/3vP7TmtDP8c?autoplay=1";
+            } else {
+                // Close
+                modal.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    frame.src = "";
+                }, 300);
+            }
+        }
+
+        // Close on backdrop click
+        document.getElementById('video-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleVideo();
+            }
+        });
     </script>
 </body>
 </html>
