@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,15 +22,15 @@
     <!-- Custom Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class', // Mengaktifkan mode dark berdasarkan class
             theme: {
                 extend: {
                     colors: {
                         dark: '#000e1e',
+                        light: '#f3f4f6',
                         neonCyan: '#00f0ff',
                         neonPurple: '#7000ff',
                         neonRed: '#ff0055',
-                        glass: 'rgba(255, 255, 255, 0.05)',
-                        glassBorder: 'rgba(255, 255, 255, 0.1)'
                     },
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
@@ -38,6 +38,7 @@
                     animation: {
                         'loop-scroll': 'loop-scroll 25s linear infinite',
                         'bounce-slow': 'bounce 3s infinite',
+                        'spin-slow': 'spin 8s linear infinite',
                     },
                     keyframes: {
                         'loop-scroll': {
@@ -51,10 +52,33 @@
     </script>
 
     <style>
+        /* CSS Variables untuk Tema */
+        :root {
+            --bg-color: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-blur: 16px;
+            --blob-opacity: 0.15;
+        }
+
+        /* Override Variables saat Mode Gelap */
+        .dark {
+            --bg-color: #000e1e;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 12px;
+            --blob-opacity: 0.4;
+        }
+
         body {
-            background-color: #000e1e;
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* Custom Scrollbar */
@@ -62,14 +86,26 @@
             width: 10px;
         }
         ::-webkit-scrollbar-track {
-            background: #000e1e;
+            background: var(--bg-color);
         }
         ::-webkit-scrollbar-thumb {
-            background: #333;
+            background: #4b5563;
             border-radius: 5px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #00f0ff;
+        }
+        
+        /* Chat Scrollbar */
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 3px;
         }
 
         /* Glowing Blobs */
@@ -78,22 +114,24 @@
             border-radius: 50%;
             filter: blur(80px);
             z-index: -1;
-            opacity: 0.4;
+            opacity: var(--blob-opacity);
+            transition: opacity 0.5s ease;
             animation: pulse 10s infinite alternate;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.3; }
-            100% { transform: scale(1.2); opacity: 0.5; }
+            0% { transform: scale(1); opacity: calc(var(--blob-opacity) - 0.1); }
+            100% { transform: scale(1.2); opacity: calc(var(--blob-opacity) + 0.1); }
         }
 
-        /* Glass Card */
+        /* Glass Card - Adaptive */
         .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glassBorder);
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
+            transition: all 0.3s ease;
         }
 
         /* Before After Slider Styling (Only for Hero) */
@@ -178,17 +216,57 @@
             animation-play-state: paused;
         }
 
-        /* Floating Chat Animation */
-        .chat-enter {
-            animation: chatPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* Music & Theme Control Styles */
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes chatPop {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+        /* Vinyl Disc Animation for Music */
+        .vinyl-spin {
+            animation: spin-slow 4s linear infinite;
+        }
+        .vinyl-paused {
+            animation-play-state: paused;
         }
     </style>
 </head>
 <body class="antialiased selection:bg-neonCyan selection:text-black">
+
+    <!-- Audio Element -->
+    <audio id="bg-music" loop>
+        <source src="https://cdn.jsdelivr.net/gh/malikfaza/portofoto@main/ralak.mp3" type="audio/mp3">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Floating Controls (Theme & Music) -->
+    <div class="fixed top-24 right-6 z-[60] flex flex-col gap-3">
+        
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="control-btn glass-card bg-white/10 dark:bg-black/20 hover:bg-white/20 shadow-lg text-yellow-500 dark:text-gray-300 border-yellow-500/30 dark:border-white/10" title="Ganti Mode">
+            <i id="theme-icon" class="fa-solid fa-moon text-lg transition-transform duration-500 rotate-0"></i>
+        </button>
+
+        <!-- Music Toggle -->
+        <button onclick="toggleMusic()" class="control-btn glass-card bg-white/10 dark:bg-black/20 hover:bg-white/20 shadow-lg border-neonCyan/30" title="Play/Pause Musik">
+            <!-- Vinyl Icon Background -->
+            <div id="music-disc" class="absolute inset-0 flex items-center justify-center vinyl-paused vinyl-spin opacity-30">
+                 <i class="fa-solid fa-compact-disc text-3xl text-neonCyan"></i>
+            </div>
+            <!-- Status Icon -->
+            <i id="music-icon" class="fa-solid fa-play text-neonCyan text-sm z-10 ml-0.5"></i>
+        </button>
+    </div>
 
     <!-- Background Effects -->
     <div class="blob bg-neonPurple w-96 h-96 top-0 left-0"></div>
@@ -196,27 +274,27 @@
     <div class="blob bg-neonRed w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-card rounded-none border-t-0 border-x-0 border-b border-white/10" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-card rounded-none border-t-0 border-x-0 border-b border-gray-200/20 dark:border-white/10" id="navbar">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
-                <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <a href="#" class="text-2xl font-bold tracking-tighter flex items-center gap-2 text-gray-800 dark:text-white">
                     <i class="fa-solid fa-wand-magic-sparkles text-neonCyan"></i>
                     MAFAZA <span class="text-neonCyan">PRO</span>
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300">
-                    <a href="#masalah" class="hover:text-white transition">Masalah</a>
-                    <a href="#demo" class="hover:text-white transition">Demo</a>
-                    <a href="#fitur" class="hover:text-white transition">Fitur</a>
-                    <a href="#harga" class="hover:text-white transition">Harga</a>
+                <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                    <a href="#masalah" class="hover:text-neonPurple dark:hover:text-white transition">Masalah</a>
+                    <a href="#demo" class="hover:text-neonPurple dark:hover:text-white transition">Demo</a>
+                    <a href="#fitur" class="hover:text-neonPurple dark:hover:text-white transition">Fitur</a>
+                    <a href="#harga" class="hover:text-neonPurple dark:hover:text-white transition">Harga</a>
                 </div>
 
                 <!-- CTA Button (Desktop) -->
                 <div class="hidden md:flex items-center gap-4">
-                      <!-- UPDATED: Button for Navbar Icon -->
-                      <button onclick="toggleVideo()" class="text-gray-300 hover:text-red-500 transition text-2xl focus:outline-none">
+                      <!-- Button for Navbar Icon -->
+                      <button onclick="toggleVideo()" class="text-gray-500 dark:text-gray-300 hover:text-red-500 transition text-2xl focus:outline-none">
                         <i class="fa-brands fa-youtube"></i>
                     </button>
                     <a href="#harga" class="bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-2 rounded-full font-bold shadow-[0_0_15px_rgba(112,0,255,0.5)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] transition transform hover:-translate-y-1">
@@ -225,19 +303,19 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden text-white text-2xl focus:outline-none">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-800 dark:text-white text-2xl focus:outline-none">
                     <i id="menu-icon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
 
             <!-- Mobile Dropdown Menu -->
-            <div id="mobile-menu" class="hidden md:hidden mt-4 flex-col space-y-4 pb-4 border-t border-white/10 pt-4">
-                <a href="#masalah" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Masalah</a>
-                <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Demo</a>
-                <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Fitur</a>
-                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-300 hover:text-white hover:bg-white/5 p-2 rounded transition">Harga</a>
-                <!-- UPDATED: Button for Mobile Menu -->
-                <button onclick="toggleVideo(); toggleMobileMenu()" class="block w-full text-left text-gray-300 hover:text-red-500 hover:bg-white/5 p-2 rounded transition">
+            <div id="mobile-menu" class="hidden md:hidden mt-4 flex-col space-y-4 pb-4 border-t border-gray-200/20 dark:border-white/10 pt-4">
+                <a href="#masalah" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Masalah</a>
+                <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Demo</a>
+                <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Fitur</a>
+                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Harga</a>
+                
+                <button onclick="toggleVideo(); toggleMobileMenu()" class="block w-full text-left text-gray-600 dark:text-gray-300 hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">
                     <i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube
                 </button>
                 <a href="#harga" onclick="toggleMobileMenu()" class="block text-center bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-3 rounded-full font-bold">
@@ -255,19 +333,19 @@
                 <div class="inline-block px-4 py-1 rounded-full border border-neonCyan/30 bg-neonCyan/10 text-neonCyan text-xs font-bold mb-6 tracking-wider">
                     REVOLUSI ERA VISUAL
                 </div>
-                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-gray-900 dark:text-white">
                     Upgrade Visual Digital Anda dengan <span class="text-gradient">Mafaza Pro!</span>
                 </h1>
-                <p class="text-lg text-gray-400 mb-8 leading-relaxed border-l-4 border-neonPurple pl-4">
+                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed border-l-4 border-neonPurple pl-4">
                     Hemat Ratusan Ribu, Dapatkan Foto Profesional dalam Hitungan Detik! 
                     Jangan biarkan foto seadanya merusak personal brand Anda.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#harga" class="px-8 py-4 bg-white text-dark font-bold rounded-lg hover:bg-neonCyan transition flex items-center justify-center gap-2 shadow-lg">
+                    <a href="#harga" class="px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-dark font-bold rounded-lg hover:bg-neonCyan dark:hover:bg-neonCyan hover:text-white transition flex items-center justify-center gap-2 shadow-lg">
                         <i class="fa-solid fa-cart-shopping"></i> AMBIL SEKARANG
                     </a>
-                    <!-- UPDATED: Button for Hero -->
-                    <button onclick="toggleVideo()" class="px-8 py-4 border border-white/20 hover:bg-red-600/20 hover:border-red-500/50 hover:text-red-400 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
+                    <!-- Button for Hero -->
+                    <button onclick="toggleVideo()" class="px-8 py-4 border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white hover:bg-red-600/10 hover:border-red-500/50 hover:text-red-500 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
                         <i class="fa-brands fa-youtube text-red-500"></i> LIHAT DEMO VIDEO
                     </button>
                 </div>
@@ -281,7 +359,7 @@
                     <img src="hero_after.png" 
                          onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1000&auto=format&fit=crop'" 
                          alt="Gambar 1 Hero After" class="rounded-xl">
-                    <div class="absolute top-4 right-4 bg-green-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded">AFTER</div>
+                    <div class="absolute top-4 right-4 bg-green-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded text-white">AFTER</div>
 
                     <div class="resize-image rounded-l-xl">
                         <!-- HERO: BEFORE -->
@@ -300,41 +378,41 @@
     </header>
 
     <!-- Pain Points Section -->
-    <section id="masalah" class="py-20 bg-dark relative">
+    <section id="masalah" class="py-20 bg-gray-50 dark:bg-dark relative transition-colors duration-500">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold mb-4">Kenapa Brand Anda <span class="text-neonRed">Stuck?</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto">Masalah visual seringkali menjadi penghalang utama. Berikut dampaknya:</p>
+                <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Kenapa Brand Anda <span class="text-neonRed">Stuck?</span></h2>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Masalah visual seringkali menjadi penghalang utama. Berikut dampaknya:</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,0,85,0.4)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-red-500/20">
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,0,85,0.4)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-red-500/20">
                         📊
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-red-400 group-hover:text-red-300">TIDAK KONSISTEN</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                    <h3 class="text-xl font-bold mb-3 text-red-500 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300">TIDAK KONSISTEN</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
                         Gaya postingan yang berbeda-beda membuat tampilan media sosial terlihat amatir dan berantakan.
                     </p>
                 </div>
                 <!-- Card 2 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-yellow-500/20">
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-yellow-500/20">
                         📷
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-yellow-400 group-hover:text-yellow-300">PENCAHAYAAN BURUK</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                    <h3 class="text-xl font-bold mb-3 text-yellow-500 dark:text-yellow-400 group-hover:text-yellow-600 dark:group-hover:text-yellow-300">PENCAHAYAAN BURUK</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
                         Foto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak profesional.
                     </p>
                 </div>
                 <!-- Card 3 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] border border-neonCyan bg-white/10" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-gray-500/20">
+                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-gray-500/20">
                         😑
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-300 group-hover:text-white">EDIT RUMIT</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-white">
+                    <h3 class="text-xl font-bold mb-3 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">EDIT RUMIT</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
                         Berjam-jam terbuang di aplikasi kompleks hanya untuk hasil yang biasa-biasa saja. Buang waktu!
                     </p>
                 </div>
@@ -343,10 +421,10 @@
     </section>
 
     <!-- 8 Before After Grid (CLICK EDITION) -->
-    <section id="demo" class="py-20 bg-black/50">
+    <section id="demo" class="py-20 bg-gray-100/50 dark:bg-black/50 transition-colors duration-500">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4">Bukti <span class="text-neonCyan">Kecanggihan AI</span></h2>
-            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">Bukti <span class="text-neonCyan">Kecanggihan AI</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
                 <i class="fa-solid fa-hand-pointer text-neonCyan animate-bounce"></i> 
                 Klik pada gambar untuk melihat kondisi <b>Original (Before)</b>. Klik lagi untuk kembali.
             </p>
@@ -492,36 +570,36 @@
     </section>
 
     <!-- Looping Images Gallery -->
-    <section class="py-12 bg-dark overflow-hidden relative border-y border-white/5">
+    <section class="py-12 bg-gray-50 dark:bg-dark overflow-hidden relative border-y border-gray-200 dark:border-white/5 transition-colors duration-500">
         <div class="container mx-auto px-6 mb-6">
-            <h2 class="text-xl font-bold text-gray-400">Galeri Hasil Generate <span class="text-neonPurple text-sm ml-2 animate-pulse">● Live Preview</span></h2>
+            <h2 class="text-xl font-bold text-gray-600 dark:text-gray-400">Galeri Hasil Generate <span class="text-neonPurple text-sm ml-2 animate-pulse">● Live Preview</span></h2>
         </div>
         <div class="flex overflow-hidden group space-x-4">
             <!-- Set 1 (10 Images) -->
             <div class="flex space-x-4 animate-loop-scroll flex-none pr-4">
-                <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
             </div>
             <!-- Set 2 (Duplicate for Loop) -->
             <div class="flex space-x-4 animate-loop-scroll flex-none pr-4" aria-hidden="true">
-                 <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
-                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-white/10">
+                 <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
+                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
             </div>
         </div>
     </section>
@@ -535,11 +613,11 @@
                 <img src="interface_preview.jpg" onerror="this.src='https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000&auto=format&fit=crop'" alt="Gambar 2 Interface Mafaza Pro" class="rounded-2xl shadow-[0_0_30px_rgba(112,0,255,0.3)] border border-white/10">
             </div>
             <div data-aos="fade-left">
-                <h2 class="text-4xl font-bold mb-6">✅ Solusi Cerdas: <span class="text-neonCyan">Mafaza Pro</span></h2>
-                <p class="text-gray-300 mb-6 leading-relaxed">
+                <h2 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">✅ Solusi Cerdas: <span class="text-neonCyan">Mafaza Pro</span></h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                     Ini bukan sekadar editor biasa. Ini adalah jalan pintas untuk menghemat waktu, biaya, dan energi. Semua kendala lighting, editing, atau gaya pose dapat diatasi hanya dengan satu kali klik.
                 </p>
-                <ul class="space-y-4 mb-8">
+                <ul class="space-y-4 mb-8 text-gray-700 dark:text-gray-200">
                     <li class="flex items-center gap-3">
                         <i class="fa-solid fa-check-circle text-neonCyan"></i>
                         <span>Hasil sekelas Studio Profesional</span>
@@ -561,12 +639,12 @@
     </section>
 
     <!-- Features Section (Grouped) -->
-    <section id="fitur" class="py-20 bg-black/30">
+    <section id="fitur" class="py-20 bg-gray-50 dark:bg-black/30 transition-colors duration-500">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4">Fitur Lengkap <span class="text-gradient">Mafaza Pro</span></h2>
-                <p class="text-gray-400">Semua yang Anda butuhkan dalam satu tools canggih.</p>
-                <div class="mt-4 inline-block bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-sm font-semibold border border-green-500/30">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Fitur Lengkap <span class="text-gradient">Mafaza Pro</span></h2>
+                <p class="text-gray-600 dark:text-gray-400">Semua yang Anda butuhkan dalam satu tools canggih.</p>
+                <div class="mt-4 inline-block bg-green-500/20 text-green-600 dark:text-green-400 px-4 py-1 rounded-full text-sm font-semibold border border-green-500/30">
                     <i class="fa-solid fa-check-double mr-2"></i> Gratis Update Fitur Baru!
                 </div>
             </div>
@@ -579,25 +657,25 @@
                         <i class="fa-solid fa-layer-group"></i> Edit & Gabung
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-object-group text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold">Gabung Foto</h4>
-                            <p class="text-xs text-gray-400 mt-1">Satukan beberapa foto jadi satu.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Gabung Foto</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Satukan beberapa foto jadi satu.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-wand-magic-sparkles text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold">Edit Foto</h4>
-                            <p class="text-xs text-gray-400 mt-1">Enhance kualitas otomatis.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Edit Foto</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Enhance kualitas otomatis.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-sliders text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold">Edit Manual</h4>
-                            <p class="text-xs text-gray-400 mt-1">Kontrol penuh di tangan Anda.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Edit Manual</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kontrol penuh di tangan Anda.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300">
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-star-half-stroke text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold">Perbaiki Foto</h4>
-                            <p class="text-xs text-gray-400 mt-1">Restorasi foto lama/rusak.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Perbaiki Foto</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Restorasi foto lama/rusak.</p>
                         </div>
                     </div>
                 </div>
@@ -608,84 +686,84 @@
                         <i class="fa-solid fa-bullhorn"></i> Produk & Promosi
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
-                            <i class="fa-solid fa-box-open text-2xl mb-3 text-red-400"></i>
-                            <h4 class="font-bold">Foto Produk</h4>
-                            <p class="text-xs text-gray-400 mt-1">Produk Saja & Produk + Model.</p>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-box-open text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Produk</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Produk Saja & Produk + Model.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
-                            <i class="fa-solid fa-shirt text-2xl mb-3 text-red-400"></i>
-                            <h4 class="font-bold">Foto Fashion</h4>
-                            <p class="text-xs text-gray-400 mt-1">Katalog baju tanpa model fisik.</p>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-shirt text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Fashion</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Katalog baju tanpa model fisik.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
-                            <i class="fa-solid fa-rectangle-ad text-2xl mb-3 text-red-400"></i>
-                            <h4 class="font-bold">Buat Banner</h4>
-                            <p class="text-xs text-gray-400 mt-1">Desain promosi instan.</p>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-rectangle-ad text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Buat Banner</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain promosi instan.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300">
-                            <i class="fa-solid fa-images text-2xl mb-3 text-red-400"></i>
-                            <h4 class="font-bold">Buat Carousel</h4>
-                            <p class="text-xs text-gray-400 mt-1">Konten swipeable siap posting.</p>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-images text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Buat Carousel</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Konten swipeable siap posting.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Group 3: Gaya Hidup -->
                 <div>
-                    <h3 class="text-xl font-bold text-yellow-400 mb-6 flex items-center gap-2">
+                    <h3 class="text-xl font-bold text-yellow-500 dark:text-yellow-400 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-camera-retro"></i> Gaya Hidup & Model
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden">
+                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
                             <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-400"></i>
-                            <h4 class="font-bold">Kamar Pas</h4>
-                            <p class="text-xs text-gray-400 mt-1">Virtual Try-On Baju.</p>
+                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Kamar Pas</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Virtual Try-On Baju.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
-                            <i class="fa-solid fa-heart text-2xl mb-3 text-yellow-400"></i>
-                            <h4 class="font-bold">Pre-Wedding</h4>
-                            <p class="text-xs text-gray-400 mt-1">Foto romantis tanpa studio.</p>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-heart text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Pre-Wedding</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto romantis tanpa studio.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
-                            <i class="fa-solid fa-person-rays text-2xl mb-3 text-yellow-400"></i>
-                            <h4 class="font-bold">Foto Model</h4>
-                            <p class="text-xs text-gray-400 mt-1">Buat Model, Ubah Pose & Angle.</p>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-person-rays text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Model</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buat Model, Ubah Pose & Angle.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300">
-                            <i class="fa-solid fa-camera text-2xl mb-3 text-yellow-400"></i>
-                            <h4 class="font-bold">Fotografer AI</h4>
-                            <p class="text-xs text-gray-400 mt-1">Baby born, Kids, Umrah, Pas Foto.</p>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-camera text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Fotografer AI</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Baby born, Kids, Umrah, Pas Foto.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Group 4: Desain & Ilustrasi -->
                 <div>
-                    <h3 class="text-xl font-bold text-green-400 mb-6 flex items-center gap-2">
+                    <h3 class="text-xl font-bold text-green-500 dark:text-green-400 mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-pen-nib"></i> Desain & Ilustrasi
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
-                            <i class="fa-solid fa-couch text-2xl mb-3 text-green-400"></i>
-                            <h4 class="font-bold">Desain Rumah</h4>
-                            <p class="text-xs text-gray-400 mt-1">Interior & Eksterior.</p>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-couch text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Desain Rumah</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Interior & Eksterior.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
-                            <i class="fa-solid fa-pencil text-2xl mb-3 text-green-400"></i>
-                            <h4 class="font-bold">Sketsa Gambar</h4>
-                            <p class="text-xs text-gray-400 mt-1">Ubah sketsa jadi nyata.</p>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-pencil text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Sketsa Gambar</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ubah sketsa jadi nyata.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
-                            <i class="fa-solid fa-palette text-2xl mb-3 text-green-400"></i>
-                            <h4 class="font-bold">Art & Karikatur</h4>
-                            <p class="text-xs text-gray-400 mt-1">Gaya artistik unik.</p>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-palette text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Art & Karikatur</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gaya artistik unik.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300">
-                            <i class="fa-solid fa-crop-simple text-2xl mb-3 text-green-400"></i>
-                            <h4 class="font-bold">Auto Rapi</h4>
-                            <p class="text-xs text-gray-400 mt-1">Rapikan objek otomatis.</p>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
+                            <i class="fa-solid fa-crop-simple text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Auto Rapi</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rapikan objek otomatis.</p>
                         </div>
                     </div>
                 </div>
@@ -699,47 +777,47 @@
         <div class="blob bg-neonRed w-96 h-96 top-20 right-0 opacity-20"></div>
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4">Penawaran Eksklusif <span class="text-gradient-red">Terbatas!</span></h2>
-                <p class="text-gray-400">Lupakan biaya langganan. Ambil akses penuh hari ini.</p>
+                <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Penawaran Eksklusif <span class="text-gradient-red">Terbatas!</span></h2>
+                <p class="text-gray-600 dark:text-gray-400">Lupakan biaya langganan. Ambil akses penuh hari ini.</p>
             </div>
             <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
-                <div class="glass-card p-8 order-2 lg:order-1">
-                    <h3 class="font-bold text-xl mb-6 text-gray-300">Perbandingan Biaya</h3>
+                <div class="glass-card p-8 order-2 lg:order-1 bg-white dark:bg-transparent">
+                    <h3 class="font-bold text-xl mb-6 text-gray-800 dark:text-gray-300">Perbandingan Biaya</h3>
                     <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-gray-400">Sewa Studio</span>
-                            <span class="text-red-400 font-bold line-through">Rp 300.000</span>
+                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="text-gray-600 dark:text-gray-400">Sewa Studio</span>
+                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 300.000</span>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-gray-400">Fotografer</span>
-                            <span class="text-red-400 font-bold line-through">Rp 250.000</span>
+                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="text-gray-600 dark:text-gray-400">Fotografer</span>
+                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 250.000</span>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-gray-400">Model</span>
-                            <span class="text-red-400 font-bold line-through">Rp 200.000</span>
+                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="text-gray-600 dark:text-gray-400">Model</span>
+                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 200.000</span>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <span class="text-gray-400">Jasa Edit</span>
-                            <span class="text-red-400 font-bold line-through">Rp 50.000/foto</span>
+                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="text-gray-600 dark:text-gray-400">Jasa Edit</span>
+                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 50.000/foto</span>
                         </div>
                         <div class="mt-6 p-4 bg-neonCyan/10 rounded-lg text-center border border-neonCyan/30">
-                            <p class="text-sm text-gray-300">Dengan Mafaza Pro, Anda hemat:</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">Dengan Mafaza Pro, Anda hemat:</p>
                             <p class="text-2xl font-bold text-neonCyan">JUTAAN RUPIAH!</p>
                         </div>
                     </div>
                 </div>
                 <div class="glass-card p-1 bg-gradient-to-b from-neonCyan to-neonPurple rounded-2xl order-1 lg:order-2 transform lg:scale-110 shadow-[0_0_50px_rgba(0,240,255,0.2)]">
-                    <div class="bg-dark rounded-xl p-8 h-full relative overflow-hidden">
+                    <div class="bg-gray-100 dark:bg-dark rounded-xl p-8 h-full relative overflow-hidden">
                         <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl">BEST DEAL</div>
-                        <h3 class="text-2xl font-bold mb-2">Lisensi Personal</h3>
-                        <p class="text-gray-400 text-sm mb-6">Sekali bayar untuk selamanya.</p>
+                        <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Lisensi Personal</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Sekali bayar untuk selamanya.</p>
                         <div class="mb-6">
                             <span class="text-gray-500 line-through text-lg">Rp 299.000</span>
                             <div class="flex items-end gap-2">
-                                <span class="text-5xl font-extrabold text-white">Rp 97.000</span>
+                                <span class="text-5xl font-extrabold text-gray-900 dark:text-white">Rp 97.000</span>
                             </div>
                         </div>
-                        <ul class="space-y-3 mb-8 text-sm">
+                        <ul class="space-y-3 mb-8 text-sm text-gray-700 dark:text-gray-300">
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Akses 12+ Fitur Unggulan</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Unlimited Generate (Fair Usage)</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Gratis Update Fitur Baru</li>
@@ -749,7 +827,7 @@
                             <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block text-center w-full bg-gradient-to-r from-neonCyan to-neonPurple text-white font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(112,0,255,0.6)] transition transform hover:-translate-y-1">
                                 <i class="fa-solid fa-cart-shopping mr-2"></i> CHECKOUT AJA
                             </a>
-                            <a href="https://wa.me/6285161141114?text=Halo%20Mafaza%20Pro%2C%20saya%20tertarik%20tanya-tanya%20dulu" target="_blank" class="block text-center w-full bg-transparent border border-gray-600 text-gray-300 font-bold py-3 rounded-lg hover:bg-white/5 transition">
+                            <a href="https://wa.me/6285161141114?text=Halo%20Mafaza%20Pro%2C%20saya%20tertarik%20tanya-tanya%20dulu" target="_blank" class="block text-center w-full bg-transparent border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold py-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition">
                                 <i class="fa-brands fa-whatsapp mr-2"></i> MAU NEGO / TANYA
                             </a>
                         </div>
@@ -760,53 +838,53 @@
     </section>
 
     <!-- FAQ -->
-    <section class="py-20 bg-black/40">
+    <section class="py-20 bg-gray-100/50 dark:bg-black/40 transition-colors duration-500">
         <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-3xl font-bold text-center mb-12">F.A.Q</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">F.A.Q</h2>
             <div class="space-y-4">
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-200">Apa itu Mafaza Pro?</h4>
-                        <span class="transition group-open:rotate-180">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Apa itu Mafaza Pro?</h4>
+                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-400 text-sm">Tools berbasis AI yang mengubah foto biasa menjadi hasil profesional dalam hitungan detik. Cocok untuk Seller, Affiliator, Creator, dan UMKM.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tools berbasis AI yang mengubah foto biasa menjadi hasil profesional dalam hitungan detik. Cocok untuk Seller, Affiliator, Creator, dan UMKM.</p>
                 </details>
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-200">Bisakah digunakan di HP?</h4>
-                        <span class="transition group-open:rotate-180">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Bisakah digunakan di HP?</h4>
+                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-400 text-sm">Ya, aplikasi ini berbentuk website (Web Builder) responsif, bisa diakses dari HP, Tablet, maupun Laptop.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Ya, aplikasi ini berbentuk website (Web Builder) responsif, bisa diakses dari HP, Tablet, maupun Laptop.</p>
                 </details>
-                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden">
+                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-200">Apakah ada biaya bulanan?</h4>
-                        <span class="transition group-open:rotate-180">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Apakah ada biaya bulanan?</h4>
+                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-400 text-sm">Tidak! Anda cukup bayar sekali saja untuk lisensi personal dan mendapatkan update gratis.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak! Anda cukup bayar sekali saja untuk lisensi personal dan mendapatkan update gratis.</p>
                 </details>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 bg-dark py-12">
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-dark py-12 transition-colors duration-500">
         <div class="container mx-auto px-6 text-center">
-            <h3 class="text-2xl font-bold mb-4 flex justify-center items-center gap-2">
+            <h3 class="text-2xl font-bold mb-4 flex justify-center items-center gap-2 text-gray-900 dark:text-white">
                 <i class="fa-solid fa-wand-magic-sparkles text-neonCyan"></i> MAFAZA PRO
             </h3>
             <p class="text-gray-500 text-sm mb-8">© 2025 Mafaza Pro By Malik Faza. All rights reserved.</p>
-            <div class="flex justify-center gap-6 text-sm font-semibold text-gray-400 items-center">
+            <div class="flex justify-center gap-6 text-sm font-semibold text-gray-500 dark:text-gray-400 items-center">
                 <a href="#" class="hover:text-neonCyan">Privacy Policy</a>
                 <a href="#" class="hover:text-neonCyan">Terms of Service</a>
                 <a href="#" class="hover:text-neonCyan">Support</a>
-                <!-- UPDATED: Button for Footer Icon -->
+                <!-- Button for Footer Icon -->
                 <button onclick="toggleVideo()" class="hover:text-red-500 transition-colors focus:outline-none">
                     <i class="fa-brands fa-youtube text-xl"></i>
                 </button>
@@ -830,40 +908,45 @@
     <div class="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3 pointer-events-none">
         
         <!-- Chat Message Box -->
-        <div id="chat-box" class="pointer-events-auto glass-card p-4 max-w-[300px] w-[85vw] transform transition-all duration-300 origin-bottom-right scale-0 opacity-0 shadow-[0_0_30px_rgba(0,0,0,0.5)] border-neonCyan/30">
-            <div class="flex justify-between items-start mb-3 border-b border-white/10 pb-2">
-                <div class="flex items-center gap-2">
+        <div id="chat-box" class="pointer-events-auto glass-card flex flex-col max-w-[350px] w-[90vw] h-[450px] transform transition-all duration-300 origin-bottom-right scale-0 opacity-0 shadow-[0_0_30px_rgba(0,0,0,0.2)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)] border-gray-200 dark:border-neonCyan/30 overflow-hidden bg-white/90 dark:bg-transparent">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-dark/50">
+                <div class="flex items-center gap-3">
                     <div class="relative">
-                        <!-- GAMBAR 12: Avatar Admin -->
-                        <img src="admin_avatar.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop'" 
-                             class="w-10 h-10 rounded-full bg-gradient-to-tr from-neonCyan to-neonPurple p-[2px]" alt="Admin">
-                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-dark rounded-full"></span>
+                        <img src="admin_avatar.png" onerror="this.src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop'" class="w-10 h-10 rounded-full bg-gradient-to-tr from-neonCyan to-neonPurple p-[2px]" alt="Admin">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-dark rounded-full"></span>
                     </div>
                     <div>
-                        <h5 class="text-sm font-bold text-white leading-tight">Admin Mafaza Pro</h5>
-                        <p class="text-[10px] text-green-400">● Online Sekarang</p>
+                        <h5 class="text-sm font-bold text-gray-900 dark:text-white leading-tight">Admin Mafaza Pro</h5>
+                        <p class="text-[10px] text-green-600 dark:text-green-400">● Online Sekarang</p>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="text-gray-400 hover:text-white transition w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/10">
-                    <i class="fa-solid fa-chevron-down"></i>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 chat-scroll">
+                <!-- Default Welcome Message -->
+                <div class="flex items-start gap-2">
+                     <div class="bg-gray-100 dark:bg-white/10 p-3 rounded-r-xl rounded-bl-xl text-sm text-gray-700 dark:text-gray-200 max-w-[85%] border border-gray-200 dark:border-white/5">
+                        Halo! 👋 Selamat datang di Mafaza Pro. Silakan ketik pertanyaan Anda. (Contoh: "Harga", "Fitur", atau "Hai")
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-dark/30 flex gap-2">
+                <input type="text" id="chat-input" placeholder="Tulis pesan..." class="flex-1 bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-full px-4 py-2 text-sm text-gray-800 dark:text-white focus:outline-none focus:border-neonCyan transition">
+                <button onclick="sendMessage()" class="bg-neonCyan hover:bg-cyan-400 text-dark w-10 h-10 rounded-full flex items-center justify-center transition shadow-[0_0_10px_rgba(0,240,255,0.4)]">
+                    <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
-            
-            <p class="text-sm text-gray-200 mb-4 leading-relaxed">
-                Halo! 👋 Selamat datang di Mafaza Pro.<br>
-                Ada yang bisa kami bantu seputar fitur atau cara penggunaannya?
-            </p>
-            
-            <a href="https://wa.me/6285161141114?text=Halo%20Admin%20Mafaza%20Pro%2C%20saya%20mau%20tanya-tanya%20dulu%20dong..." target="_blank" class="block bg-[#25D366] hover:bg-[#20bd5a] text-white text-center py-2.5 rounded-lg text-sm font-bold transition shadow-lg flex items-center justify-center gap-2 group">
-                <i class="fa-brands fa-whatsapp text-lg group-hover:scale-110 transition"></i> Hubungi via WhatsApp
-            </a>
         </div>
 
         <!-- Chat Toggle Button -->
         <button onclick="toggleChat()" id="chat-toggle" class="pointer-events-auto bg-gradient-to-r from-neonCyan to-neonPurple w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl shadow-[0_0_20px_rgba(0,240,255,0.5)] hover:scale-110 transition active:scale-95 group relative">
             <i class="fa-solid fa-comments text-white relative z-10"></i>
-            <span id="chat-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold border-2 border-dark z-20 hidden">1</span>
+            <span id="chat-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold border-2 border-white dark:border-dark z-20 hidden">1</span>
         </button>
 
     </div>
@@ -876,15 +959,76 @@
         // Sticky Navbar
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
+            const isDark = document.documentElement.classList.contains('dark');
+            
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
+                // Saat scroll
+                if (isDark) {
+                    navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
+                } else {
+                    navbar.classList.add('bg-white/80', 'backdrop-blur-md');
+                }
                 navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
                 navbar.classList.add('rounded-b-2xl');
             } else {
-                navbar.classList.remove('bg-dark/80', 'backdrop-blur-md', 'rounded-b-2xl');
+                // Saat di atas
+                navbar.classList.remove('bg-dark/80', 'bg-white/80', 'backdrop-blur-md', 'rounded-b-2xl');
                 navbar.classList.add('rounded-none', 'border-x-0', 'border-t-0');
             }
         });
+
+        // Toggle Theme Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeIcon.style.transform = "rotate(180deg)";
+                // Reset navbar style for light mode if scrolled
+                if (window.scrollY > 50) {
+                     const navbar = document.getElementById('navbar');
+                     navbar.classList.remove('bg-dark/80');
+                     navbar.classList.add('bg-white/80');
+                }
+            } else {
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeIcon.style.transform = "rotate(0deg)";
+                // Reset navbar style for dark mode if scrolled
+                if (window.scrollY > 50) {
+                     const navbar = document.getElementById('navbar');
+                     navbar.classList.remove('bg-white/80');
+                     navbar.classList.add('bg-dark/80');
+                }
+            }
+        }
+
+        // Music Logic
+        const music = document.getElementById('bg-music');
+        const musicDisc = document.getElementById('music-disc');
+        const musicIcon = document.getElementById('music-icon');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicDisc.classList.add('vinyl-paused');
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            } else {
+                music.play().catch(error => {
+                    console.log("Autoplay dicegah browser, perlu interaksi user.", error);
+                });
+                musicDisc.classList.remove('vinyl-paused');
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }
+            isPlaying = !isPlaying;
+        }
 
         // Mobile Menu Toggle
         function toggleMobileMenu() {
@@ -924,6 +1068,8 @@
         const chatBox = document.getElementById('chat-box');
         const chatBadge = document.getElementById('chat-badge');
         const chatToggleBtn = document.getElementById('chat-toggle');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
 
         function toggleChat() {
             chatOpen = !chatOpen;
@@ -932,6 +1078,8 @@
                 chatBox.classList.add('scale-100', 'opacity-100');
                 chatBadge.classList.add('hidden');
                 chatToggleBtn.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
+                // Focus input after animation
+                setTimeout(() => chatInput.focus(), 300);
             } else {
                 chatBox.classList.remove('scale-100', 'opacity-100');
                 chatBox.classList.add('scale-0', 'opacity-0');
@@ -939,11 +1087,76 @@
             }
         }
 
+        // Auto open chat after delay
         setTimeout(() => {
             if (!chatOpen) {
                 toggleChat();
             }
         }, 3000);
+
+        // Send Message Logic
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // Add User Message
+            addMessage(text, 'user');
+            chatInput.value = '';
+
+            // Simulate Typing Delay
+            setTimeout(() => {
+                const lowerText = text.toLowerCase();
+                let response = "";
+
+                // Logic Chatbot
+                if (lowerText.includes('hai') || lowerText.includes('halo') || lowerText.includes('hi') || lowerText.includes('pagi') || lowerText.includes('siang') || lowerText.includes('malam')) {
+                    response = "Hai juga kak! 👋 Ada yang bisa kami bantu seputar Mafaza Pro?";
+                } 
+                else if (lowerText.includes('harga') || lowerText.includes('biaya') || lowerText.includes('bayar') || lowerText.includes('berapa')) {
+                    response = "Untuk harganya promo saat ini cuma **Rp 97.000** aja kak! Bayar sekali untuk akses selamanya (Lifetime).";
+                } 
+                else if (lowerText.includes('fitur') || lowerText.includes('bisa apa') || lowerText.includes('kegunaan') || lowerText.includes('menu')) {
+                    response = "Fiturnya banyak banget kak! 😱 Mulai dari ganti background, enhance foto, lighting otomatis, sampai ganti wajah model. Bisa lihat detailnya di halaman ini atau cek demo lengkapnya di YouTube ya!";
+                } 
+                else if (lowerText.includes('beli') || lowerText.includes('order') || lowerText.includes('pesan')) {
+                     response = "Siap kak! Bisa langsung klik tombol 'Ambil Sekarang' di atas atau klik link ini ya: <a href='http://lynk.id/malikfaza/4my6v4qyyo43/checkout' target='_blank' class='text-neonCyan underline font-bold'>Link Checkout</a>";
+                }
+                else {
+                    response = "Mohon maaf kami tidak mengerti maksud kakak 🙏. Silakan chat langsung ke developer untuk pertanyaan spesifik: <a href='https://wa.me/6285161141114' target='_blank' class='text-neonCyan underline'>WhatsApp Developer</a>";
+                }
+
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2';
+            
+            if (sender === 'user') {
+                div.innerHTML = `
+                    <div class="bg-neonPurple text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[85%] shadow-lg animate-fade-in-up">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="bg-gray-100 dark:bg-white/10 p-3 rounded-r-xl rounded-bl-xl text-sm text-gray-800 dark:text-gray-200 max-w-[85%] border border-gray-200 dark:border-white/5 animate-fade-in-up">
+                        ${text}
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Enter Key Listener
+        chatInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
 
         // Video Modal Logic
         function toggleVideo() {
