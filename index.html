@@ -1012,6 +1012,7 @@
         const musicDisc = document.getElementById('music-disc');
         const musicIcon = document.getElementById('music-icon');
         let isPlaying = false;
+        let musicHasAutoStarted = false; // Flag untuk memastikan hanya nyala sekali
 
         function toggleMusic() {
             if (isPlaying) {
@@ -1028,6 +1029,7 @@
                 musicIcon.classList.add('fa-pause');
             }
             isPlaying = !isPlaying;
+            musicHasAutoStarted = true; // Set true jika user manual klik, agar tidak bentrok
         }
 
         // Mobile Menu Toggle
@@ -1070,6 +1072,19 @@
         const chatToggleBtn = document.getElementById('chat-toggle');
         const chatInput = document.getElementById('chat-input');
         const chatMessages = document.getElementById('chat-messages');
+
+        // Add Listener untuk Music Auto Start saat klik Chat Button
+        chatToggleBtn.addEventListener('click', () => {
+             if (!musicHasAutoStarted && !isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicDisc.classList.remove('vinyl-paused');
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                    musicHasAutoStarted = true;
+                }).catch(err => console.log("Autoplay blocked/failed:", err));
+            }
+        });
 
         function toggleChat() {
             chatOpen = !chatOpen;
