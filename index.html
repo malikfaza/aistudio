@@ -1154,7 +1154,7 @@
                         <p class="text-[10px] text-green-600 dark:text-green-400">● Online Sekarang</p>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition"><i class="fa-solid fa-chevron-down"></i></button>
+                <button onclick="toggleChat()" id="chat-minimize" class="text-gray-400 hover:text-gray-600 dark:hover:text-white transition"><i class="fa-solid fa-chevron-down"></i></button>
             </div>
 
             <!-- Messages Area -->
@@ -1178,7 +1178,11 @@
 
         <!-- Chat Toggle Button -->
         <button onclick="toggleChat()" id="chat-toggle" class="pointer-events-auto bg-gradient-to-r from-neonCyan to-neonPurple w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl shadow-[0_0_20px_rgba(0,240,255,0.5)] hover:scale-110 transition active:scale-95 group relative">
-            <i class="fa-solid fa-comments text-white relative z-10"></i>
+            <!-- Icon Open (Default) -->
+            <i id="chat-icon-open" class="fa-solid fa-comments text-white relative z-10 transition-transform duration-300"></i>
+            <!-- Icon Close (Hidden) -->
+            <i id="chat-icon-close" class="fa-solid fa-xmark text-xl text-white relative z-10 transition-transform duration-300 hidden"></i>
+            
             <span id="chat-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold border-2 border-white dark:border-dark z-20 hidden">1</span>
         </button>
 
@@ -1286,7 +1290,8 @@
         function toggleChat() {
             const chatBox = document.getElementById('chat-box');
             const chatBadge = document.getElementById('chat-badge');
-            const chatToggleBtn = document.getElementById('chat-toggle');
+            const chatIconOpen = document.getElementById('chat-icon-open');
+            const chatIconClose = document.getElementById('chat-icon-close');
             const chatInput = document.getElementById('chat-input');
             
             // Check global state
@@ -1295,15 +1300,31 @@
             window.chatOpen = !window.chatOpen;
             
             if (window.chatOpen) {
-                chatBox.classList.remove('scale-0', 'opacity-0');
-                chatBox.classList.add('scale-100', 'opacity-100');
-                chatBadge.classList.add('hidden');
-                chatToggleBtn.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
-                setTimeout(() => chatInput.focus(), 300);
+                // Open Chat
+                if (chatBox) {
+                    chatBox.classList.remove('scale-0', 'opacity-0');
+                    chatBox.classList.add('scale-100', 'opacity-100');
+                }
+                
+                if (chatBadge) chatBadge.classList.add('hidden');
+                
+                // Toggle Icons
+                if (chatIconOpen) chatIconOpen.classList.add('hidden');
+                if (chatIconClose) chatIconClose.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    if (chatInput) chatInput.focus();
+                }, 300);
             } else {
-                chatBox.classList.remove('scale-100', 'opacity-100');
-                chatBox.classList.add('scale-0', 'opacity-0');
-                chatToggleBtn.innerHTML = '<i class="fa-solid fa-comments text-white relative z-10"></i>';
+                // Close Chat
+                if (chatBox) {
+                    chatBox.classList.remove('scale-100', 'opacity-100');
+                    chatBox.classList.add('scale-0', 'opacity-0');
+                }
+                
+                // Toggle Icons
+                if (chatIconOpen) chatIconOpen.classList.remove('hidden');
+                if (chatIconClose) chatIconClose.classList.add('hidden');
             }
         }
 
@@ -1463,21 +1484,27 @@
                 musicHasAutoStarted = true;
             };
 
+            // TRY PLAY MUSIC FUNCTION
+            // Dipanggil saat interaksi "Tutup Chat" (baik via toggle atau minimize)
+            function tryPlayMusic() {
+                if (!musicHasAutoStarted && !isPlaying && music) {
+                    music.play().then(() => {
+                        isPlaying = true;
+                        musicDisc.classList.remove('vinyl-paused');
+                        musicIcon.classList.remove('fa-play');
+                        musicIcon.classList.add('fa-pause');
+                        musicHasAutoStarted = true;
+                    }).catch(err => console.log("Autoplay blocked/failed:", err));
+                }
+            }
+
             // Chat Toggle Button Logic (Auto play music on interaction)
             const chatToggleBtn = document.getElementById('chat-toggle');
-            if(chatToggleBtn) {
-                chatToggleBtn.addEventListener('click', () => {
-                    if (!musicHasAutoStarted && !isPlaying && music) {
-                        music.play().then(() => {
-                            isPlaying = true;
-                            musicDisc.classList.remove('vinyl-paused');
-                            musicIcon.classList.remove('fa-play');
-                            musicIcon.classList.add('fa-pause');
-                            musicHasAutoStarted = true;
-                        }).catch(err => console.log("Autoplay blocked/failed:", err));
-                    }
-                });
-            }
+            const chatMinimizeBtn = document.getElementById('chat-minimize');
+            
+            // Pasang event listener ke tombol toggle utama dan tombol minimize
+            if(chatToggleBtn) chatToggleBtn.addEventListener('click', tryPlayMusic);
+            if(chatMinimizeBtn) chatMinimizeBtn.addEventListener('click', tryPlayMusic);
 
             // Chat Input Enter Key
             const chatInput = document.getElementById('chat-input');
