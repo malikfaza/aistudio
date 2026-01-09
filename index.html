@@ -239,6 +239,26 @@
         .vinyl-paused {
             animation-play-state: paused;
         }
+        
+        /* Form Specific Styles */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(156, 163, 175, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            color: inherit;
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #00f0ff;
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+        }
+        .light .form-input {
+            background: #ffffff;
+            border-color: #d1d5db;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-neonCyan selection:text-black">
@@ -287,7 +307,7 @@
                     <a href="#masalah" class="hover:text-neonPurple dark:hover:text-white transition">Masalah</a>
                     <a href="#demo" class="hover:text-neonPurple dark:hover:text-white transition">Demo</a>
                     <a href="#fitur" class="hover:text-neonPurple dark:hover:text-white transition">Fitur</a>
-                    <a href="#harga" class="hover:text-neonPurple dark:hover:text-white transition">Harga</a>
+                    <a href="#harga" class="hover:text-neonPurple dark:hover:text-white transition">Formulir</a>
                 </div>
 
                 <!-- CTA Button (Desktop) -->
@@ -312,7 +332,7 @@
                 <a href="#masalah" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Masalah</a>
                 <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Demo</a>
                 <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Fitur</a>
-                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Harga</a>
+                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Formulir</a>
                 
                 <button onclick="toggleVideo(); toggleMobileMenu()" class="block w-full text-left text-gray-600 dark:text-gray-300 hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">
                     <i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube
@@ -353,6 +373,7 @@
             <!-- Hero Slider -->
             <div class="relative w-full max-w-lg mx-auto" data-aos="zoom-in">
                 <div class="absolute -inset-4 bg-gradient-to-r from-neonCyan to-neonPurple opacity-30 blur-2xl rounded-full"></div>
+                <!-- SLIDE EVENT HANDLER: Defined in script below -->
                 <div class="comparison-slider aspect-[4/5] glass-card p-2" onmousemove="slide(event)" ontouchmove="slide(event)">
                     <!-- HERO: AFTER -->
                     <img src="hero_after.png" 
@@ -641,7 +662,7 @@
     <section id="fitur" class="py-20 bg-gray-50 dark:bg-black/30 transition-colors duration-500">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Fitur Lengkap <span class="text-gradient">Mafaza Pro</span></h2>
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Fitur Lengkap <span class="text-gradient">Sulap Foto</span></h2>
                 <p class="text-gray-600 dark:text-gray-400">Semua yang Anda butuhkan dalam satu tools canggih.</p>
                 <div class="mt-4 inline-block bg-green-500/20 text-green-600 dark:text-green-400 px-4 py-1 rounded-full text-sm font-semibold border border-green-500/30">
                     <i class="fa-solid fa-check-double mr-2"></i> Gratis Update Fitur Baru!
@@ -658,23 +679,42 @@
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-object-group text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Gabung Foto</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Satukan beberapa foto jadi satu.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Photo Fusion</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gabungkan foto jadi karya unik.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-wand-magic-sparkles text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Edit Foto</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Enhance kualitas otomatis.</p>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-compress text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Miniature Effect</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Efek miniatur mainan 3D.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-expand text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Expand Image</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Perluas area foto yang terpotong.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-sliders text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Edit Manual</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kontrol penuh di tangan Anda.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Photo Editor</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Edit dan sesuaikan foto Anda.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-star-half-stroke text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Perbaiki Foto</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Restorasi foto lama/rusak.</p>
+                            <i class="fa-solid fa-face-smile-wink text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Face Swap</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ganti wajah di foto manapun.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-star text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Celeb Lookalike</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto bareng artis idola.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-eraser text-2xl mb-3 text-neonPurple"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">BG Remover</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Hapus background instan.</p>
                         </div>
                     </div>
                 </div>
@@ -687,23 +727,47 @@
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-box-open text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Produk</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Produk Saja & Produk + Model.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Pro Product Shot</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Product Only, Product + Model.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-shirt text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Fashion</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Katalog baju tanpa model fisik.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Fashion Studio</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto katalog fashion pro.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-mobile-screen text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Mockup Generator</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Preview di kemasan/HP.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-rectangle-ad text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Buat Banner</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain promosi instan.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Banner Creator</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain banner promosi.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-images text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Buat Carousel</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Konten swipeable siap posting.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Carousel Maker</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buat konten carousel instan.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-book-open text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Story Line</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Visualisasikan cerita Anda.</p>
+                        </div>
+                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-microphone-lines text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">AI Voice Over</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Isi suara konten otomatis.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-hand-holding-dollar text-2xl mb-3 text-red-500 dark:text-red-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Hand POV</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Produk di genggaman tangan.</p>
                         </div>
                     </div>
                 </div>
@@ -711,29 +775,41 @@
                 <!-- Group 3: Gaya Hidup -->
                 <div>
                     <h3 class="text-xl font-bold text-yellow-500 dark:text-yellow-400 mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-camera-retro"></i> Gaya Hidup & Model
+                        <i class="fa-solid fa-camera-retro"></i> Gaya Hidup
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Kamar Pas</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Virtual Try-On Baju.</p>
-                        </div>
                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-heart text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
                             <h4 class="font-bold text-gray-800 dark:text-white">Pre-Wedding</h4>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto romantis tanpa studio.</p>
                         </div>
+                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Fashion Fitting Room</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Coba baju virtual.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Face Retouch</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Perhalus wajah otomatis.</p>
+                        </div>
                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-person-rays text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Foto Model</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buat Model, Ubah Pose & Angle.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Model Generator</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Create Model, Pose, Angle.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-camera text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Fotografer AI</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Baby born, Kids, Umrah, Pas Foto.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Virtual Photographer</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kids, Umrah, Passport, Maternity.</p>
+                        </div>
+                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-scissors text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Virtual Hair Studio</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ganti gaya rambut & janggut.</p>
                         </div>
                     </div>
                 </div>
@@ -741,13 +817,13 @@
                 <!-- Group 4: Desain & Ilustrasi -->
                 <div>
                     <h3 class="text-xl font-bold text-green-500 dark:text-green-400 mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-pen-nib"></i> Desain & Ilustrasi
+                        <i class="fa-solid fa-palette"></i> Desain & Ilustrasi
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-couch text-2xl mb-3 text-green-500 dark:text-green-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Desain Rumah</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Interior & Eksterior.</p>
+                            <h4 class="font-bold text-gray-800 dark:text-white">Home Design</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain interior & eksterior.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
                             <i class="fa-solid fa-pencil text-2xl mb-3 text-green-500 dark:text-green-400"></i>
@@ -755,12 +831,13 @@
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ubah sketsa jadi nyata.</p>
                         </div>
                         <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-palette text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                            <i class="fa-solid fa-paint-brush text-2xl mb-3 text-green-500 dark:text-green-400"></i>
                             <h4 class="font-bold text-gray-800 dark:text-white">Art & Karikatur</h4>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gaya artistik unik.</p>
                         </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-crop-simple text-2xl mb-3 text-green-500 dark:text-green-400"></i>
+                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
+                            <i class="fa-solid fa-broom text-2xl mb-3 text-green-500 dark:text-green-400"></i>
                             <h4 class="font-bold text-gray-800 dark:text-white">Auto Rapi</h4>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rapikan objek otomatis.</p>
                         </div>
@@ -771,65 +848,202 @@
         </div>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- FORMULIR PEMESANAN Section -->
     <section id="harga" class="py-20 relative">
         <div class="blob bg-neonRed w-96 h-96 top-20 right-0 opacity-20"></div>
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Penawaran Eksklusif <span class="text-gradient-red">Terbatas!</span></h2>
-                <p class="text-gray-600 dark:text-gray-400">Lupakan biaya langganan. Ambil akses penuh hari ini.</p>
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Formulir <span class="text-gradient">Pemesanan</span></h2>
+                <p class="text-gray-600 dark:text-gray-400">Lengkapi data di bawah ini untuk mendapatkan akses Mafaza Pro.</p>
             </div>
-            <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-center">
-                <div class="glass-card p-8 order-2 lg:order-1 bg-white dark:bg-transparent">
-                    <h3 class="font-bold text-xl mb-6 text-gray-800 dark:text-gray-300">Perbandingan Biaya</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
-                            <span class="text-gray-600 dark:text-gray-400">Sewa Studio</span>
-                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 300.000</span>
+            
+            <div class="max-w-5xl mx-auto glass-card overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-white/10 shadow-2xl rounded-2xl">
+                <div class="grid lg:grid-cols-2">
+                    
+                    <!-- Left: Garansi & Info -->
+                    <div class="p-8 bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden flex flex-col justify-center">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neonCyan to-neonPurple"></div>
+                        <div class="absolute -right-10 -bottom-10 opacity-10">
+                            <i class="fa-solid fa-shield-halved text-9xl"></i>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
-                            <span class="text-gray-600 dark:text-gray-400">Fotografer</span>
-                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 250.000</span>
+                        
+                        <div class="mb-8">
+                            <div class="inline-block px-3 py-1 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 text-xs font-bold mb-4">
+                                <i class="fa-solid fa-star mr-1"></i> GARANSI KEPUASAN
+                            </div>
+                            <h3 class="text-3xl font-bold mb-4 leading-tight">Satu-satunya Tool AI, Sekali Bayar, Tanpa Batasan.</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                Makanya saya garansi Anda gak akan rugi beli <b>Mafaza Pro!</b> Fitur update terus dan akses seumur hidup.
+                            </p>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
-                            <span class="text-gray-600 dark:text-gray-400">Model</span>
-                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 200.000</span>
-                        </div>
-                        <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2">
-                            <span class="text-gray-600 dark:text-gray-400">Jasa Edit</span>
-                            <span class="text-red-500 dark:text-red-400 font-bold line-through">Rp 50.000/foto</span>
-                        </div>
-                        <div class="mt-6 p-4 bg-neonCyan/10 rounded-lg text-center border border-neonCyan/30">
-                            <p class="text-sm text-gray-700 dark:text-gray-300">Dengan Mafaza Pro, Anda hemat:</p>
-                            <p class="text-2xl font-bold text-neonCyan">JUTAAN RUPIAH!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card p-1 bg-gradient-to-b from-neonCyan to-neonPurple rounded-2xl order-1 lg:order-2 transform lg:scale-110 shadow-[0_0_50px_rgba(0,240,255,0.2)]">
-                    <div class="bg-gray-100 dark:bg-dark rounded-xl p-8 h-full relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl">BEST DEAL</div>
-                        <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Lisensi Personal</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Sekali bayar untuk selamanya.</p>
-                        <div class="mb-6">
-                            <span class="text-gray-500 line-through text-lg">Rp 299.000</span>
-                            <div class="flex items-end gap-2">
-                                <span class="text-5xl font-extrabold text-gray-900 dark:text-white">Rp 97.000</span>
+
+                        <!-- Badge Garansi -->
+                        <div class="bg-white/10 backdrop-blur border border-white/10 rounded-xl p-4 mb-6 relative">
+                            <div class="absolute -top-3 -right-3 bg-yellow-500 text-black font-bold w-12 h-12 rounded-full flex items-center justify-center text-xs shadow-lg transform rotate-12">
+                                100%
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-certificate text-3xl text-yellow-500"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Garansi 100% Puas</h4>
+                                    <p class="text-xs text-gray-300">Bisa bikin foto produk profesional & tanpa batas!</p>
+                                </div>
                             </div>
                         </div>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-700 dark:text-gray-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Akses 12+ Fitur Unggulan</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Unlimited Generate (Fair Usage)</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Gratis Update Fitur Baru</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-neonCyan"></i> Tutorial Lengkap</li>
+
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Lifetime Access (Sekali Bayar)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Full Support Admin</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Akses Semua Fitur AI</li>
                         </ul>
-                        <div class="space-y-3">
-                            <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block text-center w-full bg-gradient-to-r from-neonCyan to-neonPurple text-white font-bold py-4 rounded-lg hover:shadow-[0_0_20px_rgba(112,0,255,0.6)] transition transform hover:-translate-y-1">
-                                <i class="fa-solid fa-cart-shopping mr-2"></i> CHECKOUT AJA
-                            </a>
-                            <a href="https://wa.me/6285161141114?text=Halo%20Mafaza%20Pro%2C%20saya%20tertarik%20tanya-tanya%20dulu" target="_blank" class="block text-center w-full bg-transparent border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold py-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition">
-                                <i class="fa-brands fa-whatsapp mr-2"></i> MAU NEGO / TANYA
-                            </a>
+                    </div>
+
+                    <!-- Right: Form Input -->
+                    <div class="p-8 bg-gray-50 dark:bg-transparent">
+                        <div class="flex justify-between items-center mb-6 border-b border-gray-200 dark:border-white/10 pb-4">
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg">MAFAZA PRO <span class="text-neonCyan text-xs ml-1 px-2 py-0.5 bg-neonCyan/10 rounded-full">LIFETIME ACCESS</span></h3>
                         </div>
+
+                        <!-- NEW: COUNTDOWN & DISCOUNT -->
+                        <div class="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 p-4 rounded-xl text-center shadow-inner">
+                            <p class="text-xs text-red-600 dark:text-red-400 font-bold mb-2 uppercase tracking-wide flex items-center justify-center gap-1">
+                                <span class="animate-pulse">🔥 FLASH SALE BERAKHIR DALAM:</span>
+                            </p>
+                            <div id="flash-timer" class="text-2xl font-mono font-black text-red-600 dark:text-red-500 tracking-wider">
+                                00 : 00 : 00
+                            </div>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-2">Ambil sebelum harga kembali normal!</p>
+                        </div>
+
+                        <form id="orderForm" class="space-y-4" onsubmit="event.preventDefault(); checkoutWA();">
+                            <!-- Data Pemesan -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Data Pemesan</label>
+                                <div class="space-y-3">
+                                    <div class="relative">
+                                        <i class="fa-solid fa-user absolute left-3 top-3.5 text-gray-400 text-sm"></i>
+                                        <input type="text" id="nama" class="form-input pl-10" placeholder="Masukkan nama Anda" required>
+                                    </div>
+                                    <div class="relative">
+                                        <i class="fa-solid fa-envelope absolute left-3 top-3.5 text-gray-400 text-sm"></i>
+                                        <input type="email" id="email" class="form-input pl-10" placeholder="contoh@email.com" required>
+                                        <p class="text-[10px] text-gray-400 mt-1 ml-1">*Produk dikirim ke email anda</p>
+                                    </div>
+                                    <div class="relative">
+                                        <div class="absolute left-3 top-3.5 flex items-center gap-1 text-gray-400 text-sm font-bold border-r border-gray-600 pr-2 mr-2 h-5">
+                                            <span>+62</span>
+                                        </div>
+                                        <input type="tel" id="whatsapp" class="form-input pl-16" placeholder="812xxxxxx" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Metode Pembayaran</label>
+                                <div class="flex items-center gap-2 p-3 border border-gray-200 dark:border-white/10 rounded-lg bg-white dark:bg-white/5">
+                                    <i class="fa-solid fa-wallet text-gray-400 mr-2"></i>
+                                    <div class="flex gap-2 opacity-70 grayscale">
+                                        <!-- Mock Icons using fontawesome/text for simplicity -->
+                                        <span class="text-xs font-bold border px-1 rounded">BCA</span>
+                                        <span class="text-xs font-bold border px-1 rounded">QRIS</span>
+                                        <span class="text-xs font-bold border px-1 rounded">GoPay</span>
+                                    </div>
+                                    <span class="text-xs text-gray-500 ml-auto">& Lainnya</span>
+                                </div>
+                            </div>
+
+                            <!-- Bonus Section -->
+                            <div class="space-y-2">
+                                <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">🎁 Bonus Spesial (Promo Terbatas)</p>
+                                
+                                <!-- Bonus 1: Grup -->
+                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
+                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Grup Support Mafaza Pro</span>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                                            Komunitas, Info Update & Tutorial.
+                                        </p>
+                                        <div class="mt-1">
+                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
+                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 150.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bonus 2: Ebook Omset -->
+                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
+                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Ebook 4 Jurus Jitu Melejitkan Omset</span>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                                            Strategi bisnis online terbukti ampuh.
+                                        </p>
+                                        <div class="mt-1">
+                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
+                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 99.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bonus 3: Ebook WA Closing -->
+                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
+                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
+                                    <div>
+                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Ebook Teknik Follow Up & Closing WA</span>
+                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                                            Cara ubah chat jadi transferan.
+                                        </p>
+                                        <div class="mt-1">
+                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
+                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 79.000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Summary -->
+                            <div class="border-t border-dashed border-gray-300 dark:border-white/20 pt-4 mt-2">
+                                <div class="flex justify-between text-sm mb-1 text-gray-600 dark:text-gray-400">
+                                    <span>Harga Normal</span>
+                                    <span class="line-through text-red-500 decoration-2 decoration-red-600/50">Rp 300.000</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-1 text-gray-600 dark:text-gray-400">
+                                    <span>Mafaza Pro (Promo)</span>
+                                    <span>Rp 97.000</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-2 text-gray-600 dark:text-gray-400">
+                                    <span>Total Bonus (Ebook + Grup)</span>
+                                    <span class="text-green-500">Rp 0 (FREE)</span>
+                                </div>
+                                <div class="flex justify-between items-center text-lg font-bold text-gray-900 dark:text-white pt-2 border-t border-gray-200 dark:border-white/10 mt-2">
+                                    <span>Total Bayar</span>
+                                    <span class="text-neonCyan text-xl">Rp 97.000</span>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="space-y-3 pt-2">
+                                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-lg shadow-lg hover:shadow-green-500/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-xl"></i> BELI SEKARANG
+                                </button>
+                                
+                                <div class="relative flex py-1 items-center">
+                                    <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+                                    <span class="flex-shrink-0 mx-4 text-gray-400 text-xs">ATAU</span>
+                                    <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+                                </div>
+
+                                <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block w-full text-center bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 text-gray-700 dark:text-white font-semibold py-3 rounded-lg transition text-sm">
+                                    Langsung Checkout (Lynk.id) <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
+                                </a>
+                            </div>
+                            
+                            <p class="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Data Anda aman. Klik tombol di atas untuk terhubung ke Admin.
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -843,30 +1057,48 @@
             <div class="space-y-4">
                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Apa itu Mafaza Pro?</h4>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">1. Apakah Lifetime?</h4>
                         <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tools berbasis AI yang mengubah foto biasa menjadi hasil profesional dalam hitungan detik. Cocok untuk Seller, Affiliator, Creator, dan UMKM.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Ya, selama Gemini masih membuka aksesnya, maka Mafaza Pro juga bisa digunakan.</p>
                 </details>
                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Bisakah digunakan di HP?</h4>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">2. Dikirim Lewat Mana?</h4>
                         <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Ya, aplikasi ini berbentuk website (Web Builder) responsif, bisa diakses dari HP, Tablet, maupun Laptop.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Email, jadi pastikan ngetik email jangan typo/salah supaya setelah bayar langsung dapat produknya. Kalau salah ngetik, produknya terkirim manual dan itu butuh waktu lama 1x24 jam.</p>
                 </details>
                  <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
                     <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">Apakah ada biaya bulanan?</h4>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">3. Bisa Dijual Kembali?</h4>
                         <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
                     </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak! Anda cukup bayar sekali saja untuk lisensi personal dan mendapatkan update gratis.</p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak bisa. Produk ini hanya untuk penggunaan pribadi.</p>
+                </details>
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
+                    <summary class="flex items-center justify-between cursor-pointer">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">4. Apakah Bisa Refund?</h4>
+                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak bisa, karena Anda sudah mendapatkan akses termasuk update-updatenya. Membeli artinya SETUJU.</p>
+                </details>
+                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
+                    <summary class="flex items-center justify-between cursor-pointer">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">5. Saya Mau Request Fitur?</h4>
+                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Bisa, di member area ada form pengisian jika ingin meminta fitur baru.</p>
                 </details>
             </div>
         </div>
@@ -955,101 +1187,14 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-
-        // Sticky Navbar
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            const isDark = document.documentElement.classList.contains('dark');
-            
-            if (window.scrollY > 50) {
-                // Saat scroll
-                if (isDark) {
-                    navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
-                } else {
-                    navbar.classList.add('bg-white/80', 'backdrop-blur-md');
-                }
-                navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
-                navbar.classList.add('rounded-b-2xl');
-            } else {
-                // Saat di atas
-                navbar.classList.remove('bg-dark/80', 'bg-white/80', 'backdrop-blur-md', 'rounded-b-2xl');
-                navbar.classList.add('rounded-none', 'border-x-0', 'border-t-0');
-            }
-        });
-
-        // Toggle Theme Logic
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                themeIcon.style.transform = "rotate(180deg)";
-                // Reset navbar style for light mode if scrolled
-                if (window.scrollY > 50) {
-                     const navbar = document.getElementById('navbar');
-                     navbar.classList.remove('bg-dark/80');
-                     navbar.classList.add('bg-white/80');
-                }
-            } else {
-                html.classList.add('dark');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                themeIcon.style.transform = "rotate(0deg)";
-                // Reset navbar style for dark mode if scrolled
-                if (window.scrollY > 50) {
-                     const navbar = document.getElementById('navbar');
-                     navbar.classList.remove('bg-white/80');
-                     navbar.classList.add('bg-dark/80');
-                }
-            }
+        // Init AOS immediately if possible, or inside DOMContentLoaded
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true });
         }
 
-        // Music Logic
-        const music = document.getElementById('bg-music');
-        const musicDisc = document.getElementById('music-disc');
-        const musicIcon = document.getElementById('music-icon');
-        let isPlaying = false;
-        let musicHasAutoStarted = false; // Flag untuk memastikan hanya nyala sekali
+        // --- GLOBAL FUNCTIONS DEFINITIONS ---
+        // (Defined first to prevent ReferenceError)
 
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                musicDisc.classList.add('vinyl-paused');
-                musicIcon.classList.remove('fa-pause');
-                musicIcon.classList.add('fa-play');
-            } else {
-                music.play().catch(error => {
-                    console.log("Autoplay dicegah browser, perlu interaksi user.", error);
-                });
-                musicDisc.classList.remove('vinyl-paused');
-                musicIcon.classList.remove('fa-play');
-                musicIcon.classList.add('fa-pause');
-            }
-            isPlaying = !isPlaying;
-            musicHasAutoStarted = true; // Set true jika user manual klik, agar tidak bentrok
-        }
-
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-            
-            if (menu.classList.contains('hidden')) {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            }
-        }
-
-        // Slider Logic
         function slide(e) {
             const container = e.currentTarget;
             const resizeImage = container.querySelector('.resize-image');
@@ -1066,115 +1211,52 @@
             resizeImage.style.width = widthPercent + '%';
         }
 
-        // Chat Widget Logic
-        let chatOpen = false;
-        const chatBox = document.getElementById('chat-box');
-        const chatBadge = document.getElementById('chat-badge');
-        const chatToggleBtn = document.getElementById('chat-toggle');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-
-        // Add Listener untuk Music Auto Start saat klik Chat Button
-        chatToggleBtn.addEventListener('click', () => {
-             if (!musicHasAutoStarted && !isPlaying) {
-                music.play().then(() => {
-                    isPlaying = true;
-                    musicDisc.classList.remove('vinyl-paused');
-                    musicIcon.classList.remove('fa-play');
-                    musicIcon.classList.add('fa-pause');
-                    musicHasAutoStarted = true;
-                }).catch(err => console.log("Autoplay blocked/failed:", err));
-            }
-        });
-
-        function toggleChat() {
-            chatOpen = !chatOpen;
-            if (chatOpen) {
-                chatBox.classList.remove('scale-0', 'opacity-0');
-                chatBox.classList.add('scale-100', 'opacity-100');
-                chatBadge.classList.add('hidden');
-                chatToggleBtn.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
-                // Focus input after animation
-                setTimeout(() => chatInput.focus(), 300);
-            } else {
-                chatBox.classList.remove('scale-100', 'opacity-100');
-                chatBox.classList.add('scale-0', 'opacity-0');
-                chatToggleBtn.innerHTML = '<i class="fa-solid fa-comments text-white relative z-10"></i>';
-            }
-        }
-
-        // Auto open chat after delay
-        setTimeout(() => {
-            if (!chatOpen) {
-                toggleChat();
-            }
-        }, 3000);
-
-        // Send Message Logic
-        function sendMessage() {
-            const text = chatInput.value.trim();
-            if (!text) return;
-
-            // Add User Message
-            addMessage(text, 'user');
-            chatInput.value = '';
-
-            // Simulate Typing Delay
-            setTimeout(() => {
-                const lowerText = text.toLowerCase();
-                let response = "";
-
-                // Logic Chatbot
-                if (lowerText.includes('hai') || lowerText.includes('halo') || lowerText.includes('hi') || lowerText.includes('pagi') || lowerText.includes('siang') || lowerText.includes('malam')) {
-                    response = "Hai juga kak! 👋 Ada yang bisa kami bantu seputar Mafaza Pro?";
-                } 
-                else if (lowerText.includes('harga') || lowerText.includes('biaya') || lowerText.includes('bayar') || lowerText.includes('berapa')) {
-                    response = "Untuk harganya promo saat ini cuma **Rp 97.000** aja kak! Bayar sekali untuk akses selamanya (Lifetime).";
-                } 
-                else if (lowerText.includes('fitur') || lowerText.includes('bisa apa') || lowerText.includes('kegunaan') || lowerText.includes('menu')) {
-                    response = "Fiturnya banyak banget kak! 😱 Mulai dari ganti background, enhance foto, lighting otomatis, sampai ganti wajah model. Bisa lihat detailnya di halaman ini atau cek demo lengkapnya di YouTube ya!";
-                } 
-                else if (lowerText.includes('beli') || lowerText.includes('order') || lowerText.includes('pesan')) {
-                     response = "Siap kak! Bisa langsung klik tombol 'Ambil Sekarang' di atas atau klik link ini ya: <a href='http://lynk.id/malikfaza/4my6v4qyyo43/checkout' target='_blank' class='text-neonCyan underline font-bold'>Link Checkout</a>";
-                }
-                else {
-                    response = "Mohon maaf kami tidak mengerti maksud kakak 🙏. Silakan chat langsung ke developer untuk pertanyaan spesifik: <a href='https://wa.me/6285161141114' target='_blank' class='text-neonCyan underline'>WhatsApp Developer</a>";
-                }
-
-                addMessage(response, 'bot');
-            }, 800);
-        }
-
-        function addMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2';
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
             
-            if (sender === 'user') {
-                div.innerHTML = `
-                    <div class="bg-neonPurple text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[85%] shadow-lg animate-fade-in-up">
-                        ${text}
-                    </div>
-                `;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeIcon.style.transform = "rotate(180deg)";
+                if (window.scrollY > 50) {
+                     const navbar = document.getElementById('navbar');
+                     if(navbar) {
+                        navbar.classList.remove('bg-dark/80');
+                        navbar.classList.add('bg-white/80');
+                     }
+                }
             } else {
-                div.innerHTML = `
-                    <div class="bg-gray-100 dark:bg-white/10 p-3 rounded-r-xl rounded-bl-xl text-sm text-gray-800 dark:text-gray-200 max-w-[85%] border border-gray-200 dark:border-white/5 animate-fade-in-up">
-                        ${text}
-                    </div>
-                `;
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeIcon.style.transform = "rotate(0deg)";
+                if (window.scrollY > 50) {
+                     const navbar = document.getElementById('navbar');
+                     if(navbar) {
+                        navbar.classList.remove('bg-white/80');
+                        navbar.classList.add('bg-dark/80');
+                     }
+                }
             }
-            
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Enter Key Listener
-        chatInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+            
+            if (menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
             }
-        });
+        }
 
-        // Video Modal Logic
         function toggleVideo() {
             const modal = document.getElementById('video-modal');
             const modalContent = document.getElementById('modal-content');
@@ -1201,11 +1283,224 @@
             }
         }
 
-        // Close on backdrop click
-        document.getElementById('video-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleVideo();
+        function toggleChat() {
+            const chatBox = document.getElementById('chat-box');
+            const chatBadge = document.getElementById('chat-badge');
+            const chatToggleBtn = document.getElementById('chat-toggle');
+            const chatInput = document.getElementById('chat-input');
+            
+            // Check global state
+            if (typeof window.chatOpen === 'undefined') window.chatOpen = false;
+
+            window.chatOpen = !window.chatOpen;
+            
+            if (window.chatOpen) {
+                chatBox.classList.remove('scale-0', 'opacity-0');
+                chatBox.classList.add('scale-100', 'opacity-100');
+                chatBadge.classList.add('hidden');
+                chatToggleBtn.innerHTML = '<i class="fa-solid fa-xmark text-xl"></i>';
+                setTimeout(() => chatInput.focus(), 300);
+            } else {
+                chatBox.classList.remove('scale-100', 'opacity-100');
+                chatBox.classList.add('scale-0', 'opacity-0');
+                chatToggleBtn.innerHTML = '<i class="fa-solid fa-comments text-white relative z-10"></i>';
             }
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, 'user');
+            chatInput.value = '';
+
+            setTimeout(() => {
+                const lowerText = text.toLowerCase();
+                let response = "";
+
+                if (lowerText.includes('hai') || lowerText.includes('halo') || lowerText.includes('hi')) {
+                    response = "Hai juga kak! 👋 Ada yang bisa kami bantu seputar Mafaza Pro?";
+                } 
+                else if (lowerText.includes('harga') || lowerText.includes('biaya')) {
+                    response = "Untuk harganya promo saat ini cuma **Rp 97.000** aja kak! Bayar sekali untuk akses selamanya.";
+                } 
+                else if (lowerText.includes('fitur')) {
+                    response = "Fiturnya banyak banget kak! Mulai dari ganti background, enhance foto, lighting otomatis, sampai ganti wajah model.";
+                } 
+                else if (lowerText.includes('beli') || lowerText.includes('order')) {
+                     response = "Siap kak! Bisa langsung klik tombol 'Ambil Sekarang' di atas atau klik link ini ya: <a href='http://lynk.id/malikfaza/4my6v4qyyo43/checkout' target='_blank' class='text-neonCyan underline font-bold'>Link Checkout</a>";
+                }
+                else {
+                    response = "Mohon maaf kami tidak mengerti maksud kakak 🙏. Silakan chat langsung ke WA developer: <a href='https://wa.me/6285161141114' target='_blank' class='text-neonCyan underline'>WhatsApp Developer</a>";
+                }
+
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2';
+            
+            if (sender === 'user') {
+                div.innerHTML = `
+                    <div class="bg-neonPurple text-white p-3 rounded-l-xl rounded-br-xl text-sm max-w-[85%] shadow-lg">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="bg-gray-100 dark:bg-white/10 p-3 rounded-r-xl rounded-bl-xl text-sm text-gray-800 dark:text-gray-200 max-w-[85%] border border-gray-200 dark:border-white/5">
+                        ${text}
+                    </div>
+                `;
+            }
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // --- NEW FUNCTION: CHECKOUT VIA WA ---
+        function checkoutWA() {
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const wa = document.getElementById('whatsapp').value;
+            
+            // Nomor Admin
+            const adminWA = "6285161141114"; // Default number based on existing link
+
+            if (!nama || !email || !wa) {
+                alert("Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.");
+                return;
+            }
+
+            const message = `Halo Admin, saya ingin memesan *Mafaza Pro Lifetime (Rp 97.000)*.\n\n` +
+                `👤 Nama: ${nama}\n` +
+                `📧 Email: ${email}\n` +
+                `📱 WA: +62${wa}\n\n` +
+                `🎁 Bonus Spesial (Promo Terbatas):\n` +
+                `✅ Grup Support Mafaza Pro\n` +
+                `✅ Ebook 4 Jurus Jitu Omset Melejit\n` +
+                `✅ Ebook Teknik Follow Up & Closing WA\n\n` +
+                `Mohon info pembayaran QRIS/Transfer ya min. Terima kasih!`;
+
+            const waLink = `https://wa.me/${adminWA}?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
+        }
+
+        // --- FLASH SALE TIMER ---
+        function updateFlashSale() {
+            const now = new Date();
+            let target = new Date();
+            // Set target jam 11 malam (23:00) hari ini
+            target.setHours(23, 0, 0, 0);
+
+            // Jika sudah lewat jam 23:00, set target ke jam 23:00 besok
+            if (now > target) {
+                target.setDate(target.getDate() + 1);
+            }
+
+            const diff = target - now;
+            
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const el = document.getElementById('flash-timer');
+            if (el) {
+                el.innerText = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // --- DOM CONTENT LOADED LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Start Flash Sale Timer
+            setInterval(updateFlashSale, 1000);
+            updateFlashSale();
+
+            // Sticky Navbar
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                const isDark = document.documentElement.classList.contains('dark');
+                if(!navbar) return;
+
+                if (window.scrollY > 50) {
+                    if (isDark) {
+                        navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
+                    } else {
+                        navbar.classList.add('bg-white/80', 'backdrop-blur-md');
+                    }
+                    navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
+                    navbar.classList.add('rounded-b-2xl');
+                } else {
+                    navbar.classList.remove('bg-dark/80', 'bg-white/80', 'backdrop-blur-md', 'rounded-b-2xl');
+                    navbar.classList.add('rounded-none', 'border-x-0', 'border-t-0');
+                }
+            });
+
+            // Music Logic
+            const music = document.getElementById('bg-music');
+            const musicDisc = document.getElementById('music-disc');
+            const musicIcon = document.getElementById('music-icon');
+            let isPlaying = false;
+            let musicHasAutoStarted = false;
+
+            window.toggleMusic = function() { // Assign to window just in case
+                if (isPlaying) {
+                    music.pause();
+                    musicDisc.classList.add('vinyl-paused');
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-play');
+                } else {
+                    music.play().catch(error => console.log("Autoplay prevented:", error));
+                    musicDisc.classList.remove('vinyl-paused');
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                }
+                isPlaying = !isPlaying;
+                musicHasAutoStarted = true;
+            };
+
+            // Chat Toggle Button Logic (Auto play music on interaction)
+            const chatToggleBtn = document.getElementById('chat-toggle');
+            if(chatToggleBtn) {
+                chatToggleBtn.addEventListener('click', () => {
+                    if (!musicHasAutoStarted && !isPlaying && music) {
+                        music.play().then(() => {
+                            isPlaying = true;
+                            musicDisc.classList.remove('vinyl-paused');
+                            musicIcon.classList.remove('fa-play');
+                            musicIcon.classList.add('fa-pause');
+                            musicHasAutoStarted = true;
+                        }).catch(err => console.log("Autoplay blocked/failed:", err));
+                    }
+                });
+            }
+
+            // Chat Input Enter Key
+            const chatInput = document.getElementById('chat-input');
+            if(chatInput) {
+                chatInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') sendMessage();
+                });
+            }
+
+            // Close Video Modal on backdrop
+            const videoModal = document.getElementById('video-modal');
+            if(videoModal) {
+                videoModal.addEventListener('click', function(e) {
+                    if (e.target === this) toggleVideo();
+                });
+            }
+
+            // Auto Open Chat
+            setTimeout(() => {
+                if (typeof window.chatOpen === 'undefined' || !window.chatOpen) {
+                    toggleChat();
+                }
+            }, 3000);
         });
     </script>
 </body>
