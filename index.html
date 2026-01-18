@@ -1,44 +1,48 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth dark">
+<html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mafaza Pro - Upgrade Visual Digital Anda</title>
-    
+    <title>Mafaza Pro - Solusi Visual Profesional</title>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Outfit -->
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- AOS Animation CSS -->
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom Config -->
     <script>
         tailwind.config = {
-            darkMode: 'class', // Mengaktifkan mode dark berdasarkan class
             theme: {
                 extend: {
                     colors: {
-                        dark: '#000e1e',
-                        light: '#f3f4f6',
-                        neonCyan: '#00f0ff',
-                        neonPurple: '#7000ff',
-                        neonRed: '#ff0055',
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb', // Royal Blue
+                            700: '#1d4ed8',
+                            900: '#1e3a8a', // Deep Navy
+                            accent: '#0ea5e9', // Sky Blue
+                        },
+                        dark: '#0f172a',
                     },
                     fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     animation: {
-                        'loop-scroll': 'loop-scroll 25s linear infinite',
-                        'bounce-slow': 'bounce 3s infinite',
-                        'spin-slow': 'spin 8s linear infinite',
+                        'loop-scroll': 'loop-scroll 30s linear infinite',
                     },
                     keyframes: {
                         'loop-scroll': {
@@ -52,117 +56,69 @@
     </script>
 
     <style>
-        /* CSS Variables untuk Tema */
-        :root {
-            --bg-color: #f9fafb;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --glass-blur: 16px;
-            --blob-opacity: 0.15;
-        }
-
-        /* Override Variables saat Mode Gelap */
-        .dark {
-            --bg-color: #000e1e;
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-blur: 12px;
-            --blob-opacity: 0.4;
-        }
-
+        /* Base Styles */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            background-color: #f8fafc;
+            color: #334155;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: var(--bg-color);
+            background: #f1f5f9;
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #4b5563;
-            border-radius: 5px;
+            background: #cbd5e1;
+            border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #00f0ff;
-        }
-        
-        /* Chat Scrollbar */
-        .chat-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-scroll::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.05);
-        }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background: rgba(156, 163, 175, 0.5);
-            border-radius: 3px;
+            background: #94a3b8;
         }
 
-        /* Glowing Blobs */
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: var(--blob-opacity);
-            transition: opacity 0.5s ease;
-            animation: pulse 10s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: calc(var(--blob-opacity) - 0.1); }
-            100% { transform: scale(1.2); opacity: calc(var(--blob-opacity) + 0.1); }
-        }
-
-        /* Glass Card - Adaptive */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
+        /* Clean Card Styles */
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             transition: all 0.3s ease;
         }
 
-        /* Before After Slider Styling (Only for Hero) */
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border-color: #bfdbfe;
+        }
+
+        /* Comparison Slider */
+        .comparison-wrapper {
+            position: relative;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
         .comparison-slider {
             position: relative;
             width: 100%;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 16px;
             cursor: col-resize;
-            touch-action: none;
-            background: #111; 
+            background: #e2e8f0;
         }
+
         .comparison-slider img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            pointer-events: none; /* Prevent image dragging */
-        }
-        .comparison-slider img:after {
-            content: "Image Not Found: " attr(alt);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #222;
-            color: #888;
-            font-size: 10px;
-            text-align: center;
-            padding: 10px;
         }
 
         .resize-image {
@@ -172,269 +128,325 @@
             height: 100%;
             width: 50%;
             overflow: hidden;
-            border-right: 2px solid #00f0ff;
-            box-shadow: 2px 0 10px rgba(0,240,255, 0.5);
+            border-right: 3px solid #ffffff;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
             z-index: 10;
         }
-        .handle-lg {
-            width: 40px;
-            height: 40px;
-            right: -20px;
-        }
-        .handle-sm {
-            width: 24px;
-            height: 24px;
-            right: -12px;
-            font-size: 10px;
-        }
+
         .handle {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: #00f0ff;
-            color: #000;
+            background: white;
+            color: #2563eb;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 10px #00f0ff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             z-index: 20;
+            right: -22px;
         }
 
-        /* Text Gradients */
-        .text-gradient {
-            background: linear-gradient(to right, #00f0ff, #7000ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-gradient-red {
-            background: linear-gradient(to right, #ff0055, #ff9900);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .group:hover .animate-loop-scroll {
-            animation-play-state: paused;
-        }
-
-        /* Music & Theme Control Styles */
-        .control-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .control-btn:hover {
-            transform: scale(1.1);
-        }
-        /* Vinyl Disc Animation for Music */
+        /* Music Vinyl Animation */
         .vinyl-spin {
             animation: spin-slow 4s linear infinite;
         }
+
         .vinyl-paused {
             animation-play-state: paused;
         }
-        
-        /* Form Specific Styles */
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border: 1px solid rgba(156, 163, 175, 0.5);
-            background: rgba(255, 255, 255, 0.05);
-            color: inherit;
-            transition: all 0.3s;
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        .form-input:focus {
-            outline: none;
-            border-color: #00f0ff;
-            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+
+        /* FAQ Accordion */
+        details summary::-webkit-details-marker {
+            display: none;
         }
-        .light .form-input {
-            background: #ffffff;
-            border-color: #d1d5db;
+
+        details[open] summary~* {
+            animation: slideDown 0.3s ease-in-out;
+        }
+
+        details[open] summary .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-neonCyan selection:text-black">
+
+<body class="antialiased selection:bg-brand-100 selection:text-brand-900">
 
     <!-- Audio Element -->
     <audio id="bg-music" loop>
         <source src="https://cdn.jsdelivr.net/gh/malikfaza/portofoto@main/ralak.mp3" type="audio/mp3">
-        Browser Anda tidak mendukung elemen audio.
     </audio>
 
-    <!-- Floating Controls (Theme & Music) -->
-    <div class="fixed top-24 right-6 z-[60] flex flex-col gap-3">
-        
-        <!-- Theme Toggle -->
-        <button onclick="toggleTheme()" class="control-btn glass-card bg-white/10 dark:bg-black/20 hover:bg-white/20 shadow-lg text-yellow-500 dark:text-gray-300 border-yellow-500/30 dark:border-white/10" title="Ganti Mode">
-            <i id="theme-icon" class="fa-solid fa-moon text-lg transition-transform duration-500 rotate-0"></i>
-        </button>
-
-        <!-- Music Toggle -->
-        <button onclick="toggleMusic()" class="control-btn glass-card bg-white/10 dark:bg-black/20 hover:bg-white/20 shadow-lg border-neonCyan/30" title="Play/Pause Musik">
-            <!-- Vinyl Icon Background -->
-            <div id="music-disc" class="absolute inset-0 flex items-center justify-center vinyl-paused vinyl-spin opacity-30">
-                 <i class="fa-solid fa-compact-disc text-3xl text-neonCyan"></i>
+    <!-- Floating Music Control -->
+    <div class="fixed top-24 right-6 z-[60]">
+        <button onclick="toggleMusic()"
+            class="w-12 h-12 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform group relative overflow-hidden">
+            <div id="music-disc"
+                class="absolute inset-0 flex items-center justify-center vinyl-paused vinyl-spin opacity-20">
+                <i class="fa-solid fa-compact-disc text-3xl text-brand-600"></i>
             </div>
-            <!-- Status Icon -->
-            <i id="music-icon" class="fa-solid fa-play text-neonCyan text-sm z-10 ml-0.5"></i>
+            <i id="music-icon" class="fa-solid fa-play text-brand-600 text-sm z-10 ml-0.5"></i>
         </button>
     </div>
 
-    <!-- Background Effects -->
-    <div class="blob bg-neonPurple w-96 h-96 top-0 left-0"></div>
-    <div class="blob bg-neonCyan w-80 h-80 bottom-0 right-0"></div>
-    <div class="blob bg-neonRed w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-20"></div>
-
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 glass-card rounded-none border-t-0 border-x-0 border-b border-gray-200/20 dark:border-white/10" id="navbar">
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200"
+        id="navbar">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-3">
-                    <img src="https://i.ibb.co.com/QGQz1YD/STUDIO-AI5.png" alt="Mafaza Pro Logo" class="h-10 md:h-12 w-auto object-contain">
-                    <span class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Mafaza Pro</span>
+                    <img src="https://i.ibb.co.com/QGQz1YD/STUDIO-AI5.png" alt="Mafaza Pro Logo"
+                        class="h-10 w-auto object-contain hover:scale-105 transition duration-300">
+                    <span class="text-xl font-bold text-slate-800 tracking-tight">Mafaza<span
+                            class="text-brand-600">Pro</span></span>
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-600 dark:text-gray-300">
-                    <a href="#masalah" class="hover:text-neonPurple dark:hover:text-white transition">Masalah</a>
-                    <a href="#demo" class="hover:text-neonPurple dark:hover:text-white transition">Demo</a>
-                    <a href="#fitur" class="hover:text-neonPurple dark:hover:text-white transition">Fitur</a>
-                    <a href="#harga" class="hover:text-neonPurple dark:hover:text-white transition">Formulir</a>
+                <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                    <a href="#masalah" class="hover:text-brand-600 transition">Masalah</a>
+                    <a href="#demo" class="hover:text-brand-600 transition">Demo</a>
+                    <a href="#fitur" class="hover:text-brand-600 transition">Fitur</a>
+                    <a href="#faq" class="hover:text-brand-600 transition">FAQ</a>
+                    <a href="#harga" class="hover:text-brand-600 transition">Formulir</a>
                 </div>
 
-                <!-- CTA Button (Desktop) -->
+                <!-- CTA Button -->
                 <div class="hidden md:flex items-center gap-4">
-                      <!-- Button for Navbar Icon -->
-                      <button onclick="toggleVideo()" class="text-gray-500 dark:text-gray-300 hover:text-red-500 transition text-2xl focus:outline-none">
+                    <button onclick="toggleVideo()"
+                        class="text-slate-500 hover:text-red-500 transition text-2xl focus:outline-none"
+                        title="Tonton Video">
                         <i class="fa-brands fa-youtube"></i>
                     </button>
-                    <a href="#harga" class="bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-2 rounded-full font-bold shadow-[0_0_15px_rgba(112,0,255,0.5)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] transition transform hover:-translate-y-1">
-                        AMBIL SEKARANG
+                    <a href="#harga"
+                        class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-brand-500/20 transition transform hover:-translate-y-0.5 text-sm">
+                        Ambil Sekarang
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-800 dark:text-white text-2xl focus:outline-none">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-slate-800 text-2xl focus:outline-none">
                     <i id="menu-icon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
 
-            <!-- Mobile Dropdown Menu -->
-            <div id="mobile-menu" class="hidden md:hidden mt-4 flex-col space-y-4 pb-4 border-t border-gray-200/20 dark:border-white/10 pt-4">
-                <a href="#masalah" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Masalah</a>
-                <a href="#demo" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Demo</a>
-                <a href="#fitur" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Fitur</a>
-                <a href="#harga" onclick="toggleMobileMenu()" class="block text-gray-600 dark:text-gray-300 hover:text-neonPurple dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">Formulir</a>
-                
-                <button onclick="toggleVideo(); toggleMobileMenu()" class="block w-full text-left text-gray-600 dark:text-gray-300 hover:text-red-500 hover:bg-black/5 dark:hover:bg-white/5 p-2 rounded transition">
+            <!-- Mobile Dropdown -->
+            <div id="mobile-menu"
+                class="hidden md:hidden mt-4 bg-slate-50 rounded-xl p-4 border border-slate-200 shadow-xl absolute top-16 left-4 right-4 flex-col space-y-3">
+                <a href="#masalah" onclick="toggleMobileMenu()"
+                    class="block text-slate-600 hover:text-brand-600 font-medium p-2 hover:bg-white rounded transition">Masalah</a>
+                <a href="#demo" onclick="toggleMobileMenu()"
+                    class="block text-slate-600 hover:text-brand-600 font-medium p-2 hover:bg-white rounded transition">Demo</a>
+                <a href="#fitur" onclick="toggleMobileMenu()"
+                    class="block text-slate-600 hover:text-brand-600 font-medium p-2 hover:bg-white rounded transition">Fitur</a>
+                <a href="#faq" onclick="toggleMobileMenu()"
+                    class="block text-slate-600 hover:text-brand-600 font-medium p-2 hover:bg-white rounded transition">FAQ</a>
+                <button onclick="toggleVideo(); toggleMobileMenu()"
+                    class="block w-full text-left text-slate-600 hover:text-red-500 p-2 font-medium">
                     <i class="fa-brands fa-youtube mr-2"></i> Tutorial Youtube
                 </button>
-                <a href="#harga" onclick="toggleMobileMenu()" class="block text-center bg-gradient-to-r from-neonPurple to-neonCyan text-white px-6 py-3 rounded-full font-bold">
-                    AMBIL SEKARANG
+                <a href="#harga" onclick="toggleMobileMenu()"
+                    class="block text-center bg-brand-600 text-white px-6 py-3 rounded-lg font-bold">
+                    Ambil Sekarang
                 </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <!-- Text Content -->
-            <div data-aos="fade-right">
-                <div class="inline-block px-4 py-1 rounded-full border border-neonCyan/30 bg-neonCyan/10 text-neonCyan text-xs font-bold mb-6 tracking-wider">
-                    REVOLUSI ERA VISUAL
+    <header class="relative pt-36 pb-48 lg:pb-64 overflow-hidden bg-brand-900">
+        <!-- Background Patterns -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+        </div>
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-600 rounded-full blur-[100px] opacity-30 pointer-events-none translate-x-1/2 -translate-y-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-500 rounded-full blur-[80px] opacity-20 pointer-events-none -translate-x-1/3 translate-y-1/3">
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-800/50 border border-brand-700 text-brand-50 text-xs font-bold mb-6 tracking-wide backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> REVOLUSI VISUAL DIGITAL
                 </div>
-                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-gray-900 dark:text-white">
-                    Upgrade Visual Digital Anda dengan <span class="text-gradient">Mafaza Pro!</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-white tracking-tight">
+                    Upgrade Visual Brand Anda<br>
+                    <span class="text-brand-400">Tanpa Mahal, Tanpa Ribet.</span>
                 </h1>
-                <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed border-l-4 border-neonPurple pl-4">
-                    Hemat Ratusan Ribu, Dapatkan Foto Profesional dalam Hitungan Detik! 
-                    Jangan biarkan foto seadanya merusak personal brand Anda.
+                <p class="text-lg text-brand-50 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                    Hemat jutaan rupiah untuk foto studio. Dapatkan foto profesional dalam hitungan detik menggunakan
+                    teknologi AI tercanggih dari Mafaza Pro.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#harga" class="px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-dark font-bold rounded-lg hover:bg-neonCyan dark:hover:bg-neonCyan hover:text-white transition flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-cart-shopping"></i> AMBIL SEKARANG
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#harga"
+                        class="px-8 py-4 bg-white text-brand-900 font-bold rounded-lg hover:bg-brand-50 hover:shadow-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Ambil Akses Lifetime
                     </a>
-                    <!-- Button for Hero -->
-                    <button onclick="toggleVideo()" class="px-8 py-4 border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white hover:bg-red-600/10 hover:border-red-500/50 hover:text-red-500 rounded-lg font-semibold flex items-center justify-center gap-2 transition backdrop-blur-sm">
-                        <i class="fa-brands fa-youtube text-red-500"></i> LIHAT DEMO VIDEO
+                    <button onclick="toggleVideo()"
+                        class="px-8 py-4 bg-brand-800/50 backdrop-blur border border-brand-700 text-white hover:bg-brand-800 rounded-lg font-semibold flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-play text-brand-400"></i> Lihat Demo
                     </button>
                 </div>
             </div>
+        </div>
 
-            <!-- Hero Slider -->
-            <div class="relative w-full max-w-lg mx-auto" data-aos="zoom-in">
-                <div class="absolute -inset-4 bg-gradient-to-r from-neonCyan to-neonPurple opacity-30 blur-2xl rounded-full"></div>
-                <!-- SLIDE EVENT HANDLER: Defined in script below -->
-                <div class="comparison-slider aspect-[4/5] glass-card p-2" onmousemove="slide(event)" ontouchmove="slide(event)">
+        <!-- Curved Divider -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-0">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[120px]" data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+                    class="fill-slate-50"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Floating Slider Section -->
+    <div class="relative -mt-32 md:-mt-48 mb-20 z-20 px-6">
+        <div class="container mx-auto max-w-4xl" data-aos="fade-up" data-aos-delay="100">
+            <!-- Glass Overlay behind slider -->
+            <div class="comparison-wrapper">
+                <div class="comparison-slider aspect-[16/9] md:aspect-[21/9]" onmousemove="slide(event)"
+                    ontouchmove="slide(event)">
                     <!-- HERO: AFTER -->
-                    <img src="hero_after.png" 
-                         onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1000&auto=format&fit=crop'" 
-                         alt="Gambar 1 Hero After" class="rounded-xl">
-                    <div class="absolute top-4 right-4 bg-green-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded text-white">AFTER</div>
+                    <img src="hero_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1200&auto=format&fit=crop'"
+                        alt="Hero After">
+                    <div
+                        class="absolute top-4 right-4 bg-brand-600 text-xs font-bold px-3 py-1 rounded text-white shadow-md">
+                        AFTER (MAFAZA PRO)</div>
 
-                    <div class="resize-image rounded-l-xl">
+                    <div class="resize-image rounded-l-lg bg-white">
                         <!-- HERO: BEFORE -->
-                        <img src="hero_before.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Gambar 1 Hero Before" class="rounded-l-xl">
-                        <div class="absolute top-4 left-4 bg-red-500/80 backdrop-blur text-xs font-bold px-3 py-1 rounded text-white">BEFORE</div>
-                        <div class="handle handle-lg">
+                        <img src="hero_before.png"
+                            onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop'"
+                            alt="Hero Before">
+                        <div
+                            class="absolute top-4 left-4 bg-slate-800 text-xs font-bold px-3 py-1 rounded text-white shadow-md">
+                            BEFORE</div>
+                        <div class="handle">
                             <i class="fa-solid fa-arrows-left-right"></i>
                         </div>
                     </div>
                 </div>
-                <p class="text-center text-sm text-gray-500 mt-4 italic"><i class="fa-solid fa-hand-pointer animate-bounce"></i> Geser untuk melihat keajaiban</p>
+            </div>
+            <p class="text-center text-sm text-slate-500 mt-4 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-hand-pointer animate-bounce text-brand-600"></i> Geser garis putih untuk melihat
+                perbandingan
+            </p>
+        </div>
+    </div>
+
+    <!-- Gallery Looping (Full Color) -->
+    <section class="py-10 bg-white border-y border-slate-200 overflow-hidden">
+        <div class="flex overflow-hidden group space-x-6">
+            <div class="flex space-x-6 animate-loop-scroll flex-none pr-6">
+                <img src="gallery1.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery2.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery3.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery4.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery5.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery6.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery7.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+            </div>
+            <div class="flex space-x-6 animate-loop-scroll flex-none pr-6" aria-hidden="true">
+                <img src="gallery1.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery2.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery3.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery4.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery5.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery6.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
+                <img src="gallery7.png"
+                    onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'"
+                    class="h-32 w-auto rounded-lg shadow-sm hover:shadow-lg hover:scale-105 transition duration-300">
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Pain Points Section -->
-    <section id="masalah" class="py-20 bg-gray-50 dark:bg-dark relative transition-colors duration-500">
+    <!-- Pain Points -->
+    <section id="masalah" class="py-20 bg-slate-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Kenapa Brand Anda <span class="text-neonRed">Stuck?</span></h2>
-                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Masalah visual seringkali menjadi penghalang utama. Berikut dampaknya:</p>
+                <h2 class="text-3xl font-bold mb-4 text-slate-900">Kenapa Brand Anda Sulit <span
+                        class="text-brand-600">Berkembang?</span></h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-lg">Visual adalah kunci. Jika foto produk atau personal
+                    branding Anda buruk, audiens akan lewat begitu saja.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,0,85,0.4)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-red-500/20">
-                        📊
+                <div class="feature-card p-8 group bg-white" data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="w-16 h-16 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-chart-simple"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-red-500 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300">TIDAK KONSISTEN</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
+                    <h3 class="text-xl font-bold mb-3 text-slate-900">Visual Tidak Konsisten</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
                         Gaya postingan yang berbeda-beda membuat tampilan media sosial terlihat amatir dan berantakan.
                     </p>
                 </div>
                 <!-- Card 2 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-yellow-500/20">
-                        📷
+                <div class="feature-card p-8 group bg-white" data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="w-16 h-16 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-cloud-sun"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-yellow-500 dark:text-yellow-400 group-hover:text-yellow-600 dark:group-hover:text-yellow-300">PENCAHAYAAN BURUK</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
-                        Foto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak profesional.
+                    <h3 class="text-xl font-bold mb-3 text-slate-900">Pencahayaan Buruk</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Foto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak
+                        profesional.
                     </p>
                 </div>
                 <!-- Card 3 -->
-                <div class="glass-card p-8 transition duration-300 group hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] border border-gray-200 dark:border-neonCyan bg-white dark:bg-white/10" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition group-hover:bg-gray-500/20">
-                        😑
+                <div class="feature-card p-8 group bg-white" data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="w-16 h-16 rounded-full bg-blue-50 text-brand-500 flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-hourglass-half"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">EDIT RUMIT</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white">
+                    <h3 class="text-xl font-bold mb-3 text-slate-900">Edit Rumit & Lama</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
                         Berjam-jam terbuang di aplikasi kompleks hanya untuk hasil yang biasa-biasa saja. Buang waktu!
                     </p>
                 </div>
@@ -442,939 +454,439 @@
         </div>
     </section>
 
-    <!-- 8 Before After Grid (CLICK EDITION) -->
-    <section id="demo" class="py-20 bg-gray-100/50 dark:bg-black/50 transition-colors duration-500">
+    <!-- Demo Grid -->
+    <section id="demo" class="py-20 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">Bukti <span class="text-neonCyan">Kecanggihan AI</span></h2>
-            <p class="text-gray-600 dark:text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-                <i class="fa-solid fa-hand-pointer text-neonCyan animate-bounce"></i> 
-                Klik pada gambar untuk melihat kondisi <b>Original (Before)</b>. Klik lagi untuk kembali.
-            </p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                
-                <!-- DEMO 1: Portrait -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo1_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <!-- Image Before: Toggled by active class -->
-                        <img src="demo1_before.jpg" 
-                             onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <!-- Badges: Toggled by active class -->
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">HD</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">ORIGINAL</div>
-                        
-                        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] text-white opacity-60 group-[.active]:opacity-0 transition-opacity duration-300 whitespace-nowrap">
-                            <i class="fa-solid fa-hand-pointer mr-1"></i> Tap to See
-                        </div>
-                    </div>
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div class="max-w-xl">
+                    <span class="text-brand-600 font-bold tracking-wider text-xs uppercase mb-2 block">Live Demo
+                        Preview</span>
+                    <h2 class="text-3xl font-bold text-slate-800">Hasil Nyata dalam <span
+                            class="text-brand-600">Hitungan Detik</span></h2>
                 </div>
-
-                <!-- DEMO 2: Product -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo2_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-
-                        <img src="demo2_before.jpg" 
-                             onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">PRO</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">RAW</div>
-                    </div>
+                <div class="mt-4 md:mt-0 text-slate-500 text-sm">
+                    <i class="fa-solid fa-circle-info text-brand-500 mr-2"></i> Klik gambar untuk melihat versi Original
+                    (Before)
                 </div>
+            </div>
 
-                <!-- DEMO 3: Restore -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo3_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1548544149-4835e62ee5b3?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo3_before.jfif"  
-                             onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">COLOR</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">OLD</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- DEMO 1 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo1_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo1_before.jpg"
+                        onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <p class="text-white text-xs font-bold text-center">Tap to Toggle</p>
                     </div>
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        AFTER</div>
                 </div>
-
-                <!-- DEMO 4: Room -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo4_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo4_before.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">DESIGN</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">EMPTY</div>
-                    </div>
+                <!-- DEMO 2 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo2_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo2_before.jpg"
+                        onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        PRODUCT</div>
                 </div>
-
-                <!-- DEMO 5: Model -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo5_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo5_before.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">FOOD</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">FOOD</div>
-                    </div>
+                <!-- DEMO 3 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo3_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1548544149-4835e62ee5b3?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo3_before.jfif"
+                        onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        RESTORE</div>
                 </div>
-
-                <!-- DEMO 6: Landscape -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo6_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo6_before.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">MOCKUP</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">ASLI</div>
-                    </div>
+                <!-- DEMO 4 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo4_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo4_before.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        INTERIOR</div>
                 </div>
-
-                <!-- DEMO 7: Food -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo7_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo7_before.jpg" 
-                             onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">AFTER</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">BEFORE</div>
-                    </div>
+                <!-- DEMO 5 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo5_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo5_before.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        FASHION</div>
                 </div>
-
-                <!-- DEMO 8: Car -->
-                <div class="group relative aspect-[3/4] glass-card p-1 overflow-hidden rounded-xl cursor-pointer" onclick="this.classList.toggle('active')">
-                    <div class="relative w-full h-full rounded-lg overflow-hidden">
-                        <img src="demo8_after.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="After" class="w-full h-full object-cover">
-                        
-                        <img src="demo8_before.png" 
-                             onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1000&auto=format&fit=crop'" 
-                             alt="Before" class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
-                        
-                        <div class="absolute top-2 right-2 bg-green-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg group-[.active]:opacity-0 transition-opacity duration-300">AFTER</div>
-                        <div class="absolute top-2 left-2 bg-red-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">BEFORE</div>
-                    </div>
+                <!-- DEMO 6 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo6_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo6_before.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        MOCKUP</div>
                 </div>
-
+                <!-- DEMO 7 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo7_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo7_before.jpg"
+                        onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        FOOD</div>
+                </div>
+                <!-- DEMO 8 -->
+                <div class="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                    onclick="this.classList.toggle('active')">
+                    <img src="demo8_after.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1503376763036-066120622c74?q=80&w=600&auto=format&fit=crop'"
+                        class="w-full h-full object-cover">
+                    <img src="demo8_before.png"
+                        onerror="this.src='https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=600&auto=format&fit=crop'"
+                        class="absolute inset-0 w-full h-full object-cover opacity-0 group-[.active]:opacity-100 transition-opacity duration-300">
+                    <div
+                        class="absolute top-3 right-3 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow group-[.active]:bg-slate-700">
+                        AUTOMOTIVE</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Looping Images Gallery -->
-    <section class="py-12 bg-gray-50 dark:bg-dark overflow-hidden relative border-y border-gray-200 dark:border-white/5 transition-colors duration-500">
-        <div class="container mx-auto px-6 mb-6">
-            <h2 class="text-xl font-bold text-gray-600 dark:text-gray-400">Galeri Hasil Generate <span class="text-neonPurple text-sm ml-2 animate-pulse">● Live Preview</span></h2>
-        </div>
-        <div class="flex overflow-hidden group space-x-4">
-            <!-- Set 1 (10 Images) -->
-            <div class="flex space-x-4 animate-loop-scroll flex-none pr-4">
-                <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-            </div>
-            <!-- Set 2 (Duplicate for Loop) -->
-            <div class="flex space-x-4 animate-loop-scroll flex-none pr-4" aria-hidden="true">
-                 <img src="gallery1.png" onerror="this.src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 1" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery2.png" onerror="this.src='https://images.unsplash.com/photo-1529139574466-a302d2d3f524?q=80&w=300&auto=format&fit=crop'" alt="Galeri 2" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery3.png" onerror="this.src='https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=300&auto=format&fit=crop'" alt="Galeri 3" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery4.png" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 4" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery5.png" onerror="this.src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=300&auto=format&fit=crop'" alt="Galeri 5" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery6.png" onerror="this.src='https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=300&auto=format&fit=crop'" alt="Galeri 6" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery7.png" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop'" alt="Galeri 7" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery8.png" onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop'" alt="Galeri 8" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery9.png" onerror="this.src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop'" alt="Galeri 9" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-                <img src="gallery10.png" onerror="this.src='https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?q=80&w=300&auto=format&fit=crop'" alt="Galeri 10" class="w-[150px] h-[150px] md:w-[200px] md:h-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-gray-300 dark:border-white/10">
-            </div>
-        </div>
-    </section>
+    <!-- Features Section -->
+    <section id="fitur" class="py-20 bg-slate-50 relative overflow-hidden">
+        <!-- Abstract Shapes -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-100 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-100 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/3"></div>
 
-    <!-- Solution Section -->
-    <section id="solusi" class="py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-neonPurple/10"></div>
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
-                <!-- GAMBAR 2: INTERFACE -->
-                <img src="interface_preview.jpg" onerror="this.src='https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=1000&auto=format&fit=crop'" alt="Gambar 2 Interface Mafaza Pro" class="rounded-2xl shadow-[0_0_30px_rgba(112,0,255,0.3)] border border-white/10">
-            </div>
-            <div data-aos="fade-left">
-                <h2 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">✅ Solusi Cerdas: <span class="text-neonCyan">Mafaza Pro</span></h2>
-                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    Ini bukan sekadar editor biasa. Ini adalah jalan pintas untuk menghemat waktu, biaya, dan energi. Semua kendala lighting, editing, atau gaya pose dapat diatasi hanya dengan satu kali klik.
-                </p>
-                <ul class="space-y-4 mb-8 text-gray-700 dark:text-gray-200">
-                    <li class="flex items-center gap-3">
-                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
-                        <span>Hasil sekelas Studio Profesional</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
-                        <span>Tanpa kamera mahal & lighting ribet</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <i class="fa-solid fa-check-circle text-neonCyan"></i>
-                        <span>Cukup Upload, Pilih Gaya, Generate!</span>
-                    </li>
-                </ul>
-                <a href="#harga" class="inline-block px-8 py-3 bg-neonPurple hover:bg-purple-600 rounded-lg font-bold text-white transition shadow-lg shadow-purple-900/50">
-                    MAU PROMO KHUSUS
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section (Grouped) -->
-    <section id="fitur" class="py-20 bg-gray-50 dark:bg-black/30 transition-colors duration-500">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Fitur Lengkap <span class="text-gradient">Mafaza Pro</span></h2>
-                <p class="text-gray-600 dark:text-gray-400">Semua yang Anda butuhkan dalam satu tools canggih.</p>
-                <div class="mt-4 inline-block bg-green-500/20 text-green-600 dark:text-green-400 px-4 py-1 rounded-full text-sm font-semibold border border-green-500/30">
-                    <i class="fa-solid fa-check-double mr-2"></i> Gratis Update Fitur Baru!
-                </div>
+                <span class="text-brand-600 font-bold tracking-wider text-xs uppercase bg-brand-100 px-3 py-1 rounded-full">All-In-One Solution</span>
+                <h2 class="text-3xl md:text-5xl font-bold mt-4 text-slate-900">Fitur Lengkap <span class="text-brand-600">Mafaza Pro</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Satu tools untuk semua kebutuhan visual kreatif Anda. Terus diupdate, tanpa biaya tambahan.</p>
             </div>
 
             <div class="space-y-12">
-                
-                <!-- Group 1: Edit & Gabung -->
+                <!-- Group 1 -->
                 <div>
-                    <h3 class="text-xl font-bold text-neonCyan mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group"></i> Edit & Gabung
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-layer-group text-brand-500"></i> Edit & Gabung
                     </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-object-group text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Photo Fusion</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gabungkan foto jadi karya unik.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-object-group text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Photo Fusion</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-compress text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Miniature Effect</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Efek miniatur mainan 3D.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300 relative">
+                            <span class="absolute top-2 right-2 text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">NEW</span>
+                            <i class="fa-solid fa-compress text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Miniature Effect</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-expand text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Expand Image</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Perluas area foto yang terpotong.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-expand text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Expand Image</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-sliders text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Photo Editor</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Edit dan sesuaikan foto Anda.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-face-smile-wink text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Face Swap</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ganti wajah di foto manapun.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-star text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Celeb Lookalike</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto bareng artis idola.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-neonCyan/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-eraser text-2xl mb-3 text-neonPurple"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">BG Remover</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Hapus background instan.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-eraser text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">BG Remover</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- Group 2: Produk & Promosi -->
+                <!-- Group 2 -->
                 <div>
-                    <h3 class="text-xl font-bold text-neonRed mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-bullhorn"></i> Produk & Promosi
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-bullhorn text-brand-500"></i> Produk & Bisnis
                     </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-box-open text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Pro Product Shot</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Product Only, Product + Model.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-box-open text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Pro Product Shot</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-shirt text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Fashion Studio</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto katalog fashion pro.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-shirt text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Fashion Studio</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-mobile-screen text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Mockup Generator</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Preview di kemasan/HP.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300 relative">
+                            <span class="absolute top-2 right-2 text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">NEW</span>
+                            <i class="fa-solid fa-mobile-screen text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Mockup Generator</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-rectangle-ad text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Banner Creator</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain banner promosi.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-rectangle-ad text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Banner Creator</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-images text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Carousel Maker</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Buat konten carousel instan.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300 relative">
+                            <span class="absolute top-2 right-2 text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">NEW</span>
+                            <i class="fa-solid fa-microphone-lines text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">AI Voice Over</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-book-open text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Story Line</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Visualisasikan cerita Anda.</p>
-                        </div>
-                         <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-microphone-lines text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">AI Voice Over</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Isi suara konten otomatis.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-neonRed/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-hand-holding-dollar text-2xl mb-3 text-red-500 dark:text-red-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Hand POV</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Produk di genggaman tangan.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300 relative">
+                            <span class="absolute top-2 right-2 text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">NEW</span>
+                            <i class="fa-solid fa-hand-holding-dollar text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Hand POV</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- Group 3: Gaya Hidup -->
+                <!-- Group 3 -->
                 <div>
-                    <h3 class="text-xl font-bold text-yellow-500 dark:text-yellow-400 mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-camera-retro"></i> Gaya Hidup
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 flex items-center gap-2 border-b border-slate-200 pb-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-500"></i> Gaya Hidup & Seni
                     </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-heart text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Pre-Wedding</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Foto romantis tanpa studio.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-camera text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Virtual Photographer</h4>
                         </div>
-                         <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-person-booth text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Fashion Fitting Room</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Coba baju virtual.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-couch text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Home Design</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 relative overflow-hidden bg-white dark:bg-transparent">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-wand-magic-sparkles text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Face Retouch</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Perhalus wajah otomatis.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300 relative">
+                            <span class="absolute top-2 right-2 text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">NEW</span>
+                            <i class="fa-solid fa-scissors text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Virtual Hair Studio</h4>
                         </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-person-rays text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Model Generator</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Create Model, Pose, Angle.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-camera text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Virtual Photographer</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kids, Umrah, Passport, Maternity.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-yellow-400/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-scissors text-2xl mb-3 text-yellow-500 dark:text-yellow-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Virtual Hair Studio</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ganti gaya rambut & janggut.</p>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-lg transition duration-300">
+                            <i class="fa-solid fa-paint-brush text-xl mb-3 text-brand-600"></i>
+                            <h4 class="font-bold text-slate-900 text-sm">Art & Karikatur</h4>
                         </div>
                     </div>
                 </div>
-
-                <!-- Group 4: Desain & Ilustrasi -->
-                <div>
-                    <h3 class="text-xl font-bold text-green-500 dark:text-green-400 mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-palette"></i> Desain & Ilustrasi
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-couch text-2xl mb-3 text-green-500 dark:text-green-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Home Design</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Desain interior & eksterior.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-pencil text-2xl mb-3 text-green-500 dark:text-green-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Sketsa Gambar</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Ubah sketsa jadi nyata.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent">
-                            <i class="fa-solid fa-paint-brush text-2xl mb-3 text-green-500 dark:text-green-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Art & Karikatur</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gaya artistik unik.</p>
-                        </div>
-                        <div class="glass-card p-5 hover:border-green-400/50 transition duration-300 bg-white dark:bg-transparent relative overflow-hidden">
-                            <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] px-2 py-0.5 font-bold">NEW</div>
-                            <i class="fa-solid fa-broom text-2xl mb-3 text-green-500 dark:text-green-400"></i>
-                            <h4 class="font-bold text-gray-800 dark:text-white">Auto Rapi</h4>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Rapikan objek otomatis.</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- FORMULIR PEMESANAN Section -->
-    <section id="harga" class="py-20 relative">
-        <div class="blob bg-neonRed w-96 h-96 top-20 right-0 opacity-20"></div>
+    <!-- FAQ Section (NEW) -->
+    <section id="faq" class="py-20 bg-white border-t border-slate-100">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-10">
-                <h2 class="text-4xl font-bold mb-2 text-gray-900 dark:text-white">Formulir <span class="text-gradient">Pemesanan</span></h2>
-                <p class="text-gray-600 dark:text-gray-400">Lengkapi data di bawah ini untuk mendapatkan akses Mafaza Pro.</p>
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-brand-600 font-bold tracking-wider text-xs uppercase bg-brand-50 px-3 py-1 rounded-full">Pusat Bantuan</span>
+                <h2 class="text-3xl font-bold mt-4 text-slate-900">Pertanyaan Umum <span class="text-brand-600">(FAQ)</span></h2>
+                <p class="text-slate-500 mt-2 max-w-xl mx-auto">Jawaban untuk keraguan yang mungkin Anda miliki sebelum membeli.</p>
             </div>
-            
-            <div class="max-w-5xl mx-auto glass-card overflow-hidden bg-white dark:bg-dark border border-gray-200 dark:border-white/10 shadow-2xl rounded-2xl">
-                <div class="grid lg:grid-cols-2">
-                    
-                    <!-- Left: Garansi & Info -->
-                    <div class="p-8 bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden flex flex-col justify-center">
-                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neonCyan to-neonPurple"></div>
-                        <div class="absolute -right-10 -bottom-10 opacity-10">
-                            <i class="fa-solid fa-shield-halved text-9xl"></i>
-                        </div>
-                        
-                        <div class="mb-8">
-                            <div class="inline-block px-3 py-1 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 text-xs font-bold mb-4">
-                                <i class="fa-solid fa-star mr-1"></i> GARANSI KEPUASAN
-                            </div>
-                            <h3 class="text-3xl font-bold mb-4 leading-tight">Satu-satunya Tool AI, Sekali Bayar, Tanpa Batasan.</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                                Makanya saya garansi Anda gak akan rugi beli <b>Mafaza Pro!</b> Fitur update terus dan akses seumur hidup.
-                            </p>
-                        </div>
 
-                        <!-- Badge Garansi -->
-                        <div class="bg-white/10 backdrop-blur border border-white/10 rounded-xl p-4 mb-6 relative">
-                            <div class="absolute -top-3 -right-3 bg-yellow-500 text-black font-bold w-12 h-12 rounded-full flex items-center justify-center text-xs shadow-lg transform rotate-12">
-                                100%
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-certificate text-3xl text-yellow-500"></i>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm">Garansi 100% Puas</h4>
-                                    <p class="text-xs text-gray-300">Bisa bikin foto produk profesional & tanpa batas!</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Lifetime Access (Sekali Bayar)</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Full Support Admin</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-400"></i> Akses Semua Fitur AI</li>
-                        </ul>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- Item 1 -->
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 open:bg-white open:border-brand-200 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <summary class="flex justify-between items-center cursor-pointer p-5 font-bold text-slate-800 select-none">
+                        <span>Apakah ini aplikasi atau website?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-500 transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Mafaza Pro berbasis <strong>Web Tools (Website)</strong>. Jadi Anda tidak perlu download atau install aplikasi berat di HP/Laptop. Cukup login dan langsung pakai di browser (Chrome, Safari, dll).
                     </div>
+                </details>
 
-                    <!-- Right: Form Input -->
-                    <div class="p-8 bg-gray-50 dark:bg-transparent">
-                        <div class="flex justify-between items-center mb-6 border-b border-gray-200 dark:border-white/10 pb-4">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg">MAFAZA PRO <span class="text-neonCyan text-xs ml-1 px-2 py-0.5 bg-neonCyan/10 rounded-full">LIFETIME ACCESS</span></h3>
-                        </div>
-
-                        <!-- NEW: COUNTDOWN & DISCOUNT -->
-                        <div class="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 p-4 rounded-xl text-center shadow-inner">
-                            <p class="text-xs text-red-600 dark:text-red-400 font-bold mb-2 uppercase tracking-wide flex items-center justify-center gap-1">
-                                <span class="animate-pulse">🔥 FLASH SALE BERAKHIR DALAM:</span>
-                            </p>
-                            <div id="flash-timer" class="text-2xl font-mono font-black text-red-600 dark:text-red-500 tracking-wider">
-                                00 : 00 : 00
-                            </div>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-2">Ambil sebelum harga kembali normal!</p>
-                        </div>
-
-                        <form id="orderForm" class="space-y-4" onsubmit="event.preventDefault(); checkoutWA();">
-                            <!-- Data Pemesan -->
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Data Pemesan</label>
-                                <div class="space-y-3">
-                                    <div class="relative">
-                                        <i class="fa-solid fa-user absolute left-3 top-3.5 text-gray-400 text-sm"></i>
-                                        <input type="text" id="nama" class="form-input pl-10" placeholder="Masukkan nama Anda" required>
-                                    </div>
-                                    <div class="relative">
-                                        <i class="fa-solid fa-envelope absolute left-3 top-3.5 text-gray-400 text-sm"></i>
-                                        <input type="email" id="email" class="form-input pl-10" placeholder="contoh@email.com" required>
-                                        <p class="text-[10px] text-gray-400 mt-1 ml-1">*Produk dikirim ke email anda</p>
-                                    </div>
-                                    <div class="relative">
-                                        <div class="absolute left-3 top-3.5 flex items-center gap-1 text-gray-400 text-sm font-bold border-r border-gray-600 pr-2 mr-2 h-5">
-                                            <span>+62</span>
-                                        </div>
-                                        <input type="tel" id="whatsapp" class="form-input pl-16" placeholder="812xxxxxx" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Payment Method -->
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Metode Pembayaran</label>
-                                <div class="flex items-center gap-2 p-3 border border-gray-200 dark:border-white/10 rounded-lg bg-white dark:bg-white/5">
-                                    <i class="fa-solid fa-wallet text-gray-400 mr-2"></i>
-                                    <div class="flex gap-2 opacity-70 grayscale">
-                                        <!-- Mock Icons using fontawesome/text for simplicity -->
-                                        <span class="text-xs font-bold border px-1 rounded">BCA</span>
-                                        <span class="text-xs font-bold border px-1 rounded">QRIS</span>
-                                        <span class="text-xs font-bold border px-1 rounded">GoPay</span>
-                                    </div>
-                                    <span class="text-xs text-gray-500 ml-auto">& Lainnya</span>
-                                </div>
-                            </div>
-
-                            <!-- Bonus Section -->
-                            <div class="space-y-2">
-                                <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">🎁 Bonus Spesial (Promo Terbatas)</p>
-                                
-                                <!-- Bonus 1: Grup -->
-                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
-                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
-                                    <div>
-                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Grup Support Mafaza Pro</span>
-                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
-                                            Komunitas, Info Update & Tutorial.
-                                        </p>
-                                        <div class="mt-1">
-                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
-                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 150.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Bonus 2: Ebook Omset -->
-                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
-                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
-                                    <div>
-                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Ebook 4 Jurus Jitu Melejitkan Omset</span>
-                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
-                                            Strategi bisnis online terbukti ampuh.
-                                        </p>
-                                        <div class="mt-1">
-                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
-                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 99.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Bonus 3: Ebook WA Closing -->
-                                <div class="bg-green-500/10 border border-green-500/30 p-3 rounded-lg flex items-start gap-3">
-                                    <input type="checkbox" checked disabled class="mt-1 w-4 h-4 text-green-500 rounded focus:ring-green-500 border-gray-300">
-                                    <div>
-                                        <span class="block text-sm font-bold text-gray-800 dark:text-white">Ebook Teknik Follow Up & Closing WA</span>
-                                        <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
-                                            Cara ubah chat jadi transferan.
-                                        </p>
-                                        <div class="mt-1">
-                                            <span class="text-[10px] font-bold text-green-600 dark:text-green-400 bg-green-500/20 px-1.5 py-0.5 rounded">GRATIS</span>
-                                            <span class="text-[10px] text-gray-400 line-through ml-1">Rp 79.000</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Summary -->
-                            <div class="border-t border-dashed border-gray-300 dark:border-white/20 pt-4 mt-2">
-                                <div class="flex justify-between text-sm mb-1 text-gray-600 dark:text-gray-400">
-                                    <span>Harga Normal</span>
-                                    <span class="line-through text-red-500 decoration-2 decoration-red-600/50">Rp 300.000</span>
-                                </div>
-                                <div class="flex justify-between text-sm mb-1 text-gray-600 dark:text-gray-400">
-                                    <span>Mafaza Pro (Promo)</span>
-                                    <span>Rp 97.000</span>
-                                </div>
-                                <div class="flex justify-between text-sm mb-2 text-gray-600 dark:text-gray-400">
-                                    <span>Total Bonus (Ebook + Grup)</span>
-                                    <span class="text-green-500">Rp 0 (FREE)</span>
-                                </div>
-                                <div class="flex justify-between items-center text-lg font-bold text-gray-900 dark:text-white pt-2 border-t border-gray-200 dark:border-white/10 mt-2">
-                                    <span>Total Bayar</span>
-                                    <span class="text-neonCyan text-xl">Rp 97.000</span>
-                                </div>
-                            </div>
-
-                            <!-- Buttons -->
-                            <div class="space-y-3 pt-2">
-                                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-lg shadow-lg hover:shadow-green-500/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                    <i class="fa-brands fa-whatsapp text-xl"></i> BELI SEKARANG
-                                </button>
-                                
-                                <div class="relative flex py-1 items-center">
-                                    <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
-                                    <span class="flex-shrink-0 mx-4 text-gray-400 text-xs">ATAU</span>
-                                    <div class="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
-                                </div>
-
-                                <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block w-full text-center bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 text-gray-700 dark:text-white font-semibold py-3 rounded-lg transition text-sm">
-                                    Langsung Checkout (Lynk.id) <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs"></i>
-                                </a>
-                            </div>
-                            
-                            <p class="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
-                                <i class="fa-solid fa-lock"></i> Data Anda aman. Klik tombol di atas untuk terhubung ke Admin.
-                            </p>
-                        </form>
+                <!-- Item 2 -->
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 open:bg-white open:border-brand-200 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <summary class="flex justify-between items-center cursor-pointer p-5 font-bold text-slate-800 select-none">
+                        <span>Apakah bayar sekali atau langganan bulanan?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-500 transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Untuk promo saat ini, pembayaran adalah <strong>SEKALI BAYAR (Lifetime Access)</strong>. Tidak ada biaya bulanan atau tahunan. Namun harga bisa berubah menjadi langganan sewaktu-waktu, jadi amankan sekarang!
                     </div>
-                </div>
+                </details>
+
+                <!-- Item 3 -->
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 open:bg-white open:border-brand-200 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <summary class="flex justify-between items-center cursor-pointer p-5 font-bold text-slate-800 select-none">
+                        <span>Apakah bisa dijalankan di HP?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-500 transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        <strong>Sangat bisa!</strong> Tampilan Mafaza Pro sudah dioptimalkan untuk Mobile (HP), Tablet, maupun Laptop/PC. Anda bisa mengedit foto di mana saja.
+                    </div>
+                </details>
+
+                <!-- Item 4 -->
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 open:bg-white open:border-brand-200 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <summary class="flex justify-between items-center cursor-pointer p-5 font-bold text-slate-800 select-none">
+                        <span>Saya gaptek, apakah ada tutorialnya?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-500 transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Tentu saja. Kami menyediakan <strong>Video Tutorial Lengkap</strong> step-by-step bahasa Indonesia. Jika masih bingung, Anda bisa bertanya di Grup Support atau chat Admin.
+                    </div>
+                </details>
+
+                <!-- Item 5 -->
+                <details class="group bg-slate-50 rounded-xl border border-slate-200 open:bg-white open:border-brand-200 transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+                    <summary class="flex justify-between items-center cursor-pointer p-5 font-bold text-slate-800 select-none">
+                        <span>Bagaimana cara mendapat aksesnya setelah transfer?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-500 transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
+                        Setelah transfer dan konfirmasi ke WA Admin, akun Anda akan langsung diaktifkan saat itu juga. Detail login akan dikirimkan ke Email & WhatsApp Anda.
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="py-20 bg-gray-100/50 dark:bg-black/40 transition-colors duration-500">
-        <div class="container mx-auto px-6 max-w-3xl">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">F.A.Q</h2>
-            <div class="space-y-4">
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
-                    <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">1. Apakah Lifetime?</h4>
-                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Ya, selama Gemini masih membuka aksesnya, maka Mafaza Pro juga bisa digunakan.</p>
-                </details>
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
-                    <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">2. Dikirim Lewat Mana?</h4>
-                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Email, jadi pastikan ngetik email jangan typo/salah supaya setelah bayar langsung dapat produknya. Kalau salah ngetik, produknya terkirim manual dan itu butuh waktu lama 1x24 jam.</p>
-                </details>
-                 <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
-                    <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">3. Bisa Dijual Kembali?</h4>
-                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak bisa. Produk ini hanya untuk penggunaan pribadi.</p>
-                </details>
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
-                    <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">4. Apakah Bisa Refund?</h4>
-                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Tidak bisa, karena Anda sudah mendapatkan akses termasuk update-updatenya. Membeli artinya SETUJU.</p>
-                </details>
-                <details class="glass-card group p-4 [&_summary::-webkit-details-marker]:hidden bg-white dark:bg-transparent">
-                    <summary class="flex items-center justify-between cursor-pointer">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200">5. Saya Mau Request Fitur?</h4>
-                        <span class="transition group-open:rotate-180 text-gray-600 dark:text-gray-400">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 text-gray-600 dark:text-gray-400 text-sm">Bisa, di member area ada form pengisian jika ingin meminta fitur baru.</p>
-                </details>
+    <!-- FORMULIR PEMESANAN -->
+    <section id="harga" class="py-20 relative bg-brand-900">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-bold mb-2 text-white">Formulir Pemesanan</h2>
+                <p class="text-white opacity-90">Akses Lifetime dengan harga terjangkau.</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Left: Summary Panel -->
+                <div class="lg:w-2/5 p-8 bg-brand-900 text-white relative border-r border-brand-700">
+                    <div class="absolute top-0 right-0 p-32 bg-brand-600 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
+                    <h3 class="text-2xl font-bold mb-8 relative z-10 border-b border-brand-700 pb-4">Rincian Paket</h3>
+                    <div class="space-y-6 relative z-10">
+                        <!-- Item 1 -->
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
+                                <i class="fa-solid fa-infinity"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-base text-white mb-1">Lifetime Access</h4>
+                                <p class="text-sm text-slate-200 leading-relaxed">Cukup sekali bayar, akun aktif selamanya tanpa biaya bulanan.</p>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-base text-white mb-1">Support Group</h4>
+                                <p class="text-sm text-slate-200 leading-relaxed">Gabung komunitas eksklusif & dapatkan update info terbaru.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 pt-8 border-t border-brand-700">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-slate-300 font-medium">Harga Normal</span>
+                                <span class="text-base line-through text-red-400 font-bold bg-white/10 px-2 rounded">Rp 300.000</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-bold text-white">Harga Promo</span>
+                                <span class="text-4xl font-extrabold text-white text-shadow-sm">Rp 97rb</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form Input -->
+                <div class="lg:w-3/5 p-8 lg:p-12 bg-white">
+                    <div class="flex justify-between items-center mb-8 border-b border-slate-100 pb-4">
+                        <h3 class="font-bold text-slate-900 text-2xl">Data Pembeli</h3>
+                        <!-- Flash Sale Badge -->
+                        <div class="bg-red-100 border border-red-200 px-4 py-1.5 rounded-full text-red-700 text-xs font-bold flex items-center gap-2 shadow-sm">
+                            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                            Sisa Waktu: <span id="flash-timer" class="font-mono text-sm">00:00:00</span>
+                        </div>
+                    </div>
+
+                    <form id="orderForm" class="space-y-6" onsubmit="event.preventDefault(); checkoutWA();">
+                        <div>
+                            <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">Nama Lengkap</label>
+                            <input type="text" id="nama" class="w-full p-4 rounded-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="Ketik Nama Anda Disini..." required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">Email</label>
+                                <input type="email" id="email" class="w-full p-4 rounded-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="email@anda.com" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">WhatsApp</label>
+                                <div class="flex">
+                                    <span class="bg-slate-200 border-2 border-r-0 border-slate-300 text-slate-800 px-4 py-3 rounded-l-xl flex items-center font-bold text-base">+62</span>
+                                    <input type="tel" id="whatsapp" class="w-full p-4 rounded-r-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="812xxxxx" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bonus Checkboxes -->
+                        <div class="bg-blue-50 rounded-xl p-5 border-2 border-blue-100 space-y-3 mt-4">
+                            <p class="text-sm font-black text-blue-800 tracking-wide mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-gift"></i> BONUS SPESIAL (GRATIS):
+                            </p>
+                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-blue-200 shadow-sm">
+                                <i class="fa-solid fa-check-circle text-green-600 text-xl"></i>
+                                <span class="text-sm text-slate-900 font-bold">Ebook 4 Jurus Jitu Omset Melejit</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-blue-200 shadow-sm">
+                                <i class="fa-solid fa-check-circle text-green-600 text-xl"></i>
+                                <span class="text-sm text-slate-900 font-bold">Ebook Teknik Follow Up & Closing</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-3">
+                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold py-4 rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-3 text-lg border border-brand-500">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i> Beli Sekarang via WhatsApp
+                            </button>
+                            <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block w-full text-center bg-white border-2 border-slate-300 text-slate-700 hover:border-brand-500 hover:text-brand-600 hover:bg-slate-50 font-bold py-4 rounded-xl transition text-sm">
+                                Checkout Otomatis (Lynk.id) <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-dark py-12 transition-colors duration-500">
-        <div class="container mx-auto px-6 text-center">
-            <!-- Footer Logo Update -->
-            <div class="flex justify-center mb-6">
-                 <img src="https://i.ibb.co.com/QGQz1YD/STUDIO-AI5.png" alt="Mafaza Pro Logo" class="h-16 w-auto object-contain">
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co.com/QGQz1YD/STUDIO-AI5.png" alt="Logo" class="h-10">
+                <span class="font-bold text-slate-700">Mafaza Pro</span>
             </div>
-            
-            <p class="text-gray-500 text-sm mb-8">© 2025 Mafaza Pro By Malik Faza. All rights reserved.</p>
-            <div class="flex justify-center gap-6 text-sm font-semibold text-gray-500 dark:text-gray-400 items-center">
-                <a href="#" class="hover:text-neonCyan">Privacy Policy</a>
-                <a href="#" class="hover:text-neonCyan">Terms of Service</a>
-                <a href="#" class="hover:text-neonCyan">Support</a>
-                <!-- Button for Footer Icon -->
-                <button onclick="toggleVideo()" class="hover:text-red-500 transition-colors focus:outline-none">
-                    <i class="fa-brands fa-youtube text-xl"></i>
-                </button>
-            </div>
+            <p class="text-slate-500 text-sm text-center md:text-left">© 2026 Malik Faza. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Video Modal -->
-    <div id="video-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 backdrop-blur-md hidden transition-all duration-300 opacity-0">
+    <div id="video-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm hidden transition-all duration-300 opacity-0">
         <div class="relative w-full max-w-5xl mx-4 transform transition-all duration-300 scale-95" id="modal-content">
-            <button onclick="toggleVideo()" class="absolute -top-12 right-0 text-gray-400 hover:text-white text-xl flex items-center gap-2 transition group">
-                Tutup <span class="w-8 h-8 rounded-full border border-gray-400 group-hover:border-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
+            <button onclick="toggleVideo()" class="absolute -top-10 right-0 text-white hover:text-red-400 text-xl flex items-center gap-2 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i> Close
             </button>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(112,0,255,0.3)] border border-white/10 bg-black">
+            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl bg-black">
                 <iframe id="youtube-frame" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- MAIN SCRIPT (FIXED) -->
-    <script>
-        // --- 1. SLIDER FUNCTION (Fix Error: slide is not defined) ---
-        function slide(e) {
-            const container = e.currentTarget;
-            // Dapatkan posisi kursor relatif terhadap container slider
-            // clientX/Y adalah posisi mouse di layar
-            // getBoundingClientRect() memberikan posisi container di layar
-            const rect = container.getBoundingClientRect();
-            
-            // Hitung posisi horizontal mouse dalam container
-            let x;
-            
-            // Cek apakah event adalah touch atau mouse
-            if (e.type === 'touchmove') {
-                x = e.touches[0].clientX - rect.left;
-            } else {
-                x = e.clientX - rect.left;
-            }
-            
-            // Batasi x agar tidak keluar container (0 sampai width)
-            // Tambahkan sedikit buffer agar handle tidak keluar
-            if (x < 0) x = 0;
-            if (x > rect.width) x = rect.width;
-            
-            // Hitung persentase lebar
-            const percentage = (x / rect.width) * 100;
-            
-            // Ubah lebar div resize-image
-            const resizeImage = container.querySelector('.resize-image');
-            if(resizeImage) {
-                resizeImage.style.width = percentage + "%";
-            }
-        }
-
-        // --- 2. THEME TOGGLE FUNCTION ---
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                localStorage.theme = 'light';
-                // Ganti icon ke matahari
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                themeIcon.style.transform = "rotate(180deg)";
-            } else {
-                html.classList.add('dark');
-                html.classList.remove('light');
-                localStorage.theme = 'dark';
-                // Ganti icon ke bulan
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                themeIcon.style.transform = "rotate(0deg)";
-            }
-        }
-
-        // --- 3. MOBILE MENU TOGGLE ---
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.classList.add('flex');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            } else {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            }
-        }
-
-        // --- 4. VIDEO MODAL TOGGLE ---
-        function toggleVideo() {
-            const modal = document.getElementById('video-modal');
-            const frame = document.getElementById('youtube-frame');
-            const modalContent = document.getElementById('modal-content');
-            
-            // URL Video Youtube (Ganti ID video di sini jika perlu)
-            // Menggunakan playlist atau video tertentu. Contoh ini video dummy.
-            const videoUrl = "https://www.youtube.com/embed/S2H554q522E?autoplay=1"; 
-
-            if (modal.classList.contains('hidden')) {
-                // OPEN
-                modal.classList.remove('hidden');
-                // Sedikit delay untuk animasi opacity
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modalContent.classList.remove('scale-95');
-                    modalContent.classList.add('scale-100');
-                }, 10);
-                frame.src = videoUrl;
-            } else {
-                // CLOSE
-                modal.classList.add('opacity-0');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    frame.src = ""; // Stop video
-                }, 300);
-            }
-        }
-
-        // --- 5. CHECKOUT WHATSAPP FUNCTION ---
-        function checkoutWA() {
-            const nama = document.getElementById('nama').value;
-            const email = document.getElementById('email').value;
-            const wa = document.getElementById('whatsapp').value;
-            
-            if (!nama || !email || !wa) {
-                alert("Mohon lengkapi semua data!");
-                return;
-            }
-
-            const message = `Halo Admin Mafaza Pro, saya mau order promo Lifetime Access.%0A%0A*Data Pemesan:*%0A👤 Nama: ${nama}%0A📧 Email: ${email}%0A📱 WA: ${wa}%0A%0AMohon info pembayaran. Terima kasih!`;
-            
-            // No WA Admin (Sesuai widget)
-            const adminNumber = "6285161141114";
-            
-            window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
-        }
-
-        // --- 6. FLASH SALE TIMER ---
-        function updateFlashSale() {
-            const now = new Date();
-            let target = new Date();
-            // Set target jam 11 malam (23:00) hari ini
-            target.setHours(23, 0, 0, 0);
-
-            // Jika sudah lewat jam 23:00, set target ke jam 23:00 besok
-            if (now > target) {
-                target.setDate(target.getDate() + 1);
-            }
-
-            const diff = target - now;
-            
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            const el = document.getElementById('flash-timer');
-            if (el) {
-                el.innerText = `${h.toString().padStart(2, '0')} : ${m.toString().padStart(2, '0')} : ${s.toString().padStart(2, '0')}`;
-            }
-        }
-
-        // --- DOM CONTENT LOADED LOGIC ---
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // Initialize AOS
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50
-            });
-
-            // Start Flash Sale Timer
-            setInterval(updateFlashSale, 1000);
-            updateFlashSale();
-
-            // Set Initial Theme Icon
-            const isDark = document.documentElement.classList.contains('dark');
-            const themeIcon = document.getElementById('theme-icon');
-            if(themeIcon) {
-                 if (isDark) {
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-            }
-
-            // Sticky Navbar
-            window.addEventListener('scroll', function() {
-                const navbar = document.getElementById('navbar');
-                const isDarkNow = document.documentElement.classList.contains('dark');
-                if(!navbar) return;
-
-                if (window.scrollY > 50) {
-                    if (isDarkNow) {
-                        navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
-                        navbar.classList.remove('bg-white/80');
-                    } else {
-                        navbar.classList.add('bg-white/80', 'backdrop-blur-md');
-                        navbar.classList.remove('bg-dark/80');
-                    }
-                    navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
-                    navbar.classList.add('rounded-b-2xl');
-                } else {
-                    navbar.classList.remove('bg-dark/80', 'bg-white/80', 'backdrop-blur-md', 'rounded-b-2xl');
-                    navbar.classList.add('rounded-none', 'border-x-0', 'border-t-0');
-                }
-            });
-
-            // Music Logic
-            const music = document.getElementById('bg-music');
-            const musicDisc = document.getElementById('music-disc');
-            const musicIcon = document.getElementById('music-icon');
-            let isPlaying = false;
-
-            window.toggleMusic = function() { // Assign to window just in case
-                if (isPlaying) {
-                    music.pause();
-                    musicDisc.classList.add('vinyl-paused');
-                    musicIcon.classList.remove('fa-pause');
-                    musicIcon.classList.add('fa-play');
-                } else {
-                    music.play().catch(error => console.log("Autoplay prevented:", error));
-                    musicDisc.classList.remove('vinyl-paused');
-                    musicIcon.classList.remove('fa-play');
-                    musicIcon.classList.add('fa-pause');
-                }
-                isPlaying = !isPlaying;
-            };
-
-            // Close Video Modal on backdrop click
-            const videoModal = document.getElementById('video-modal');
-            if(videoModal) {
-                videoModal.addEventListener('click', function(e) {
-                    if (e.target === this) toggleVideo();
-                });
-            }
-        });
-    </script>
-
-
 
 
 <!-- ================== START MAFAZA AI WIDGET ================== -->
@@ -1383,7 +895,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
     
     :root {
-        --mfz-primary: #05173d;
+        --mfz-primary: #1455e1;
         --mfz-bg: #F8FAFC;
         --mfz-text: #1E293B;
     }
@@ -1653,5 +1165,149 @@
     }
 </script>
 <!-- ================== END MAFAZA AI WIDGET ================== -->
+
+    <!-- Scripts (Core) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true });
+        }
+
+        // --- SLIDER LOGIC ---
+        function slide(e) {
+            const container = e.currentTarget;
+            const resizeImage = container.querySelector('.resize-image');
+            const rect = container.getBoundingClientRect();
+            let x = 0;
+            if (e.type === 'touchmove') {
+                x = e.touches[0].clientX - rect.left;
+            } else {
+                x = e.clientX - rect.left;
+            }
+            let widthPercent = (x / rect.width) * 100;
+            if (widthPercent < 0) widthPercent = 0;
+            if (widthPercent > 100) widthPercent = 100;
+            resizeImage.style.width = widthPercent + '%';
+        }
+
+        // --- MOBILE MENU ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+
+            if (menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        }
+
+        // --- VIDEO MODAL ---
+        function toggleVideo() {
+            const modal = document.getElementById('video-modal');
+            const modalContent = document.getElementById('modal-content');
+            const frame = document.getElementById('youtube-frame');
+
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 10);
+                frame.src = "https://www.youtube.com/embed/3vP7TmtDP8c?autoplay=1";
+            } else {
+                modal.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    frame.src = "";
+                }, 300);
+            }
+        }
+
+        // --- WA CHECKOUT ---
+        function checkoutWA() {
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const wa = document.getElementById('whatsapp').value;
+            const adminWA = "6285161141114";
+
+            if (!nama || !email || !wa) {
+                alert("Mohon lengkapi Nama, Email, dan Nomor WhatsApp.");
+                return;
+            }
+
+            const message = `Halo Admin, saya ingin memesan *Mafaza Pro Lifetime (Theme Blue)*.\n\n` +
+                `👤 Nama: ${nama}\n` +
+                `📧 Email: ${email}\n` +
+                `📱 WA: +62${wa}\n\n` +
+                `Mohon info pembayaran.`;
+
+            window.open(`https://wa.me/${adminWA}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // --- FLASH SALE & MUSIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Flash Sale
+            setInterval(() => {
+                const now = new Date();
+                let target = new Date();
+                target.setHours(23, 0, 0, 0);
+                if (now > target) target.setDate(target.getDate() + 1);
+
+                const diff = target - now;
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                const el = document.getElementById('flash-timer');
+                if (el) el.innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }, 1000);
+
+            // Music
+            const music = document.getElementById('bg-music');
+            const musicDisc = document.getElementById('music-disc');
+            const musicIcon = document.getElementById('music-icon');
+            let isPlaying = false;
+
+            window.toggleMusic = function () {
+                if (isPlaying) {
+                    music.pause();
+                    musicDisc.classList.add('vinyl-paused');
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-play');
+                } else {
+                    music.play().catch(e => console.log(e));
+                    musicDisc.classList.remove('vinyl-paused');
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                }
+                isPlaying = !isPlaying;
+            };
+
+            // Navbar Scroll
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('shadow-md');
+                } else {
+                    nav.classList.remove('shadow-md');
+                }
+            });
+
+            // Interaction to start music
+            document.body.addEventListener('click', function () {
+                // Optional: Auto start music on first click if desired
+            }, { once: true });
+        });
+    </script>
 </body>
+
 </html>
