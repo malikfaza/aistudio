@@ -1138,146 +1138,6 @@
         </div>
     </div>
 
-    <!-- EzaPedia AI Chat Widget -->
-    <script>
-        (function() {
-            var s = document.createElement('script');
-            s.id = 'ezachat-script';
-            s.src = 'https://ezapedia.my.id/member/assets/ezachat.js';
-            s.async = true;
-            s.dataset.token = '537e7b51c962705376677cab6a18239b';
-            s.dataset.api = 'https://ezapedia.my.id/member/chat_api.php';
-            document.head.appendChild(s);
-        })();
-    </script>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Init AOS immediately if possible, or inside DOMContentLoaded
-        if (typeof AOS !== 'undefined') {
-            AOS.init({ duration: 800, once: true });
-        }
-
-        // --- GLOBAL FUNCTIONS DEFINITIONS ---
-        // (Defined first to prevent ReferenceError)
-
-        function slide(e) {
-            const container = e.currentTarget;
-            const resizeImage = container.querySelector('.resize-image');
-            const rect = container.getBoundingClientRect();
-            let x = 0;
-            if (e.type === 'touchmove') {
-                x = e.touches[0].clientX - rect.left;
-            } else {
-                x = e.clientX - rect.left;
-            }
-            let widthPercent = (x / rect.width) * 100;
-            if (widthPercent < 0) widthPercent = 0;
-            if (widthPercent > 100) widthPercent = 100;
-            resizeImage.style.width = widthPercent + '%';
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-                themeIcon.style.transform = "rotate(180deg)";
-                if (window.scrollY > 50) {
-                     const navbar = document.getElementById('navbar');
-                     if(navbar) {
-                        navbar.classList.remove('bg-dark/80');
-                        navbar.classList.add('bg-white/80');
-                     }
-                }
-            } else {
-                html.classList.add('dark');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-                themeIcon.style.transform = "rotate(0deg)";
-                if (window.scrollY > 50) {
-                     const navbar = document.getElementById('navbar');
-                     if(navbar) {
-                        navbar.classList.remove('bg-white/80');
-                        navbar.classList.add('bg-dark/80');
-                     }
-                }
-            }
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('menu-icon');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-            
-            if (menu.classList.contains('hidden')) {
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-xmark');
-            }
-        }
-
-        function toggleVideo() {
-            const modal = document.getElementById('video-modal');
-            const modalContent = document.getElementById('modal-content');
-            const frame = document.getElementById('youtube-frame');
-            
-            if (modal.classList.contains('hidden')) {
-                // Open
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modalContent.classList.remove('scale-95');
-                    modalContent.classList.add('scale-100');
-                }, 10);
-                frame.src = "https://www.youtube.com/embed/3vP7TmtDP8c?autoplay=1";
-            } else {
-                // Close
-                modal.classList.add('opacity-0');
-                modalContent.classList.remove('scale-100');
-                modalContent.classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    frame.src = "";
-                }, 300);
-            }
-        }
-
-        // --- NEW FUNCTION: CHECKOUT VIA WA ---
-        function checkoutWA() {
-            const nama = document.getElementById('nama').value;
-            const email = document.getElementById('email').value;
-            const wa = document.getElementById('whatsapp').value;
-            
-            // Nomor Admin
-            const adminWA = "6285161141114"; // Default number based on existing link
-
-            if (!nama || !email || !wa) {
-                alert("Mohon lengkapi Nama, Email, dan Nomor WhatsApp Anda.");
-                return;
-            }
-
-            const message = `Halo Admin, saya ingin memesan *Mafaza Pro Lifetime (Rp 97.000)*.\n\n` +
-                `👤 Nama: ${nama}\n` +
-                `📧 Email: ${email}\n` +
-                `📱 WA: +62${wa}\n\n` +
-                `🎁 Bonus Spesial (Promo Terbatas):\n` +
-                `✅ Grup Support Mafaza Pro\n` +
-                `✅ Ebook 4 Jurus Jitu Omset Melejit\n` +
-                `✅ Ebook Teknik Follow Up & Closing WA\n\n` +
-                `Mohon info pembayaran QRIS/Transfer ya min. Terima kasih!`;
-
-            const waLink = `https://wa.me/${adminWA}?text=${encodeURIComponent(message)}`;
-            window.open(waLink, '_blank');
-        }
-
         // --- FLASH SALE TIMER ---
         function updateFlashSale() {
             const now = new Date();
@@ -1361,5 +1221,285 @@
             }
         });
     </script>
+
+
+
+
+<!-- ================== START MAFAZA AI WIDGET ================== -->
+<style>
+    /* WIDGET STYLES - CUSTOM THEME */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+    
+    :root {
+        --mfz-primary: #05173d;
+        --mfz-bg: #F8FAFC;
+        --mfz-text: #1E293B;
+    }
+
+    /* ANIMASI FADE IN */
+    @keyframes mfzFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .mfz-widget-btn {
+        position: fixed; bottom: 20px; right: 20px;
+        width: 60px; height: 60px;
+        background: var(--mfz-primary);
+        border-radius: 50%;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        cursor: pointer; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        transition: transform 0.3s ease;
+    }
+    .mfz-widget-btn:hover { transform: scale(1.1); filter: brightness(0.9); }
+    .mfz-widget-btn svg { width: 30px; height: 30px; fill: white; }
+
+    .mfz-chat-box {
+        position: fixed; bottom: 90px; right: 20px;
+        width: 350px; height: 500px;
+        /* Dynamic Styles Injected Here */
+        background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        /* End Dynamic Styles */
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        display: none; flex-direction: column;
+        overflow: hidden; z-index: 9999;
+        font-family: 'Inter', sans-serif;
+    }
+    .mfz-chat-box.active { display: flex; animation: mfzFadeIn 0.3s ease forwards; }
+
+    /* HEADER */
+    .mfz-header {
+        background: var(--mfz-primary);
+        padding: 16px; color: white;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .mfz-profile { display: flex; align-items: center; gap: 10px; }
+    .mfz-profile img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); background: white; object-fit: cover; }
+    .mfz-profile h3 { margin: 0; font-size: 16px; font-weight: 600; }
+    .mfz-profile span { font-size: 11px; opacity: 0.9; display: block; }
+    
+    .mfz-actions { display: flex; gap: 8px; }
+    .mfz-icon-btn { background: rgba(255,255,255,0.2); border: none; cursor: pointer; color: white; padding: 5px; border-radius: 6px; }
+    .mfz-icon-btn:hover { background: rgba(255,255,255,0.4); }
+
+    /* CHAT AREA */
+    .mfz-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .mfz-msg { max-width: 80%; padding: 10px 14px; font-size: 14px; line-height: 1.5; word-wrap: break-word; position: relative; padding-bottom: 20px; /* Space for timestamp */ }
+    
+    .mfz-bot { align-self: flex-start; background: white; color: var(--mfz-text); border-radius: 12px 12px 12px 2px; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .mfz-user { align-self: flex-end; background: var(--mfz-primary); color: white; border-radius: 12px 12px 2px 12px; }
+    
+    /* TIMESTAMP */
+    .mfz-time { font-size: 10px; position: absolute; bottom: 4px; right: 10px; opacity: 0.6; }
+    .mfz-user .mfz-time { color: rgba(255,255,255,0.8); }
+
+    /* INPUT AREA */
+    .mfz-footer { padding: 12px; background: rgba(255,255,255,0.9); border-top: 1px solid #E2E8F0; display: flex; gap: 8px; }
+    .mfz-input { 
+        flex: 1; 
+        border: 1px solid #CBD5E1; 
+        padding: 10px 15px; 
+        border-radius: 20px; 
+        outline: none; 
+        font-size: 14px; 
+        transition: border 0.2s; 
+        background: white; 
+        color: #1E293B; /* FIX: FORCE DARK TEXT COLOR */
+    }
+    .mfz-input:focus { border-color: var(--mfz-primary); }
+    .mfz-send { background: var(--mfz-primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .mfz-send:hover { filter: brightness(0.9); }
+
+    /* BRANDING FOOTER */
+    .mfz-power { text-align: center; font-size: 10px; color: #94a3b8; padding-bottom: 8px; background: rgba(255,255,255,0.9); }
+    .mfz-power a { text-decoration: none; color: inherit; font-weight: 600; cursor: pointer; }
+    .mfz-power a:hover { color: var(--mfz-primary); }
+
+    /* UTILS */
+    .mfz-typing { font-size: 12px; color: #64748B; margin-left: 10px; display: none; margin-bottom: 5px; }
+    @media (max-width: 480px) { .mfz-chat-box { width: 90%; right: 5%; bottom: 80px; height: 60vh; } }
+</style>
+
+<!-- TOGGLE BUTTON -->
+<div class="mfz-widget-btn" onclick="toggleMafazaChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+</div>
+
+<!-- CHAT BOX -->
+<div class="mfz-chat-box" id="mafazaChatBox">
+    <div class="mfz-header">
+        <div class="mfz-profile">
+            <img src="https://iili.io/f8k2D5Q.th.png" alt="Logo">
+            <div>
+                <h3>CS mafaza pro</h3>
+                <span>Online • AI Assistant</span>
+            </div>
+        </div>
+        <div class="mfz-actions">
+            <a href="https://wa.me/6285161141114?text=Halo%20Admin%2C%20saya%20butuh%20bantuan%20lanjut..." target="_blank" class="mfz-icon-btn" title="Chat WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.099-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg></a>
+            <button onclick="toggleMafazaChat()" class="mfz-icon-btn">✕</button>
+        </div>
+    </div>
+    
+    <div class="mfz-body" id="mfzBody">
+        <div class="mfz-msg mfz-bot">Halo Kak! Ada yang bisa saya bantu mengenai mafaza pro?</div>
+    </div>
+    <div class="mfz-typing" id="mfzTyping">CS mafaza pro sedang mengetik...</div>
+
+    <div class="mfz-footer">
+        <input type="text" id="mfzInput" class="mfz-input" placeholder="Ketik pesan..." onkeypress="handleEnter(event)">
+        <button onclick="sendMessage()" class="mfz-send">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg>
+        </button>
+    </div>
+    <div class="mfz-power">Powered by <a href="https://wa.me/6285161141114" target="_blank">MalikFaza</a></div>
+</div>
+
+<script>
+    // --- KONFIGURASI AI ---
+    const CONFIG = {
+        apiKey: "AIzaSyDzmAFmA0sytbcKM4bFrcgb1w-ZPC_yI5I", 
+        systemPrompt: "### PERAN & IDENTITAS\nAnda adalah CS mafaza pro, asisten virtual cerdas.\nTugas Anda: Menjawab pertanyaan calon pembeli, menjelaskan fitur, mengatasi kendala teknis, dan mengarahkan mereka untuk segera checkout.\n\n### ATURAN UTAMA (WAJIB DIPATUHI)\n1. *Gaya Bahasa:* Gunakan Bahasa Indonesia yang luwes, ramah, dan profesional.\n2. *Sapaan:* Wajib memanggil user dengan sebutan \"Kak\" atau \"Kakak\".\n3. *Format Jawaban (SANGAT PENTING):*\n   - Jawaban harus *SINGKAT, PADAT, dan JELAS*.\n   - **HANYA 1 BUBBLE CHAT SAJA**. Jangan memecah pesan menjadi beberapa bubble.\n   - **MAKSIMAL 5 BARIS** total.\n   - Gunakan simbol bullet (•) atau strip (-) untuk rincian jika muat.\n4. *Efisiensi Token:*\n   - Dilarang keras bertele-tele. Langsung jawab intinya.\n5. *Closing:* Selalu arahkan user untuk klik tombol \"DAPATKAN AKSES SEKARANG\" atau link checkout jika mereka tertarik.\n\n---\n\n### DATABASE PENGETAHUAN PRODUK & PANDUAN\nREVOLUSI ERA VISUAL\nUpgrade Visual Digital Anda dengan Mafaza Pro!\nHemat Ratusan Ribu, Dapatkan Foto Profesional dalam Hitungan Detik! Jangan biarkan foto seadanya merusak personal brand Anda.\n\nAMBIL SEKARANG\n\nLIHAT DEMO VIDEO\nGambar 1 Hero AfterAFTERGambar 1 Hero BeforeBEFORE\n Geser untuk melihat keajaiban\n\nKenapa Brand Anda Stuck?\nMasalah visual seringkali menjadi penghalang utama. Berikut dampaknya:\n\n📊\nTIDAK KONSISTEN\nGaya postingan yang berbeda-beda membuat tampilan media sosial terlihat amatir dan berantakan.\n\n📷\nPENCAHAYAAN BURUK\nFoto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak profesional.\n\n😑\nEDIT RUMIT\nBerjam-jam terbuang di aplikasi kompleks hanya untuk hasil yang biasa-biasa saja. Buang waktu!\n\nBukti Kecanggihan AI\n Klik pada gambar untuk melihat kondisi Original (Before). Klik lagi untuk kembali.\n\nAfterBeforeHDORIGINAL Tap to See\nAfterBeforePRORAW\nAfterBeforeCOLOROLD\nAfterBeforeDESIGNEMPTY\nAfterBeforeFOODFOOD\nAfterBeforeMOCKUPASLI\nAfterBeforeAFTERBEFORE\nAfterBeforeAFTERBEFORE\nGaleri Hasil Generate ● Live Preview\nGaleri 1Galeri 2Galeri 3Galeri 4Galeri 5Galeri 6Galeri 7Galeri 8Galeri 9Galeri 10\nGaleri 1Galeri 2Galeri 3Galeri 4Galeri 5Galeri 6Galeri 7Galeri 8Galeri 9Galeri 10\nGambar 2 Interface Mafaza Pro\n✅ Solusi Cerdas: Mafaza Pro\nIni bukan sekadar editor biasa. Ini adalah jalan pintas untuk menghemat waktu, biaya, dan energi. Semua kendala lighting, editing, atau gaya pose dapat diatasi hanya dengan satu kali klik.\n\nHasil sekelas Studio Profesional\nTanpa kamera mahal & lighting ribet\nCukup Upload, Pilih Gaya, Generate!\nMAU PROMO KHUSUS\nFitur Lengkap Mafaza Pro\nSemua yang Anda butuhkan dalam satu tools canggih.\n\n Gratis Update Fitur Baru!\nEdit & Gabung\nPhoto Fusion\nGabungkan foto jadi karya unik.\n\nNEW\nMiniature Effect\nEfek miniatur mainan 3D.\n\nNEW\nExpand Image\nPerluas area foto yang terpotong.\n\nPhoto Editor\nEdit dan sesuaikan foto Anda.\n\nFace Swap\nGanti wajah di foto manapun.\n\nNEW\nCeleb Lookalike\nFoto bareng artis idola.\n\nNEW\nBG Remover\nHapus background instan.\n\nProduk & Promosi\nPro Product Shot\nProduct Only, Product + Model.\n\nFashion Studio\nFoto katalog fashion pro.\n\nNEW\nMockup Generator\nPreview di kemasan/HP.\n\nBanner Creator\nDesain banner promosi.\n\nCarousel Maker\nBuat konten carousel instan.\n\nNEW\nStory Line\nVisualisasikan cerita Anda.\n\nNEW\nAI Voice Over\nIsi suara konten otomatis.\n\nNEW\nHand POV\nProduk di genggaman tangan.\n\nGaya Hidup\nPre-Wedding\nFoto romantis tanpa studio.\n\nNEW\nFashion Fitting Room\nCoba baju virtual.\n\nNEW\nFace Retouch\nPerhalus wajah otomatis.\n\nModel Generator\nCreate Model, Pose, Angle.\n\nVirtual Photographer\nKids, Umrah, Passport, Maternity.\n\nNEW\nVirtual Hair Studio\nGanti gaya rambut & janggut.\n\nDesain & Ilustrasi\nHome Design\nDesain interior & eksterior.\n\nSketsa Gambar\nUbah sketsa jadi nyata.\n\nArt & Karikatur\nGaya artistik unik.\n\nNEW\nAuto Rapi\nRapikan objek otomatis.\n\nFormulir Pemesanan\nLengkapi data di bawah ini untuk mendapatkan akses Mafaza Pro.\n\n GARANSI KEPUASAN\nSatu-satunya Tool AI, Sekali Bayar, Tanpa Batasan.\nMakanya saya garansi Anda gak akan rugi beli Mafaza Pro! Fitur update terus dan akses seumur hidup.\n\n100%\nGaransi 100% Puas\nBisa bikin foto produk profesional & tanpa batas!\n\nLifetime Access (Sekali Bayar)\nFull Support Admin\nAkses Semua Fitur AI\nMAFAZA PRO LIFETIME ACCESS\n🔥 FLASH SALE BERAKHIR DALAM:\n\n09 : 09 : 52\nAmbil sebelum harga kembali normal!\n\nData Pemesan\nMasukkan nama Anda\ncontoh@email.com\n*Produk dikirim ke email anda\n\n+62\n812xxxxxx\nMetode Pembayaran\nBCA\nQRIS\nGoPay\n& Lainnya\n🎁 Bonus Spesial (Promo Terbatas)\n\n\nGrup Support Mafaza Pro\nKomunitas, Info Update & Tutorial.\n\nGRATIS Rp 150.000\n\nEbook 4 Jurus Jitu Melejitkan Omset\nStrategi bisnis online terbukti ampuh.\n\nGRATIS Rp 99.000\n\nEbook Teknik Follow Up & Closing WA\nCara ubah chat jadi transferan.\n\nGRATIS Rp 79.000\nHarga Normal\nRp 300.000\nMafaza Pro (Promo)\nRp 97.000\nTotal Bonus (Ebook + Grup)\nRp 0 (FREE)\nTotal Bayar\nRp 97.000\n\nBELI SEKARANG\nATAU\nLangsung Checkout (Lynk.id) \nData Anda aman. Klik tombol di atas untuk terhubung ke Admin.\n\nF.A.Q\n1. Apakah Lifetime?\nYa, selama Gemini masih membuka aksesnya, maka Mafaza Pro juga bisa digunakan.\n\n2. Dikirim Lewat Mana?\nEmail, jadi pastikan ngetik email jangan typo/salah supaya setelah bayar langsung dapat produknya. Kalau salah ngetik, produknya terkirim manual dan itu butuh waktu lama 1x24 jam.\n\n3. Bisa Dijual Kembali?\nTidak bisa. Produk ini hanya untuk penggunaan pribadi.\n\n4. Apakah Bisa Refund?\nTidak bisa, karena Anda sudah mendapatkan akses termasuk update-updatenya. Membeli artinya SETUJU.\n\n5. Saya Mau Request Fitur?\nBisa, di member area ada form pengisian jika ingin meminta fitur baru.\n\nMafaza Pro Logo\n© 2025 Mafaza Pro By Malik Faza. All rights reserved.\n\nkontak wa admin 6285161141114\n\n\n\n\n---\n*Instruksi:* Jawablah pertanyaan user berdasarkan data di atas dengan SINGKAT (Max 5 Baris), RAMAH, dan dalam SATU BUBBLE saja."
+    };
+
+    function toggleMafazaChat() {
+        const box = document.getElementById('mafazaChatBox');
+        if (box.style.display === 'flex') {
+            box.classList.remove('active');
+            setTimeout(() => box.style.display = 'none', 300);
+        } else {
+            box.style.display = 'flex';
+            setTimeout(() => box.classList.add('active'), 10);
+        }
+    }
+
+    function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
+
+    function appendMsg(text, sender) {
+        const div = document.createElement('div');
+        div.className = `mfz-msg mfz-${sender}`;
+        
+        // Get Time HH:MM
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Convert simple markdown bold to html (optional)
+        const formatted = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        div.innerHTML = `${formatted} <span class="mfz-time">${time}</span>`;
+        
+        document.getElementById('mfzBody').appendChild(div);
+        document.getElementById('mfzBody').scrollTop = document.getElementById('mfzBody').scrollHeight;
+    }
+
+    // --- HELPER: AUTO RETRY (EXPONENTIAL BACKOFF) ---
+    // Fungsi ini akan mencoba ulang jika terjadi error rate limit (429) atau server error (503)
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const response = await fetch(url, options);
+                
+                // Jika sukses (200-299), kembalikan response
+                if (response.ok) {
+                    return response;
+                }
+
+                // Jika error 429 (Too Many Requests) atau 503 (Service Unavailable), kita retry
+                if (response.status === 429 || response.status === 503) {
+                    console.warn(`Percobaan ke-${i + 1} gagal (Status ${response.status}). Menunggu ${delay}ms...`);
+                    await sleep(delay);
+                    delay *= 2; // Exponential backoff (1s, 2s, 4s, 8s...)
+                    continue;
+                }
+
+                // Jika error lain (misal 400 Bad Request), jangan retry, langsung throw
+                throw new Error(`HTTP Error! Status: ${response.status}`);
+
+            } catch (error) {
+                // Jika network error (offline), kita retry juga
+                if (i === retries - 1) throw error;
+                console.warn(`Network error pada percobaan ke-${i + 1}. Menunggu ${delay}ms...`);
+                await sleep(delay);
+                delay *= 2;
+            }
+        }
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('mfzInput');
+        const text = input.value.trim();
+        if(!text) return;
+
+        appendMsg(text, 'user');
+        input.value = '';
+        document.getElementById('mfzTyping').style.display = 'block';
+
+        try {
+            // DETEKSI JENIS API KEY (Google Gemini vs OpenAI)
+            let aiResponse = "";
+            
+            if (CONFIG.apiKey.startsWith("sk-")) {
+                // === LOGIKA OPENAI ===
+                const url = 'https://api.openai.com/v1/chat/completions';
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${CONFIG.apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            {role: "system", content: CONFIG.systemPrompt},
+                            {role: "user", content: text}
+                        ]
+                    })
+                };
+                
+                const response = await fetchWithRetry(url, options);
+                const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
+                aiResponse = data.choices[0].message.content;
+
+            } else {
+                // === LOGIKA GOOGLE GEMINI (DEFAULT) ===
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${CONFIG.apiKey}`;
+                const options = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            {
+                                role: "user",
+                                parts: [{ text: CONFIG.systemPrompt + "\n\nUser bertanya: " + text }]
+                            }
+                        ]
+                    })
+                };
+
+                const response = await fetchWithRetry(url, options);
+                const data = await response.json();
+                if(data.error) throw new Error(data.error.message);
+                aiResponse = data.candidates[0].content.parts[0].text;
+            }
+
+            document.getElementById('mfzTyping').style.display = 'none';
+            
+            // --- PECAH BUBBLE BERDASARKAN PARAGRAF ---
+            const bubbles = aiResponse.split('\n\n');
+            bubbles.forEach((bubbleText) => {
+                if (bubbleText.trim()) {
+                    appendMsg(bubbleText.trim(), 'bot');
+                }
+            });
+
+        } catch (err) {
+            document.getElementById('mfzTyping').style.display = 'none';
+            console.error(err);
+            appendMsg("Maaf, sistem sedang sibuk atau ada kendala koneksi. Mohon coba lagi sebentar.", 'bot');
+        }
+    }
+</script>
+<!-- ================== END MAFAZA AI WIDGET ================== -->
 </body>
 </html>
