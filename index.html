@@ -16,7 +16,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- AOS Animation -->
+    <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom Config -->
@@ -149,6 +149,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            pointer-events: none; /* Prevent image dragging */
         }
         .comparison-slider img:after {
             content: "Image Not Found: " attr(alt);
@@ -1138,7 +1139,138 @@
         </div>
     </div>
 
-        // --- FLASH SALE TIMER ---
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- MAIN SCRIPT (FIXED) -->
+    <script>
+        // --- 1. SLIDER FUNCTION (Fix Error: slide is not defined) ---
+        function slide(e) {
+            const container = e.currentTarget;
+            // Dapatkan posisi kursor relatif terhadap container slider
+            // clientX/Y adalah posisi mouse di layar
+            // getBoundingClientRect() memberikan posisi container di layar
+            const rect = container.getBoundingClientRect();
+            
+            // Hitung posisi horizontal mouse dalam container
+            let x;
+            
+            // Cek apakah event adalah touch atau mouse
+            if (e.type === 'touchmove') {
+                x = e.touches[0].clientX - rect.left;
+            } else {
+                x = e.clientX - rect.left;
+            }
+            
+            // Batasi x agar tidak keluar container (0 sampai width)
+            // Tambahkan sedikit buffer agar handle tidak keluar
+            if (x < 0) x = 0;
+            if (x > rect.width) x = rect.width;
+            
+            // Hitung persentase lebar
+            const percentage = (x / rect.width) * 100;
+            
+            // Ubah lebar div resize-image
+            const resizeImage = container.querySelector('.resize-image');
+            if(resizeImage) {
+                resizeImage.style.width = percentage + "%";
+            }
+        }
+
+        // --- 2. THEME TOGGLE FUNCTION ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.theme = 'light';
+                // Ganti icon ke matahari
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeIcon.style.transform = "rotate(180deg)";
+            } else {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                localStorage.theme = 'dark';
+                // Ganti icon ke bulan
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                themeIcon.style.transform = "rotate(0deg)";
+            }
+        }
+
+        // --- 3. MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // --- 4. VIDEO MODAL TOGGLE ---
+        function toggleVideo() {
+            const modal = document.getElementById('video-modal');
+            const frame = document.getElementById('youtube-frame');
+            const modalContent = document.getElementById('modal-content');
+            
+            // URL Video Youtube (Ganti ID video di sini jika perlu)
+            // Menggunakan playlist atau video tertentu. Contoh ini video dummy.
+            const videoUrl = "https://www.youtube.com/embed/S2H554q522E?autoplay=1"; 
+
+            if (modal.classList.contains('hidden')) {
+                // OPEN
+                modal.classList.remove('hidden');
+                // Sedikit delay untuk animasi opacity
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }, 10);
+                frame.src = videoUrl;
+            } else {
+                // CLOSE
+                modal.classList.add('opacity-0');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    frame.src = ""; // Stop video
+                }, 300);
+            }
+        }
+
+        // --- 5. CHECKOUT WHATSAPP FUNCTION ---
+        function checkoutWA() {
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const wa = document.getElementById('whatsapp').value;
+            
+            if (!nama || !email || !wa) {
+                alert("Mohon lengkapi semua data!");
+                return;
+            }
+
+            const message = `Halo Admin Mafaza Pro, saya mau order promo Lifetime Access.%0A%0A*Data Pemesan:*%0A👤 Nama: ${nama}%0A📧 Email: ${email}%0A📱 WA: ${wa}%0A%0AMohon info pembayaran. Terima kasih!`;
+            
+            // No WA Admin (Sesuai widget)
+            const adminNumber = "6285161141114";
+            
+            window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
+        }
+
+        // --- 6. FLASH SALE TIMER ---
         function updateFlashSale() {
             const now = new Date();
             let target = new Date();
@@ -1165,21 +1297,43 @@
         // --- DOM CONTENT LOADED LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
             
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+
             // Start Flash Sale Timer
             setInterval(updateFlashSale, 1000);
             updateFlashSale();
 
+            // Set Initial Theme Icon
+            const isDark = document.documentElement.classList.contains('dark');
+            const themeIcon = document.getElementById('theme-icon');
+            if(themeIcon) {
+                 if (isDark) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            }
+
             // Sticky Navbar
             window.addEventListener('scroll', function() {
                 const navbar = document.getElementById('navbar');
-                const isDark = document.documentElement.classList.contains('dark');
+                const isDarkNow = document.documentElement.classList.contains('dark');
                 if(!navbar) return;
 
                 if (window.scrollY > 50) {
-                    if (isDark) {
+                    if (isDarkNow) {
                         navbar.classList.add('bg-dark/80', 'backdrop-blur-md');
+                        navbar.classList.remove('bg-white/80');
                     } else {
                         navbar.classList.add('bg-white/80', 'backdrop-blur-md');
+                        navbar.classList.remove('bg-dark/80');
                     }
                     navbar.classList.remove('rounded-none', 'border-x-0', 'border-t-0');
                     navbar.classList.add('rounded-b-2xl');
@@ -1194,7 +1348,6 @@
             const musicDisc = document.getElementById('music-disc');
             const musicIcon = document.getElementById('music-icon');
             let isPlaying = false;
-            let musicHasAutoStarted = false;
 
             window.toggleMusic = function() { // Assign to window just in case
                 if (isPlaying) {
@@ -1209,10 +1362,9 @@
                     musicIcon.classList.add('fa-pause');
                 }
                 isPlaying = !isPlaying;
-                musicHasAutoStarted = true;
             };
 
-            // Close Video Modal on backdrop
+            // Close Video Modal on backdrop click
             const videoModal = document.getElementById('video-modal');
             if(videoModal) {
                 videoModal.addEventListener('click', function(e) {
