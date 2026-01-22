@@ -1,16 +1,15 @@
 /**
- * MAFAZA AI WIDGET v5.4 (Standalone JS Version)
- * Cara Pasang: <script src="nama-file-ini.js"></script>
+ * MAFAZA AI WIDGET v5.6 (Backend Mode: cloudflare)
+ * Backend URL: https://withered-leaf-4778.abdul-m4lik1999.workers.dev/
  */
 (function() {
-    // 1. KONFIGURASI
+    // KONFIGURASI FRONTEND
     const MFZ_CONFIG = {
-        key: "AIzaSyARtJADEdm4x2SseW6oe1wW1KEEgIZSaE0",
-        prompt: "### PERAN\nAnda adalah CS mafaza pro, Customer Service AI untuk Mafaza Pro.\n\n### INFORMASI PRODUK\n### TENTANG MAFAZA PRO\nMafaza Pro adalah tools AI visual berbasis web (tanpa instalasi berat) untuk upgrade visual digital (foto produk, personal brand) dalam hitungan detik.\n- Keunggulan: Hasil sekelas studio profesional, sekali bayar (Lifetime), hemat biaya lighting/model.\n- Solusi untuk: Foto gelap, gaya tidak konsisten, edit ribet.\n\n### FITUR UTAMA (ALL-IN-ONE)\n1. EDIT & FUSION: Photo Fusion, Miniature Effect (3D), Expand Image, Face Swap (Ganti wajah), BG Remover.\n2. PRODUK: Pro Product Shot (Produk+Model), Mockup Generator (Kemasan/HP), Banner Creator, Carousel Maker, Hand POV.\n3. FASHION & GAYA HIDUP: Fashion Fitting Room (Coba baju virtual), Pre-Wedding, Face Retouch, Virtual Hair Studio, Model Generator.\n4. DESAIN: Home Design (Interior/Eksterior), Sketsa ke Nyata, Auto Rapi.\n5. FITUR BARU: Story Line, AI Voice Over, Celeb Lookalike.\n\n### HARGA & PROMO FLASH SALE\n- HARGA PROMO: Rp 97.000 (LIFETIME ACCESS / Sekali Bayar).\n- Harga Normal: Rp 300.000.\n- BONUS SPESIAL: Grup Support & Update, Ebook \"4 Jurus Jitu Melejitkan Omset\", Ebook \"Teknik Follow Up & Closing WA\".\n- GARANSI: 100% Puas, Full Support Admin.\n\n### FAQ (PERTANYAAN UMUM)\n- Lifetime? Ya, selama Gemini membuka aksesnya.\n- Pengiriman? Via Email (Pastikan email benar/tidak typo).\n- Bisa dijual kembali? TIDAK BISA (Personal Use Only).\n- Refund? Tidak bisa, karena akses produk digital + update diberikan di awal.\n\n### CARA ORDER\nIsi nama, email, no WA -> Pilih metode bayar (QRIS/Transfer) -> Akses dikirim ke email.\n\n### KONTAK\nWhatsApp Admin: 6285161141114\n\n### INSTRUKSI INTERAKSI (WAJIB PATUH)\n1. **PENGENALAN DIRI:** User baru saja ditanya namanya di pesan sambutan. Jika input pertama user adalah nama (contoh: \"Budi\" atau \"Saya Siti\"), JANGAN langsung jelaskan produk. Sapa dulu: \"Halo Kak [Nama], salam kenal! Ada yang bisa saya bantu tentang Mafaza Pro?\".\n2. Jawab SANGAT SINGKAT (Maksimal 2-3 kalimat saja).\n3. Fokus langsung ke inti jawaban, jangan basa-basi berlebihan.\n4. Gunakan bahasa Indonesia yang santai & sopan (panggil \"Kak\").\n5. HANYA jawab pertanyaan seputar produk di atas. Jika user tanya hal lain, arahkan ke WhatsApp Admin.\n\nUser: ",
+        apiUrl: "https://withered-leaf-4778.abdul-m4lik1999.workers.dev/", 
         waLink: "https://wa.me/6285161141114?text=Halo%20Admin%2C%20saya%20butuh%20bantuan%20lanjut..."
     };
 
-    // 2. INJECT CSS
+    // INJECT CSS
     const style = document.createElement('style');
     style.innerHTML = `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -19,7 +18,7 @@
     .mfz-widget-btn { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--mfz-primary); border-radius: 50%; box-shadow: 0 4px 14px rgba(0,0,0,0.25); cursor: pointer; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; }
     .mfz-widget-btn:hover { transform: scale(1.1); }
     .mfz-widget-btn svg { width: 30px; height: 30px; fill: white; }
-    .mfz-chat-box { position: fixed; bottom: 90px; right: 20px; width: 350px; height: 500px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; z-index: 9999; font-family: 'Inter', sans-serif; }
+    .mfz-chat-box { position: fixed; bottom: 90px; right: 20px; width: 350px; height: 500px; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; z-index: 9999; font-family: 'Inter', sans-serif; }
     .mfz-chat-box.active { display: flex; animation: mfzFadeIn 0.3s ease forwards; }
     .mfz-header { background: var(--mfz-primary); padding: 16px; color: white; display: flex; align-items: center; justify-content: space-between; }
     .mfz-profile { display: flex; align-items: center; gap: 10px; }
@@ -42,7 +41,7 @@
     `;
     document.head.appendChild(style);
 
-    // 3. INJECT HTML UI
+    // INJECT UI
     const widgetContainer = document.createElement('div');
     widgetContainer.innerHTML = `
         <div class="mfz-widget-btn" id="mfzTrigger"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div>
@@ -65,7 +64,7 @@
     `;
     document.body.appendChild(widgetContainer);
 
-    // 4. LOGIC EVENT LISTENER
+    // LOGIC
     const box = document.getElementById('mafazaChatBox');
     const inp = document.getElementById('mfzInput');
     
@@ -93,31 +92,25 @@
         appendMsg(txt,'user'); inp.value=''; document.getElementById('mfzTyping').style.display='block';
         
         try {
-            let resTxt = "";
-            if (MFZ_CONFIG.key.startsWith("sk-")) {
-                 const res = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method:'POST', headers:{'Content-Type':'application/json','Authorization':`Bearer ${MFZ_CONFIG.key}`},
-                    body:JSON.stringify({model:"gpt-3.5-turbo", messages:[{role:"system",content:MFZ_CONFIG.prompt},{role:"user",content:txt}]})
-                });
-                if(res.status===429) throw new Error("LIMIT_HABIS");
-                const data = await res.json(); resTxt = data.choices[0].message.content;
-            } else {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${MFZ_CONFIG.key}`, {
-                    method:'POST', headers:{'Content-Type':'application/json'},
-                    body:JSON.stringify({contents:[{parts:[{text:MFZ_CONFIG.prompt + txt}]}]})
-                });
-                if(res.status===429) throw new Error("LIMIT_HABIS");
-                const data = await res.json(); resTxt = data.candidates[0].content.parts[0].text;
-            }
+            // KIRIM KE BACKEND (PHP / CLOUDFLARE)
+            const res = await fetch(MFZ_CONFIG.apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: txt })
+            });
+
+            const data = await res.json();
+            
             document.getElementById('mfzTyping').style.display='none';
-            appendMsg(resTxt, 'bot');
+            
+            if (data.error) {
+                appendMsg("⚠️ " + data.error, 'bot');
+            } else {
+                appendMsg(data.reply, 'bot');
+            }
         } catch(e) {
             document.getElementById('mfzTyping').style.display='none';
-            if(e.message === "LIMIT_HABIS") {
-                appendMsg("⚠️ Maaf, limit harian AI habis. Silakan hubungi admin via WhatsApp untuk respon cepat.", 'bot');
-            } else {
-                appendMsg("Maaf, ada gangguan koneksi. Coba lagi nanti.", 'bot');
-            }
+            appendMsg("Maaf, gagal terhubung ke server. Cek koneksi Anda.", 'bot');
         }
     }
 })();
