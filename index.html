@@ -762,104 +762,96 @@
 
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-10">
-                <h2 class="text-4xl font-bold mb-2 text-white">Formulir Pemesanan</h2>
+                <h2 class="text-4xl font-bold mb-2 text-white">Ambil Promo Sekarang</h2>
                 <p class="text-white opacity-90">Akses Lifetime dengan harga terjangkau.</p>
             </div>
 
-            <div class="max-w-5xl mx-auto flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-2xl">
+            <div class="max-w-4xl mx-auto flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-2xl">
                 <!-- Left: Summary Panel -->
-                <div class="lg:w-2/5 p-8 bg-brand-900 text-white relative border-r border-brand-700">
+                <div class="lg:w-1/2 p-8 bg-brand-900 text-white relative border-r border-brand-700 flex flex-col justify-center">
                     <div class="absolute top-0 right-0 p-32 bg-brand-600 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-                    <h3 class="text-2xl font-bold mb-8 relative z-10 border-b border-brand-700 pb-4">Rincian Paket</h3>
-                    <div class="space-y-6 relative z-10">
-                        <!-- Item 1 -->
-                        <div class="flex items-start gap-4">
-                            <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
-                                <i class="fa-solid fa-infinity"></i>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold mb-8 border-b border-brand-700 pb-4">Rincian Paket</h3>
+                        <div class="space-y-6">
+                            <!-- Item 1 -->
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
+                                    <i class="fa-solid fa-infinity"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-base text-white mb-1">Lifetime Access</h4>
+                                    <p class="text-sm text-slate-200 leading-relaxed">Cukup sekali bayar, akun aktif selamanya tanpa biaya bulanan.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-base text-white mb-1">Lifetime Access</h4>
-                                <p class="text-sm text-slate-200 leading-relaxed">Cukup sekali bayar, akun aktif selamanya tanpa biaya bulanan.</p>
+                            <!-- Item 2 -->
+                            <div class="flex items-start gap-4">
+                                <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-base text-white mb-1">Support Group</h4>
+                                    <p class="text-sm text-slate-200 leading-relaxed">Gabung komunitas eksklusif & dapatkan update info terbaru.</p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="flex items-start gap-4">
-                            <div class="bg-white text-brand-900 w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full font-bold shadow-lg">
-                                <i class="fa-solid fa-users"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-base text-white mb-1">Support Group</h4>
-                                <p class="text-sm text-slate-200 leading-relaxed">Gabung komunitas eksklusif & dapatkan update info terbaru.</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-10 pt-8 border-t border-brand-700">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm text-slate-300 font-medium">Harga Normal</span>
-                                <span class="text-base line-through text-red-400 font-bold bg-white/10 px-2 rounded">Rp 300.000</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-lg font-bold text-white">Harga Promo</span>
-                                <span class="text-4xl font-extrabold text-white text-shadow-sm">Rp 97rb</span>
+    
+                            <div class="mt-10 pt-8 border-t border-brand-700">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm text-slate-300 font-medium">Harga Normal</span>
+                                    <span class="text-base line-through text-red-400 font-bold bg-white/10 px-2 rounded">Rp 300.000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-white">Harga Promo</span>
+                                    <span class="text-4xl font-extrabold text-white text-shadow-sm">Rp 97rb</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right: Form Input -->
-                <div class="lg:w-3/5 p-8 lg:p-12 bg-white">
-                    <div class="flex justify-between items-center mb-8 border-b border-slate-100 pb-4">
-                        <h3 class="font-bold text-slate-900 text-2xl">Data Pembeli</h3>
-                        <!-- Flash Sale Badge -->
-                        <div class="bg-red-100 border border-red-200 px-4 py-1.5 rounded-full text-red-700 text-xs font-bold flex items-center gap-2 shadow-sm">
-                            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                            Sisa Waktu: <span id="flash-timer" class="font-mono text-sm">00:00:00</span>
+                <!-- Right: CTA Button -->
+                <div class="lg:w-1/2 p-8 lg:p-12 bg-white flex flex-col justify-center items-center text-center">
+                    <div class="mb-8">
+                        <div class="inline-flex items-center gap-2 bg-red-100 border border-red-200 px-4 py-2 rounded-full text-red-700 text-sm font-bold shadow-sm mb-6 animate-pulse">
+                            <span class="w-2 h-2 bg-red-600 rounded-full"></span>
+                            Sisa Waktu Promo: <span id="flash-timer" class="font-mono">00:00:00</span>
                         </div>
+                        <h3 class="font-bold text-slate-900 text-2xl mb-2">Siap Upgrade Visual Brand Anda?</h3>
+                        <p class="text-slate-500">Klik tombol di bawah untuk pembayaran otomatis. Akses langsung dikirim ke Email & WhatsApp.</p>
                     </div>
 
-                    <form id="orderForm" class="space-y-6" onsubmit="event.preventDefault(); checkoutWA();">
-                        <div>
-                            <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">Nama Lengkap</label>
-                            <input type="text" id="nama" class="w-full p-4 rounded-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="Ketik Nama Anda Disini..." required>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">Email</label>
-                                <input type="email" id="email" class="w-full p-4 rounded-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="email@anda.com" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-extrabold text-black uppercase mb-2 tracking-wide">WhatsApp</label>
-                                <div class="flex">
-                                    <span class="bg-slate-200 border-2 border-r-0 border-slate-300 text-slate-800 px-4 py-3 rounded-l-xl flex items-center font-bold text-base">+62</span>
-                                    <input type="tel" id="whatsapp" class="w-full p-4 rounded-r-xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-100 transition-all" placeholder="812xxxxx" required>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Bonus Badge -->
+                    <div class="w-full bg-blue-50 rounded-xl p-5 border border-blue-100 mb-8 text-left">
+                        <p class="text-xs font-black text-blue-800 tracking-wide mb-3 uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-gift"></i> Termasuk Bonus Spesial:
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fa-solid fa-check text-green-500"></i> Ebook "4 Jurus Jitu Omset Melejit"
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fa-solid fa-check text-green-500"></i> Ebook "Teknik Follow Up & Closing"
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-slate-700">
+                                <i class="fa-solid fa-check text-green-500"></i> Grup Support Eksklusif
+                            </li>
+                        </ul>
+                    </div>
 
-                        <!-- Bonus Checkboxes -->
-                        <div class="bg-blue-50 rounded-xl p-5 border-2 border-blue-100 space-y-3 mt-4">
-                            <p class="text-sm font-black text-blue-800 tracking-wide mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-gift"></i> BONUS SPESIAL (GRATIS):
-                            </p>
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-blue-200 shadow-sm">
-                                <i class="fa-solid fa-check-circle text-green-600 text-xl"></i>
-                                <span class="text-sm text-slate-900 font-bold">Ebook 4 Jurus Jitu Omset Melejit</span>
-                            </div>
-                            <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-blue-200 shadow-sm">
-                                <i class="fa-solid fa-check-circle text-green-600 text-xl"></i>
-                                <span class="text-sm text-slate-900 font-bold">Ebook Teknik Follow Up & Closing</span>
-                            </div>
+                    <a href="https://s.id/allpayment#97000/Mafaza_PRO" target="_blank" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold py-5 rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-3 text-xl group border border-brand-500">
+                        <span>AMBIL PROMO SEKARANG</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    
+                    <div class="mt-6">
+                        <div class="flex flex-wrap justify-center gap-3 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                             <i class="fa-brands fa-cc-visa text-2xl"></i>
+                             <i class="fa-brands fa-cc-mastercard text-2xl"></i>
+                             <i class="fa-solid fa-building-columns text-2xl"></i>
+                             <i class="fa-solid fa-wallet text-2xl"></i>
                         </div>
-
-                        <div class="pt-4 space-y-3">
-                            <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold py-4 rounded-xl shadow-lg shadow-brand-500/30 transition transform hover:-translate-y-1 flex items-center justify-center gap-3 text-lg border border-brand-500">
-                                <i class="fa-brands fa-whatsapp text-2xl"></i> Beli Sekarang via WhatsApp
-                            </button>
-                            <a href="http://lynk.id/malikfaza/4my6v4qyyo43/checkout" target="_blank" class="block w-full text-center bg-white border-2 border-slate-300 text-slate-700 hover:border-brand-500 hover:text-brand-600 hover:bg-slate-50 font-bold py-4 rounded-xl transition text-sm">
-                                Checkout Otomatis (Lynk.id) <i class="fa-solid fa-arrow-right ml-1"></i>
-                            </a>
-                        </div>
-                    </form>
+                        <p class="text-[10px] text-slate-400 mt-2">Support QRIS, Virtual Account, E-Wallet & Retail</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -919,10 +911,8 @@
     .mfz-chat-box {
         position: fixed; bottom: 90px; right: 20px;
         width: 350px; height: 500px;
-        /* Dynamic Styles Injected Here */
-        background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.5);
-        /* End Dynamic Styles */
         border-radius: 16px;
         box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         display: none; flex-direction: column;
@@ -947,18 +937,24 @@
     .mfz-icon-btn:hover { background: rgba(255,255,255,0.4); }
 
     /* CHAT AREA */
-    .mfz-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-    .mfz-msg { max-width: 80%; padding: 10px 14px; font-size: 14px; line-height: 1.5; word-wrap: break-word; position: relative; padding-bottom: 20px; /* Space for timestamp */ }
+    .mfz-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f1f5f9; }
+    .mfz-msg { max-width: 85%; padding: 12px 14px; font-size: 14px; line-height: 1.5; word-wrap: break-word; position: relative; }
     
-    .mfz-bot { align-self: flex-start; background: white; color: var(--mfz-text); border-radius: 12px 12px 12px 2px; border: 1px solid #E2E8F0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .mfz-user { align-self: flex-end; background: var(--mfz-primary); color: white; border-radius: 12px 12px 2px 12px; }
+    .mfz-bot { align-self: flex-start; background: white; color: var(--mfz-text); border-radius: 12px 12px 12px 2px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .mfz-user { align-self: flex-end; background: var(--mfz-primary); color: white; border-radius: 12px 12px 2px 12px; box-shadow: 0 2px 5px rgba(20, 85, 225, 0.2); }
     
-    /* TIMESTAMP */
-    .mfz-time { font-size: 10px; position: absolute; bottom: 4px; right: 10px; opacity: 0.6; }
-    .mfz-user .mfz-time { color: rgba(255,255,255,0.8); }
+    /* OPTION BUTTONS */
+    .mfz-options { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+    .mfz-opt-btn {
+        background: white; border: 1px solid var(--mfz-primary); color: var(--mfz-primary);
+        padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+        cursor: pointer; transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .mfz-opt-btn:hover { background: var(--mfz-primary); color: white; transform: translateY(-2px); }
 
     /* INPUT AREA */
-    .mfz-footer { padding: 12px; background: rgba(255,255,255,0.9); border-top: 1px solid #E2E8F0; display: flex; gap: 8px; }
+    .mfz-footer { padding: 12px; background: white; border-top: 1px solid #E2E8F0; display: flex; gap: 8px; }
     .mfz-input { 
         flex: 1; 
         border: 1px solid #CBD5E1; 
@@ -967,20 +963,21 @@
         outline: none; 
         font-size: 14px; 
         transition: border 0.2s; 
-        background: white; 
-        color: #1E293B; /* FIX: FORCE DARK TEXT COLOR */
+        background: #f8fafc; 
+        color: #1E293B; 
     }
-    .mfz-input:focus { border-color: var(--mfz-primary); }
-    .mfz-send { background: var(--mfz-primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .mfz-send:hover { filter: brightness(0.9); }
+    .mfz-input:focus { border-color: var(--mfz-primary); background: white; }
+    .mfz-send { background: var(--mfz-primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .mfz-send:hover { transform: scale(1.05); }
 
     /* BRANDING FOOTER */
-    .mfz-power { text-align: center; font-size: 10px; color: #94a3b8; padding-bottom: 8px; background: rgba(255,255,255,0.9); }
+    .mfz-power { text-align: center; font-size: 10px; color: #94a3b8; padding: 4px; background: white; }
     .mfz-power a { text-decoration: none; color: inherit; font-weight: 600; cursor: pointer; }
-    .mfz-power a:hover { color: var(--mfz-primary); }
+    
+    /* SCROLLBAR */
+    .mfz-body::-webkit-scrollbar { width: 5px; }
+    .mfz-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-    /* UTILS */
-    .mfz-typing { font-size: 12px; color: #64748B; margin-left: 10px; display: none; margin-bottom: 5px; }
     @media (max-width: 480px) { .mfz-chat-box { width: 90%; right: 5%; bottom: 80px; height: 60vh; } }
 </style>
 
@@ -993,38 +990,88 @@
 <div class="mfz-chat-box" id="mafazaChatBox">
     <div class="mfz-header">
         <div class="mfz-profile">
-            <img src="https://iili.io/f8k2D5Q.th.png" alt="Logo">
+            <img src="https://i.ibb.co.com/QGQz1YD/STUDIO-AI5.png" alt="Logo">
             <div>
-                <h3>CS mafaza pro</h3>
-                <span>Online • AI Assistant</span>
+                <h3>CS Mafaza Pro</h3>
+                <span>Online • Fast Respon</span>
             </div>
         </div>
         <div class="mfz-actions">
-            <a href="https://wa.me/6285161141114?text=Halo%20Admin%2C%20saya%20butuh%20bantuan%20lanjut..." target="_blank" class="mfz-icon-btn" title="Chat WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.099-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg></a>
-            <button onclick="toggleMafazaChat()" class="mfz-icon-btn">✕</button>
+            <button onclick="restartChat()" class="mfz-icon-btn" title="Ulangi Chat"><i class="fa-solid fa-rotate-right"></i></button>
+            <button onclick="toggleMafazaChat()" class="mfz-icon-btn"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </div>
     
     <div class="mfz-body" id="mfzBody">
-        <div class="mfz-msg mfz-bot">Halo Kak! Ada yang bisa saya bantu mengenai mafaza pro?</div>
+        <!-- Chat content injected via JS -->
     </div>
-    <div class="mfz-typing" id="mfzTyping">CS mafaza pro sedang mengetik...</div>
 
     <div class="mfz-footer">
-        <input type="text" id="mfzInput" class="mfz-input" placeholder="Ketik pesan..." onkeypress="handleEnter(event)">
-        <button onclick="sendMessage()" class="mfz-send">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg>
+        <input type="text" id="mfzInput" class="mfz-input" placeholder="Tulis pesan..." onkeypress="handleEnter(event)">
+        <button onclick="sendUserMessage()" class="mfz-send">
+            <i class="fa-solid fa-paper-plane"></i>
         </button>
     </div>
-    <div class="mfz-power">Powered by <a href="https://wa.me/6285161141114" target="_blank">MalikFaza</a></div>
+    <div class="mfz-power">Powered by <a href="#">Mafaza System</a></div>
 </div>
 
 <script>
-    // --- KONFIGURASI AI ---
-    const CONFIG = {
-        apiKey: "AIzaSyCqTWYY_8QZtQJr4HVIFBcABj0eR_l7Kf4", 
-        systemPrompt: "### PERAN & IDENTITAS\nAnda adalah CS mafaza pro, asisten virtual cerdas.\nTugas Anda: Menjawab pertanyaan calon pembeli, menjelaskan fitur, mengatasi kendala teknis, dan mengarahkan mereka untuk segera checkout.\n\n### ATURAN UTAMA (WAJIB DIPATUHI)\n1. *Gaya Bahasa:* Gunakan Bahasa Indonesia yang luwes, ramah, dan profesional.\n2. *Sapaan:* Wajib memanggil user dengan sebutan \"Kak\" atau \"Kakak\".\n3. *Format Jawaban (SANGAT PENTING):*\n   - Jawaban harus *SINGKAT, PADAT, dan JELAS*.\n   - **HANYA 1 BUBBLE CHAT SAJA**. Jangan memecah pesan menjadi beberapa bubble.\n   - **MAKSIMAL 5 BARIS** total.\n   - Gunakan simbol bullet (•) atau strip (-) untuk rincian jika muat.\n4. *Efisiensi Token:*\n   - Dilarang keras bertele-tele. Langsung jawab intinya.\n5. *Closing:* Selalu arahkan user untuk klik tombol \"DAPATKAN AKSES SEKARANG\" atau link checkout jika mereka tertarik.\n\n---\n\n### DATABASE PENGETAHUAN PRODUK & PANDUAN\nREVOLUSI ERA VISUAL\nUpgrade Visual Digital Anda dengan Mafaza Pro!\nHemat Ratusan Ribu, Dapatkan Foto Profesional dalam Hitungan Detik! Jangan biarkan foto seadanya merusak personal brand Anda.\n\nAMBIL SEKARANG\n\nLIHAT DEMO VIDEO\nGambar 1 Hero AfterAFTERGambar 1 Hero BeforeBEFORE\n Geser untuk melihat keajaiban\n\nKenapa Brand Anda Stuck?\nMasalah visual seringkali menjadi penghalang utama. Berikut dampaknya:\n\n📊\nTIDAK KONSISTEN\nGaya postingan yang berbeda-beda membuat tampilan media sosial terlihat amatir dan berantakan.\n\n📷\nPENCAHAYAAN BURUK\nFoto gelap, kusam, detail wajah hilang. Niatnya estetik, hasilnya malah suram dan tidak profesional.\n\n😑\nEDIT RUMIT\nBerjam-jam terbuang di aplikasi kompleks hanya untuk hasil yang biasa-biasa saja. Buang waktu!\n\nBukti Kecanggihan AI\n Klik pada gambar untuk melihat kondisi Original (Before). Klik lagi untuk kembali.\n\nAfterBeforeHDORIGINAL Tap to See\nAfterBeforePRORAW\nAfterBeforeCOLOROLD\nAfterBeforeDESIGNEMPTY\nAfterBeforeFOODFOOD\nAfterBeforeMOCKUPASLI\nAfterBeforeAFTERBEFORE\nAfterBeforeAFTERBEFORE\nGaleri Hasil Generate ● Live Preview\nGaleri 1Galeri 2Galeri 3Galeri 4Galeri 5Galeri 6Galeri 7Galeri 8Galeri 9Galeri 10\nGaleri 1Galeri 2Galeri 3Galeri 4Galeri 5Galeri 6Galeri 7Galeri 8Galeri 9Galeri 10\nGambar 2 Interface Mafaza Pro\n✅ Solusi Cerdas: Mafaza Pro\nIni bukan sekadar editor biasa. Ini adalah jalan pintas untuk menghemat waktu, biaya, dan energi. Semua kendala lighting, editing, atau gaya pose dapat diatasi hanya dengan satu kali klik.\n\nHasil sekelas Studio Profesional\nTanpa kamera mahal & lighting ribet\nCukup Upload, Pilih Gaya, Generate!\nMAU PROMO KHUSUS\nFitur Lengkap Mafaza Pro\nSemua yang Anda butuhkan dalam satu tools canggih.\n\n Gratis Update Fitur Baru!\nEdit & Gabung\nPhoto Fusion\nGabungkan foto jadi karya unik.\n\nNEW\nMiniature Effect\nEfek miniatur mainan 3D.\n\nNEW\nExpand Image\nPerluas area foto yang terpotong.\n\nPhoto Editor\nEdit dan sesuaikan foto Anda.\n\nFace Swap\nGanti wajah di foto manapun.\n\nNEW\nCeleb Lookalike\nFoto bareng artis idola.\n\nNEW\nBG Remover\nHapus background instan.\n\nProduk & Promosi\nPro Product Shot\nProduct Only, Product + Model.\n\nFashion Studio\nFoto katalog fashion pro.\n\nNEW\nMockup Generator\nPreview di kemasan/HP.\n\nBanner Creator\nDesain banner promosi.\n\nCarousel Maker\nBuat konten carousel instan.\n\nNEW\nStory Line\nVisualisasikan cerita Anda.\n\nNEW\nAI Voice Over\nIsi suara konten otomatis.\n\nNEW\nHand POV\nProduk di genggaman tangan.\n\nGaya Hidup\nPre-Wedding\nFoto romantis tanpa studio.\n\nNEW\nFashion Fitting Room\nCoba baju virtual.\n\nNEW\nFace Retouch\nPerhalus wajah otomatis.\n\nModel Generator\nCreate Model, Pose, Angle.\n\nVirtual Photographer\nKids, Umrah, Passport, Maternity.\n\nNEW\nVirtual Hair Studio\nGanti gaya rambut & janggut.\n\nDesain & Ilustrasi\nHome Design\nDesain interior & eksterior.\n\nSketsa Gambar\nUbah sketsa jadi nyata.\n\nArt & Karikatur\nGaya artistik unik.\n\nNEW\nAuto Rapi\nRapikan objek otomatis.\n\nFormulir Pemesanan\nLengkapi data di bawah ini untuk mendapatkan akses Mafaza Pro.\n\n GARANSI KEPUASAN\nSatu-satunya Tool AI, Sekali Bayar, Tanpa Batasan.\nMakanya saya garansi Anda gak akan rugi beli Mafaza Pro! Fitur update terus dan akses seumur hidup.\n\n100%\nGaransi 100% Puas\nBisa bikin foto produk profesional & tanpa batas!\n\nLifetime Access (Sekali Bayar)\nFull Support Admin\nAkses Semua Fitur AI\nMAFAZA PRO LIFETIME ACCESS\n🔥 FLASH SALE BERAKHIR DALAM:\n\n09 : 09 : 52\nAmbil sebelum harga kembali normal!\n\nData Pemesan\nMasukkan nama Anda\ncontoh@email.com\n*Produk dikirim ke email anda\n\n+62\n812xxxxxx\nMetode Pembayaran\nBCA\nQRIS\nGoPay\n& Lainnya\n🎁 Bonus Spesial (Promo Terbatas)\n\n\nGrup Support Mafaza Pro\nKomunitas, Info Update & Tutorial.\n\nGRATIS Rp 150.000\n\nEbook 4 Jurus Jitu Melejitkan Omset\nStrategi bisnis online terbukti ampuh.\n\nGRATIS Rp 99.000\n\nEbook Teknik Follow Up & Closing WA\nCara ubah chat jadi transferan.\n\nGRATIS Rp 79.000\nHarga Normal\nRp 300.000\nMafaza Pro (Promo)\nRp 97.000\nTotal Bonus (Ebook + Grup)\nRp 0 (FREE)\nTotal Bayar\nRp 97.000\n\nBELI SEKARANG\nATAU\nLangsung Checkout (Lynk.id) \nData Anda aman. Klik tombol di atas untuk terhubung ke Admin.\n\nF.A.Q\n1. Apakah Lifetime?\nYa, selama Gemini masih membuka aksesnya, maka Mafaza Pro juga bisa digunakan.\n\n2. Dikirim Lewat Mana?\nEmail, jadi pastikan ngetik email jangan typo/salah supaya setelah bayar langsung dapat produknya. Kalau salah ngetik, produknya terkirim manual dan itu butuh waktu lama 1x24 jam.\n\n3. Bisa Dijual Kembali?\nTidak bisa. Produk ini hanya untuk penggunaan pribadi.\n\n4. Apakah Bisa Refund?\nTidak bisa, karena Anda sudah mendapatkan akses termasuk update-updatenya. Membeli artinya SETUJU.\n\n5. Saya Mau Request Fitur?\nBisa, di member area ada form pengisian jika ingin meminta fitur baru.\n\nMafaza Pro Logo\n© 2025 Mafaza Pro By Malik Faza. All rights reserved.\n\nkontak wa admin 6285161141114\n\n\n\n\n---\n*Instruksi:* Jawablah pertanyaan user berdasarkan data di atas dengan SINGKAT (Max 5 Baris), RAMAH, dan dalam SATU BUBBLE saja."
+    // --- DATABASE JAWABAN (TEMPLATE) ---
+    const chatData = {
+        'start': {
+            text: "Halo Kak! 👋 Selamat datang di Mafaza Pro.\nAda yang bisa saya bantu hari ini?",
+            options: [
+                { label: "💰 Info Harga Promo", next: 'harga' },
+                { label: "🚀 Fitur Apa Saja?", next: 'fitur' },
+                { label: "🎁 Bonus Pembelian", next: 'bonus' },
+                { label: "📱 Cara Pesan", next: 'cara_beli' }
+            ]
+        },
+        'harga': {
+            text: "Saat ini kami sedang mengadakan **Flash Sale!** 🔥\n\nHarga Promo: **Rp 97.000** (Sekali Bayar/Lifetime).\n\nHarga normalnya Rp 300.000 lho kak. Mumpung promo, yuk amankan slotnya!",
+            options: [
+                { label: "🛒 Ambil Promo Sekarang", action: 'scroll_to_form' },
+                { label: "🔙 Menu Utama", next: 'start' }
+            ]
+        },
+        'fitur': {
+            text: "Mafaza Pro adalah Web Tools AI super lengkap! ✨\n\nFiturnya antara lain:\n✅ **Photo Fusion** (Gabung Foto)\n✅ **BG Remover** (Hapus Background)\n✅ **Mockup Generator** (Preview Produk)\n✅ **AI Voice Over** (Isi Suara)\n\nDan masih banyak lagi! Cek demo di halaman ini ya.",
+            options: [
+                { label: "👀 Lihat Demo", action: 'scroll_to_demo' },
+                { label: "🔙 Menu Utama", next: 'start' }
+            ]
+        },
+        'bonus': {
+            text: "Khusus pembelian hari ini, Kakak akan mendapatkan BONUS SPESIAL: 🎁\n\n1. Ebook '4 Jurus Jitu Omset Melejit'\n2. Ebook 'Teknik Follow Up & Closing'\n3. Akses Grup Support Eksklusif",
+            options: [
+                { label: "Mau Bonusnya!", action: 'scroll_to_form' },
+                { label: "🔙 Menu Utama", next: 'start' }
+            ]
+        },
+        'cara_beli': {
+            text: "Caranya mudah banget Kak, serba otomatis! 👇\n\n1. Klik tombol **'AMBIL PROMO'** di bagian bawah.\n2. Pilih metode pembayaran (QRIS/Transfer/E-Wallet).\n3. Akses login akan masuk otomatis ke Email & WA Kakak!",
+            options: [
+                { label: "🛒 Ke Tombol Pembelian", action: 'scroll_to_form' },
+                { label: "💬 Chat Admin Manusia", next: 'chat_admin' }
+            ]
+        },
+        'chat_admin': {
+            text: "Baik Kak, jika ada pertanyaan spesifik, silakan langsung chat Admin kami di WhatsApp ya.",
+            options: [
+                { label: "📞 Hubungi Admin WA", action: 'open_wa' },
+                { label: "🔙 Menu Utama", next: 'start' }
+            ]
+        },
+        'fallback': {
+            text: "Maaf Kak, saya hanya bot otomatis. Silakan pilih menu di bawah atau hubungi Admin via WhatsApp ya. 🙏",
+            options: [
+                { label: "🔙 Menu Utama", next: 'start' },
+                { label: "📞 Hubungi Admin", action: 'open_wa' }
+            ]
+        }
     };
+
+    let hasInitialized = false;
 
     function toggleMafazaChat() {
         const box = document.getElementById('mafazaChatBox');
@@ -1034,134 +1081,133 @@
         } else {
             box.style.display = 'flex';
             setTimeout(() => box.classList.add('active'), 10);
-        }
-    }
-
-    function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
-
-    function appendMsg(text, sender) {
-        const div = document.createElement('div');
-        div.className = `mfz-msg mfz-${sender}`;
-        
-        // Get Time HH:MM
-        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        // Convert simple markdown bold to html (optional)
-        const formatted = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-        div.innerHTML = `${formatted} <span class="mfz-time">${time}</span>`;
-        
-        document.getElementById('mfzBody').appendChild(div);
-        document.getElementById('mfzBody').scrollTop = document.getElementById('mfzBody').scrollHeight;
-    }
-
-    // --- HELPER: AUTO RETRY (EXPONENTIAL BACKOFF) ---
-    // Fungsi ini akan mencoba ulang jika terjadi error rate limit (429) atau server error (503)
-    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
-        for (let i = 0; i < retries; i++) {
-            try {
-                const response = await fetch(url, options);
-                
-                // Jika sukses (200-299), kembalikan response
-                if (response.ok) {
-                    return response;
-                }
-
-                // Jika error 429 (Too Many Requests) atau 503 (Service Unavailable), kita retry
-                if (response.status === 429 || response.status === 503) {
-                    console.warn(`Percobaan ke-${i + 1} gagal (Status ${response.status}). Menunggu ${delay}ms...`);
-                    await sleep(delay);
-                    delay *= 2; // Exponential backoff (1s, 2s, 4s, 8s...)
-                    continue;
-                }
-
-                // Jika error lain (misal 400 Bad Request), jangan retry, langsung throw
-                throw new Error(`HTTP Error! Status: ${response.status}`);
-
-            } catch (error) {
-                // Jika network error (offline), kita retry juga
-                if (i === retries - 1) throw error;
-                console.warn(`Network error pada percobaan ke-${i + 1}. Menunggu ${delay}ms...`);
-                await sleep(delay);
-                delay *= 2;
+            if (!hasInitialized) {
+                renderMessage('start');
+                hasInitialized = true;
             }
         }
     }
 
-    async function sendMessage() {
+    function restartChat() {
+        document.getElementById('mfzBody').innerHTML = '';
+        renderMessage('start');
+    }
+
+    // Fungsi Render Pesan Bot
+    function renderMessage(key) {
+        const data = chatData[key];
+        if (!data) return;
+
+        // Tampilkan Loading sebentar biar natural
+        showTypingIndicator();
+
+        setTimeout(() => {
+            removeTypingIndicator();
+            appendMsg(data.text, 'bot');
+            
+            if (data.options) {
+                appendOptions(data.options);
+            }
+        }, 600); // Delay 600ms
+    }
+
+    // Fungsi Render Tombol Pilihan
+    function appendOptions(options) {
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mfz-options';
+        
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'mfz-opt-btn';
+            btn.innerText = opt.label;
+            btn.onclick = () => handleOptionClick(opt);
+            optionsDiv.appendChild(btn);
+        });
+        
+        document.getElementById('mfzBody').appendChild(optionsDiv);
+        scrollToBottom();
+    }
+
+    // Handle Klik Tombol
+    function handleOptionClick(opt) {
+        // Hapus tombol opsi sebelumnya agar tidak diklik lagi (opsional, biar rapi)
+        // const oldOptions = document.querySelectorAll('.mfz-options');
+        // oldOptions.forEach(el => el.remove());
+
+        // Tampilkan apa yang user klik sebagai bubble chat user
+        appendMsg(opt.label, 'user');
+
+        if (opt.action) {
+            handleAction(opt.action);
+        } else if (opt.next) {
+            renderMessage(opt.next);
+        }
+    }
+
+    // Handle Aksi Khusus
+    function handleAction(action) {
+        if (action === 'scroll_to_form') {
+            appendMsg("Siap! Saya antar ke formulir pemesanan ya.. 🚀", 'bot');
+            setTimeout(() => {
+                document.getElementById('harga').scrollIntoView({behavior: 'smooth'});
+                // Tutup chat di HP biar ga nutupin
+                if(window.innerWidth < 768) toggleMafazaChat();
+            }, 1000);
+        } 
+        else if (action === 'scroll_to_demo') {
+            document.getElementById('demo').scrollIntoView({behavior: 'smooth'});
+            if(window.innerWidth < 768) toggleMafazaChat();
+        }
+        else if (action === 'open_wa') {
+            window.open('https://wa.me/6285161141114', '_blank');
+        }
+    }
+
+    // Handle Pesan Manual User
+    function sendUserMessage() {
         const input = document.getElementById('mfzInput');
         const text = input.value.trim();
         if(!text) return;
 
         appendMsg(text, 'user');
         input.value = '';
-        document.getElementById('mfzTyping').style.display = 'block';
 
-        try {
-            // DETEKSI JENIS API KEY (Google Gemini vs OpenAI)
-            let aiResponse = "";
-            
-            if (CONFIG.apiKey.startsWith("sk-")) {
-                // === LOGIKA OPENAI ===
-                const url = 'https://api.openai.com/v1/chat/completions';
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${CONFIG.apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [
-                            {role: "system", content: CONFIG.systemPrompt},
-                            {role: "user", content: text}
-                        ]
-                    })
-                };
-                
-                const response = await fetchWithRetry(url, options);
-                const data = await response.json();
-                if(data.error) throw new Error(data.error.message);
-                aiResponse = data.choices[0].message.content;
+        // Karena ini template, kita arahkan ke fallback jika user ngetik manual
+        setTimeout(() => {
+            renderMessage('fallback');
+        }, 500);
+    }
 
-            } else {
-                // === LOGIKA GOOGLE GEMINI (DEFAULT) ===
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${CONFIG.apiKey}`;
-                const options = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [
-                            {
-                                role: "user",
-                                parts: [{ text: CONFIG.systemPrompt + "\n\nUser bertanya: " + text }]
-                            }
-                        ]
-                    })
-                };
+    function handleEnter(e) { if(e.key === 'Enter') sendUserMessage(); }
 
-                const response = await fetchWithRetry(url, options);
-                const data = await response.json();
-                if(data.error) throw new Error(data.error.message);
-                aiResponse = data.candidates[0].content.parts[0].text;
-            }
+    function appendMsg(text, sender) {
+        const div = document.createElement('div');
+        div.className = `mfz-msg mfz-${sender}`;
+        // Convert bold markdown to html
+        div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+        document.getElementById('mfzBody').appendChild(div);
+        scrollToBottom();
+    }
 
-            document.getElementById('mfzTyping').style.display = 'none';
-            
-            // --- PECAH BUBBLE BERDASARKAN PARAGRAF ---
-            const bubbles = aiResponse.split('\n\n');
-            bubbles.forEach((bubbleText) => {
-                if (bubbleText.trim()) {
-                    appendMsg(bubbleText.trim(), 'bot');
-                }
-            });
+    function scrollToBottom() {
+        const body = document.getElementById('mfzBody');
+        body.scrollTop = body.scrollHeight;
+    }
 
-        } catch (err) {
-            document.getElementById('mfzTyping').style.display = 'none';
-            console.error(err);
-            appendMsg("Maaf, sistem sedang sibuk atau ada kendala koneksi. Mohon coba lagi sebentar.", 'bot');
-        }
+    function showTypingIndicator() {
+        const div = document.createElement('div');
+        div.id = 'mfzTyping';
+        div.className = 'mfz-msg mfz-bot';
+        div.style.fontStyle = 'italic';
+        div.style.color = '#94a3b8';
+        div.innerHTML = '<i class="fa-solid fa-ellipsis fa-fade"></i> Sedang mengetik...';
+        document.getElementById('mfzBody').appendChild(div);
+        scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+        const typing = document.getElementById('mfzTyping');
+        if(typing) typing.remove();
     }
 </script>
 <!-- ================== END MAFAZA AI WIDGET ================== -->
@@ -1232,27 +1278,6 @@
             }
         }
 
-        // --- WA CHECKOUT ---
-        function checkoutWA() {
-            const nama = document.getElementById('nama').value;
-            const email = document.getElementById('email').value;
-            const wa = document.getElementById('whatsapp').value;
-            const adminWA = "6285161141114";
-
-            if (!nama || !email || !wa) {
-                alert("Mohon lengkapi Nama, Email, dan Nomor WhatsApp.");
-                return;
-            }
-
-            const message = `Halo Admin, saya ingin memesan *Mafaza Pro Lifetime (Theme Blue)*.\n\n` +
-                `👤 Nama: ${nama}\n` +
-                `📧 Email: ${email}\n` +
-                `📱 WA: +62${wa}\n\n` +
-                `Mohon info pembayaran.`;
-
-            window.open(`https://wa.me/${adminWA}?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
         // --- FLASH SALE & MUSIC ---
         document.addEventListener('DOMContentLoaded', () => {
             // Flash Sale
@@ -1311,4 +1336,3 @@
 </body>
 
 </html>
-
