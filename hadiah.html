@@ -11,7 +11,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Tailwind Configuration for Dark Mode -->
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -71,6 +71,14 @@
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500 overflow-x-hidden relative font-sans">
 
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 dark:bg-slate-800 text-white px-5 py-3 rounded-xl shadow-2xl transform translate-y-32 opacity-0 transition-all duration-300 z-[200] flex items-center gap-3 border border-slate-700">
+        <div class="bg-green-500 rounded-full p-1">
+            <i data-lucide="check" class="w-3 h-3 text-white"></i>
+        </div>
+        <span id="toast-message" class="font-medium text-sm">Link berhasil disalin!</span>
+    </div>
+
     <!-- SPLASH SCREEN / COVER -->
     <div id="splash-screen" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md transition-opacity duration-700">
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-fade-in-up border border-slate-200 dark:border-slate-700 relative group">
@@ -105,9 +113,20 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-blue-800 dark:text-blue-400 text-xs uppercase tracking-wider mb-1">Sebar Kebaikan</h3>
-                            <p class="text-sm text-blue-700 dark:text-blue-200 leading-snug">
+                            <p class="text-sm text-blue-700 dark:text-blue-200 leading-snug mb-3">
                                 Silakan bagikan <strong>Link Grup Komunitas</strong> agar kita bisa belajar bersama.
                             </p>
+                            
+                            <div class="flex gap-2">
+                                <a href="https://chat.whatsapp.com/CauOC4ITK0eII8meEr6dSH" target="_blank" class="flex-1 inline-flex justify-center items-center gap-1.5 text-xs font-bold text-white bg-green-500 hover:bg-green-600 px-3 py-2 rounded-lg transition-colors shadow-sm">
+                                    <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                                    Gabung
+                                </a>
+                                <button onclick="copyLink('https://chat.whatsapp.com/CauOC4ITK0eII8meEr6dSH')" class="inline-flex justify-center items-center gap-1.5 text-xs font-bold text-blue-600 bg-white border border-blue-200 hover:bg-blue-50 dark:bg-slate-800 dark:text-blue-400 dark:border-blue-900 dark:hover:bg-slate-700 px-3 py-2 rounded-lg transition-colors shadow-sm" title="Salin Link Grup">
+                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    Salin Link
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -184,6 +203,7 @@
             <a href="#generator" onclick="toggleMenu()" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium transition-colors">Tools AI</a>
             <a href="#panduan" onclick="toggleMenu()" class="block px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium transition-colors">Panduan</a>
             <a href="https://wa.me/6285161141114" target="_blank" rel="noreferrer" class="block px-4 py-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-bold">Hubungi Admin</a>
+            <a href="https://chat.whatsapp.com/CauOC4ITK0eII8meEr6dSH" target="_blank" rel="noreferrer" class="block px-4 py-3 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 font-bold mt-2">Gabung Grup WA</a>
         </div>
     </nav>
 
@@ -311,6 +331,36 @@
                 </div>
             </div>
 
+            <!-- COMMUNITY SECTION IN MAIN PAGE -->
+            <div class="mt-20 max-w-2xl mx-auto">
+                 <div class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/10 dark:to-blue-900/10 rounded-2xl p-8 border border-green-100 dark:border-green-800/30 text-center relative overflow-hidden group">
+                     <div class="absolute top-0 right-0 w-32 h-32 bg-green-400/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                     <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full blur-3xl -ml-16 -mb-16"></div>
+                     
+                     <div class="relative z-10">
+                         <div class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-1 rounded-full text-xs font-bold text-green-600 dark:text-green-400 mb-4 shadow-sm">
+                             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                             Komunitas Aktif
+                         </div>
+                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Gabung Komunitas Malikfaza</h3>
+                         <p class="text-slate-600 dark:text-slate-300 mb-6">
+                             Belajar bareng, share prompt, dan diskusi seputar AI bersama member lainnya.
+                         </p>
+                         
+                         <div class="flex flex-col sm:flex-row justify-center gap-3">
+                             <a href="https://chat.whatsapp.com/CauOC4ITK0eII8meEr6dSH" target="_blank" class="inline-flex justify-center items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg hover:shadow-green-500/20 hover:-translate-y-0.5">
+                                 <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                 Gabung Grup WA
+                             </a>
+                             <button onclick="copyLink('https://chat.whatsapp.com/CauOC4ITK0eII8meEr6dSH')" class="inline-flex justify-center items-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white font-bold border border-slate-200 dark:border-slate-700 px-6 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:-translate-y-0.5">
+                                 <i data-lucide="copy" class="w-5 h-5 text-slate-400"></i>
+                                 Salin Link
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
             <div class="mt-16 text-center">
                 <div class="inline-block p-1 rounded-2xl bg-gradient-to-r from-blue-100 to-purple-100 dark:from-slate-800 dark:to-slate-800">
                     <div class="bg-white dark:bg-slate-900 rounded-xl px-8 py-4">
@@ -337,17 +387,23 @@
                     </div>
                 </div>
                 
-                <div class="text-center md:text-right">
-                    <p class="mb-3 text-slate-600 dark:text-slate-400 font-medium">Butuh bantuan? Chat kami:</p>
-                    <a href="https://wa.me/6285161141114" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-bold hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors">
+                <div class="text-center md:text-right flex flex-col items-center md:items-end gap-3">
+                    <p class="text-slate-600 dark:text-slate-400 font-medium">Butuh bantuan? Chat kami:</p>
+                    
+                    <a href="https://wa.me/6285161141114" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-6 py-3 rounded-xl font-bold hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors w-fit">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                         0851-6114-1114
+                    </a>
+
+                    <a href="https://lynk.id/malikfaza" target="_blank" class="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors font-medium mt-1">
+                        Mampir juga disini (Lynk.id)
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
             </div>
             
             <div class="border-t border-slate-100 dark:border-slate-800 pt-8 text-center md:flex md:justify-between md:text-left text-sm text-slate-500 dark:text-slate-500">
-                <p>© 2024 Malikfaza. All rights reserved.</p>
+                <p>© 2026 Malikfaza. All rights reserved.</p>
                 <p class="mt-2 md:mt-0">Dibuat dengan ❤️ untuk komunitas.</p>
             </div>
         </div>
@@ -357,6 +413,57 @@
     <script>
         // Initialize Icons
         lucide.createIcons();
+
+        // COPY TO CLIPBOARD & TOAST LOGIC
+        function copyLink(text) {
+            // Menggunakan metode fallback textarea untuk kompatibilitas iframe/sandbox
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                
+                // Pastikan elemen ada di DOM tapi tidak terlihat mengganggu
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                
+                textArea.focus();
+                textArea.select();
+                
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    showToast();
+                } else {
+                    // Jika execCommand gagal, coba fallback ke API modern (jarang terjadi di sini)
+                    throw new Error("execCommand failed");
+                }
+            } catch (err) {
+                console.error('Fallback copy failed: ', err);
+                // Coba API modern sebagai cadangan terakhir
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showToast();
+                    }).catch(e => {
+                         alert("Gagal menyalin otomatis. Link: " + text);
+                    });
+                } else {
+                    alert("Gagal menyalin otomatis. Link: " + text);
+                }
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            // Remove hide classes
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-y-32', 'opacity-0');
+            }, 3000);
+        }
 
         // SPLASH SCREEN LOGIC
         function closeSplash() {
